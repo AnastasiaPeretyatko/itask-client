@@ -13,22 +13,16 @@ const Sidebar = ({ collapse, setCollapse }: Props) => {
   const router = useRouter()
   // const { user } = useSelector((state: RootState) => state.user)
 
-  // const handleClickLogOut = () => {
-  //   const refreshToken = localStorage.getItem('refreshToken')
-  //   if(!refreshToken) return
-  //   LogOutRequest(refreshToken).then(res => {
-  //     localStorage.clear()
-  //     router.push('/login')
-  //   })
-  // }
+  const handleClickLogOut = () => {
+    localStorage.removeItem('token')
+    window.location.href = '/auth'
+  }
 
   return (
-    <Container variant="sidebar" boxShadow={'base'}>
+    <Container variant="sidebar" boxShadow={'base'} maxW={collapse ? 200 : 20}>
       <IconButton
         aria-label="menu"
         variant="unstyled"
-        // width={'100%'}
-        // width={'min-content'}
         textAlign={collapse ? 'end' : 'center'}
         icon={collapse ? <CloseIcon /> : <MenuIcon />}
         fontSize={'xs'}
@@ -39,9 +33,9 @@ const Sidebar = ({ collapse, setCollapse }: Props) => {
         height="100%"
         justify="space-between"
         align={collapse ? 'center' : 'start'}
-        maxW={!collapse ? 0 : 250}
+        width={'100%'}
       >
-        <VStack align={collapse ? 'start' : 'center'}>
+        <VStack width={'100%'} align={collapse ? 'start' : 'center'}>
           {NAVBAR_ITEM.map(el => {
             return (
               <Button
@@ -59,17 +53,17 @@ const Sidebar = ({ collapse, setCollapse }: Props) => {
             )
           })}
         </VStack>
-
-        <Button
-          size="sm"
-          variant="sidebar"
-          leftIcon={<LogoutIcon bgSize={3} color="white" zIndex={1} m={4} />}
-          // onClick={handleClickLogOut}
-          color="white"
-        >
-          {collapse && 'Выйти'}
-        </Button>
       </VStack>
+      <Button
+        size="sm"
+        variant="sidebar"
+        textAlign={'center'}
+        justifyContent={!collapse ? 'center' : 'start'}
+        leftIcon={<LogoutIcon bgSize={3} />}
+        onClick={handleClickLogOut}
+      >
+        {collapse && 'Выйти'}
+      </Button>
     </Container>
   )
 }

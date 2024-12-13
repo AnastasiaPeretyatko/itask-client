@@ -1,6 +1,7 @@
-import { extendTheme } from '@chakra-ui/react';
-import { containerTheme } from './components/container';
-import { buttonTheme } from './components/button';
+import { extendTheme } from '@chakra-ui/react'
+import { containerTheme } from './components/container'
+import { buttonTheme } from './components/button'
+import { inputTheme } from './components/input'
 
 const theme = extendTheme({
   colors: {
@@ -21,8 +22,16 @@ const theme = extendTheme({
   },
   components: {
     Container: containerTheme,
-    Button: buttonTheme
+    Button: buttonTheme,
+    Input: inputTheme,
   },
-});
+  breakpoints: {
+    base: '0px',
+    sm: '320px',
+    md: '768px',
+    xl: '1024px',
+    '2xl': '1280px',
+  },
+})
 
 export default theme

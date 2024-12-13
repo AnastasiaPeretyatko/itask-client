@@ -15,7 +15,7 @@ const CardCourse = () => {
   return (
     <>
       <Card
-				maxW={96}
+				maxW={{sm:'100%', base: 96}}
         p={4}
         direction={{ base: 'column', sm: 'row' }}
 				gap={4}

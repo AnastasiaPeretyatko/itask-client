@@ -30,9 +30,13 @@ const sidebar = defineStyle(() => {
   return {
     display: 'flex',
     flexDirection: 'column',
-    height: 'full',
+    height: '100%',
+    width: '100%',
+    overflow: 'hidden',
     position: 'sticky',
     top: 0,
+    padding: 4,
+    gap: 4
   }
 });
 

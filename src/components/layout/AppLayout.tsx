@@ -22,20 +22,20 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <VStack w="full" height="100vh" gap={1} overflow={'hidden'}>
+    <VStack w="full" height="100vh" gap={0} overflow={'hidden'}>
       <Header />
-      <HStack width={'100%'} height={'100%'} overflow={'hidden'} gap={4}>
+      <HStack width={'100%'} height={'100%'} overflow={'hidden'} gap={0}>
         <Sidebar collapse={collapse} setCollapse={setCollapse} />
         <Flex
           as={'main'}
-          w="full"
+          w="100%"
           h="full"
           alignItems="start"
           justifyContent="start"
           flexDir="column"
-          borderRadius="3xl"
           overflowY="auto"
-          p={10}
+          p={2}
+          bg={'gray.100'}
         >
           {children}
         </Flex>
