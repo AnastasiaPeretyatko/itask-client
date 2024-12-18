@@ -3,6 +3,9 @@ import { Button, Flex, Heading, VStack } from '@chakra-ui/react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import React from 'react'
 import { loginRequest } from '@/services/auth.service'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '@/store'
+import { setUser } from '@/store/user/user.slice'
 
 type loginType = {
   email: string
@@ -10,12 +13,17 @@ type loginType = {
 }
 
 const AuthPage = () => {
+  const dispatch = useDispatch<AppDispatch>()
   const { register, handleSubmit } = useForm<loginType>()
 
   const onSubmit: SubmitHandler<loginType> = async data => {
     await loginRequest(data.email, data.password)
-      .then(({ data }) => {
+      .then( ({ data }) => {
         localStorage.setItem('token', data.token)
+        localStorage.setItem('user', JSON.stringify(data.user))
+        // console.log(data);
+        // dispatch(setUser(data.user))
+
         window.location.href = '/'
       })
       .catch(err => console.log(err))

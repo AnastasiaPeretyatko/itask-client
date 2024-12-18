@@ -1,11 +1,23 @@
 import { Flex, HStack, Spinner, VStack } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../header'
 import Sidebar from '../sidebar'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '@/store'
+import { setUser } from '@/store/user/user.slice'
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const [collapse, setCollapse] = useState<boolean>(false)
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const dispatch = useDispatch<AppDispatch>()
+
+  useEffect(() => {
+    if (isLoading) {
+      const user = localStorage.getItem('user')
+      dispatch(setUser(JSON.parse(user!)))
+      setIsLoading(false)
+    }
+  }, [isLoading])
 
   if (isLoading) {
     return (
