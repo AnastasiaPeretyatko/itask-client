@@ -1,11 +1,14 @@
-export type CourseT = {
+export type ProfessorT = {
   id: string
-  semesterGroupId: string
-  courseId: string
+  user_id: string
+  fullName: string
+  tel: string | null
+  description: string | null
   createdAt: Date
   updatedAt: Date
-  course_id: string
-  semester_group_id: string
+}
+
+export type CourseT = {
   course: {
     id: string
     name: string
@@ -13,13 +16,5 @@ export type CourseT = {
     createdAt: Date
     updatedAt: Date
   }
-  semesterGroup: {
-    id: string
-    semesterId: string
-    groupId: string
-    createdAt: Date
-    updatedAt: Date
-    semester_id: string
-    group_id: string
-  }
+  professors: ProfessorT[]
 }

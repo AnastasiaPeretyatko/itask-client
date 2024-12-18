@@ -1,4 +1,11 @@
-import { Heading, HStack, SimpleGrid, VStack } from '@chakra-ui/react'
+import {
+  Flex,
+  Heading,
+  HStack,
+  SimpleGrid,
+  Text,
+  VStack,
+} from '@chakra-ui/react'
 import CardCourse from './CardCourse'
 import SearchInput from '@/components/assets/ui/SearchInput'
 import SelectUi from '@/components/assets/ui/SelectUi'
@@ -7,6 +14,7 @@ import { getListSemesterFromGroup } from '@/services/semester.service'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '@/store'
 import { getAllFromSemesterGroupThunk } from '@/store/course/course.thunk'
+import NotFoundImage from '@/components/assets/animation/not-found'
 
 const StudentCoursesPage = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -36,6 +44,7 @@ const StudentCoursesPage = () => {
   useEffect(() => {
     fetchListSemester()
   }, [])
+  console.log(courses.length)
 
   return (
     <VStack width="100%" align="start" padding={4}>
@@ -54,14 +63,18 @@ const StudentCoursesPage = () => {
       </HStack>
       <SimpleGrid width={'100%'} columns={{ sm: 1, md: 2, xl: 3 }} spacing={6}>
         {courses.map(course => (
-          <CardCourse key={course.id} course={course}/>
+          <CardCourse key={course.course.id} course={course} />
         ))}
-        {/* <CardCourse />
-        <CardCourse />
-        <CardCourse />
-        <CardCourse />
-        <CardCourse /> */}
       </SimpleGrid>
+      {courses && !courses.length && (
+        <Flex width={'100%'} flexDir="column" align="center" justify="center">
+          <NotFoundImage />
+          <Heading fontSize={'xl'} fontWeight={600}>
+            Курсы не найдены
+          </Heading>
+          <Text color={'gray.500'}>По вашему запросу ничего не найдено</Text>
+        </Flex>
+      )}
     </VStack>
   )
 }
