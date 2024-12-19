@@ -8,7 +8,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <ChakraProvider resetCSS theme={theme}>
-        <Component {...pageProps} />;
+        <Component {...pageProps} />
       </ChakraProvider>
     </Provider>
   )
