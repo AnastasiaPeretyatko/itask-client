@@ -11,10 +11,10 @@ type Props = {
 
 const Sidebar = ({ collapse, setCollapse }: Props) => {
   const router = useRouter()
-  // const { user } = useSelector((state: RootState) => state.user)
 
   const handleClickLogOut = () => {
     localStorage.removeItem('token')
+    localStorage.removeItem('user')
     window.location.href = '/auth'
   }
 

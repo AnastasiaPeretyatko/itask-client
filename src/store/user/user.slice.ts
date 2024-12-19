@@ -1,8 +1,9 @@
+import { UserT } from '@/types/user.type'
 import { createSlice } from '@reduxjs/toolkit'
 
 type TInitialState = {
   isOpenSidebar: boolean | null
-  user: any
+  user: UserT | null
 }
 
 const initialState: TInitialState = {
@@ -18,8 +19,7 @@ export const settings = createSlice({
       state.isOpenSidebar = payload
       localStorage.setItem('sidebar', String(payload))
     },
-    setUser: (state, { payload }: { payload: any }) => {
-      console.log(payload);
+    setUser: (state, { payload }: { payload: UserT }) => {
       state.user = payload
     },
   },

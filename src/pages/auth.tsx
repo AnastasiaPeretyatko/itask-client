@@ -21,8 +21,7 @@ const AuthPage = () => {
       .then( ({ data }) => {
         localStorage.setItem('token', data.token)
         localStorage.setItem('user', JSON.stringify(data.user))
-        // console.log(data);
-        // dispatch(setUser(data.user))
+        dispatch(setUser(data.user))
 
         window.location.href = '/'
       })
@@ -49,7 +48,7 @@ const AuthPage = () => {
           <InputForm
             label="Email"
             placeholder="Email..."
-            type="email"
+            // type="email"
             register={register('email')}
           />
           <InputForm
