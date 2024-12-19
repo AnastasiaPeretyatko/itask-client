@@ -3,6 +3,8 @@ import { Button, Container, IconButton, VStack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { NAVBAR_ITEM } from './sidebar-config'
 import { CloseIcon } from '@chakra-ui/icons'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/store'
 
 type Props = {
   collapse: boolean
@@ -10,6 +12,7 @@ type Props = {
 }
 
 const Sidebar = ({ collapse, setCollapse }: Props) => {
+  const { user } = useSelector((state: RootState) => state.user)
   const router = useRouter()
 
   const handleClickLogOut = () => {
@@ -37,20 +40,21 @@ const Sidebar = ({ collapse, setCollapse }: Props) => {
       >
         <VStack width={'100%'} align={collapse ? 'start' : 'center'}>
           {NAVBAR_ITEM.map(el => {
-            return (
-              <Button
-                key={el.title}
-                size="sm"
-                variant="sidebar"
-                textAlign={'center'}
-                justifyContent={!collapse ? 'center' : 'start'}
-                leftIcon={el.icon}
-                onClick={() => router.push(el.path)}
-                isActive={router.pathname === el.path}
-              >
-                {collapse && el.title}
-              </Button>
-            )
+            if (user && el.role.includes(user.role))
+              return (
+                <Button
+                  key={el.title}
+                  size="sm"
+                  variant="sidebar"
+                  textAlign={'center'}
+                  justifyContent={!collapse ? 'center' : 'start'}
+                  leftIcon={el.icon}
+                  onClick={() => router.push(el.path)}
+                  isActive={router.pathname === el.path}
+                >
+                  {collapse && el.title}
+                </Button>
+              )
           })}
         </VStack>
       </VStack>

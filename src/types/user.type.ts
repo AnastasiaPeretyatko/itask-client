@@ -8,4 +8,6 @@ export type UserT = {
   updatedAt: Date
   groupId: null | string
   fullNmae: string
+  studentId: string | null
+  professorId: string | null
 }

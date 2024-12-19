@@ -1,4 +1,4 @@
-import { CourseT } from '@/types/course.type'
+import { BaseCourseT, ProfessorT } from '@/types/course.type'
 import { ChevronRightIcon } from '@chakra-ui/icons'
 import {
   Avatar,
@@ -13,13 +13,14 @@ import {
   Text,
   Tooltip,
 } from '@chakra-ui/react'
-import React from 'react'
 
 type Props = {
-  course: CourseT
+  course: BaseCourseT
+  professors?: ProfessorT[]
 }
 
-const CardCourse = ({ course }: Props) => {
+const CardCourse = ({ course, professors }: Props) => {
+  console.log(course);
   return (
     <>
       <Card
@@ -43,10 +44,10 @@ const CardCourse = ({ course }: Props) => {
         <Stack width={'100%'} height={'100%'} overflow={'hidden'}>
           <CardBody padding="unset">
             <Heading size="md" mb={4}>
-              {course.course.name}
+              {course.name}
             </Heading>
             <Text fontWeight={400} noOfLines={4}>
-              {course.course.description}
+              {course.description}
             </Text>
           </CardBody>
           <CardFooter
@@ -55,13 +56,24 @@ const CardCourse = ({ course }: Props) => {
             justify="space-between"
             alignItems={'flex-end'}
           >
-            <AvatarGroup size="sm" max={3}>
-              {course.professors.map(professor => (
-                <Tooltip key={professor.id} label={professor.fullName} hasArrow>
-                  <Avatar size={'sm'} name={professor.fullName} cursor={'pointer'} />
-                </Tooltip>
-              ))}
-            </AvatarGroup>
+            {professors && (
+              <AvatarGroup size="sm" max={3}>
+                {professors.map(professor => (
+                  <Tooltip
+                    key={professor.id}
+                    label={professor.fullName}
+                    hasArrow
+                  >
+                    <Avatar
+                      size={'sm'}
+                      name={professor.fullName}
+                      cursor={'pointer'}
+                    />
+                  </Tooltip>
+                ))}
+              </AvatarGroup>
+            )}
+
             <IconButton
               variant="unstyled"
               borderRadius="50%"

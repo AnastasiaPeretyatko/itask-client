@@ -6,48 +6,29 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react'
-import CardCourse from './CardCourse'
 import SearchInput from '@/components/assets/ui/SearchInput'
-import SelectUi from '@/components/assets/ui/SelectUi'
-import { useEffect, useState } from 'react'
-import { getListSemesterFromGroup } from '@/services/semester.service'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '@/store'
-import { getAllFromSemesterGroupThunk } from '@/store/course/course.thunk'
 import dynamic from 'next/dynamic'
+import { getAllByProfessorThunk } from '@/store/professor.course/professor.course.thunk'
+import CardCourse from '../../student/course/CardCourse'
 
 const NotFoundImage = dynamic(
   () => import('@/components/assets/animation/not-found'),
   { ssr: false }
 )
 
-const StudentCoursesPage = () => {
+const ProfessorCoursePage = () => {
   const dispatch = useDispatch<AppDispatch>()
-  const [listSemester, setListSemester] = useState<
-    { id: string; name: string }[]
-  >([])
   const { user } = useSelector((state: RootState) => state.user)
-  const { data: courses } = useSelector((state: RootState) => state.courses)
-
-  const fetchListSemester = async () => {
-    await getListSemesterFromGroup(user.student.group_id).then(res =>
-      setListSemester(res.data)
-    )
-  }
-
-  const fetchListCourse = async (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const semesterId = e.target.value
-
-    dispatch(
-      getAllFromSemesterGroupThunk({
-        semesterId,
-        groupId: user.student.group_id,
-      })
-    )
-  }
+  const { data: courses } = useSelector(
+    (state: RootState) => state.professorCourse
+  )
 
   useEffect(() => {
-    fetchListSemester()
+    if(!user?.professorId) return
+    dispatch(getAllByProfessorThunk(user?.professorId))
   }, [])
 
   return (
@@ -57,21 +38,17 @@ const StudentCoursesPage = () => {
           Мои курсы
         </Heading>
         <HStack>
-          <SelectUi
+          {/* <SelectUi
             options={listSemester}
             onChange={fetchListCourse}
             placeholder="Выберите семестр"
-          />
+          /> */}
           <SearchInput placeholder="Поиск..." />
         </HStack>
       </HStack>
       <SimpleGrid width={'100%'} columns={{ sm: 1, md: 2, xl: 3 }} spacing={6}>
         {courses.map(course => (
-          <CardCourse
-            key={course.course.id}
-            course={course.course}
-            professors={course.professors}
-          />
+          <CardCourse key={course.id} course={course} />
         ))}
       </SimpleGrid>
       {courses && !courses.length && (
@@ -87,4 +64,4 @@ const StudentCoursesPage = () => {
   )
 }
 
-export default StudentCoursesPage
+export default ProfessorCoursePage

@@ -9,12 +9,14 @@ export type ProfessorT = {
 }
 
 export type CourseT = {
-  course: {
-    id: string
-    name: string
-    description: string
-    createdAt: Date
-    updatedAt: Date
-  }
+  course: BaseCourseT
   professors: ProfessorT[]
+}
+
+export type BaseCourseT = {
+  id: string
+  name: string
+  description: string
+  createdAt: Date
+  updatedAt: Date
 }
