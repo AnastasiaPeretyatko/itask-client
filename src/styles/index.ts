@@ -2,6 +2,7 @@ import { extendTheme } from '@chakra-ui/react'
 import { containerTheme } from './components/container'
 import { buttonTheme } from './components/button'
 import { inputTheme } from './components/input'
+import { tabsTheme } from './components/tabs'
 
 const theme = extendTheme({
   colors: {
@@ -24,6 +25,7 @@ const theme = extendTheme({
     Container: containerTheme,
     Button: buttonTheme,
     Input: inputTheme,
+    Tabs: tabsTheme
   },
   breakpoints: {
     base: '0px',
