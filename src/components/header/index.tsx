@@ -1,5 +1,5 @@
 import { Avatar, Container, HStack } from '@chakra-ui/react'
-import { BellIcon } from '../customIcon'
+import NotificationsBlock from '../notifications'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store'
 
@@ -11,7 +11,7 @@ const Header = () => {
       {/* alignItems убрать когда появятся другие компоненты */}
       <Container variant="header" alignItems={'end'}>
         <HStack>
-          <BellIcon boxSize={7} />
+          <NotificationsBlock />
           <Avatar size={'sm'} name={user?.fullNmae} />
         </HStack>
       </Container>
