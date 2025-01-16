@@ -36,14 +36,26 @@ const sidebar = defineStyle(() => {
     position: 'sticky',
     top: 0,
     padding: 4,
-    gap: 4
+    gap: 4,
   }
-});
+})
+
+const eventPoint = defineStyle(() => {
+  return {
+    content: '""',
+    maxW: 1,
+    width: 1,
+    height: 1,
+    borderRadius: 'full',
+    padding: 0,
+  }
+})
 
 export const containerTheme = defineStyleConfig({
   baseStyle,
   variants: {
     header,
-    sidebar
-  }
+    sidebar,
+    eventPoint
+  },
 })

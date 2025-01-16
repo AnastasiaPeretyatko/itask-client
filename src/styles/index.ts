@@ -3,6 +3,7 @@ import { containerTheme } from './components/container'
 import { buttonTheme } from './components/button'
 import { inputTheme } from './components/input'
 import { tabsTheme } from './components/tabs'
+import { cardTheme } from './components/card'
 
 const theme = extendTheme({
   colors: {
@@ -25,7 +26,8 @@ const theme = extendTheme({
     Container: containerTheme,
     Button: buttonTheme,
     Input: inputTheme,
-    Tabs: tabsTheme
+    Tabs: tabsTheme,
+    Card: cardTheme,
   },
   breakpoints: {
     base: '0px',

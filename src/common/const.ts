@@ -1,0 +1,1 @@
+export const dayWeekArray = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс']
