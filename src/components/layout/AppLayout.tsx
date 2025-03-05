@@ -1,26 +1,31 @@
-import { Flex, HStack, Spinner, VStack } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
-import Header from '../header'
-import Sidebar from '../Sidebar'
-import { useDispatch } from 'react-redux'
-import { AppDispatch } from '@/store'
-import { settings } from '@/store/user/user.slice'
+import { Flex, HStack, Spinner, VStack } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import Sidebar from '../Sidebar';
+import Header from '../header';
+import { AppDispatch } from '@/store';
+import { settings } from '@/store/user/user.slice';
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
-  const [isLoading, setIsLoading] = useState<boolean>(true)
-  const dispatch = useDispatch<AppDispatch>()
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     if (isLoading) {
-      const user = localStorage.getItem('user')
-      dispatch(settings.setUser(JSON.parse(user!)))
-      setIsLoading(false)
+      const user = localStorage.getItem('user');
+      dispatch(settings.setUser(JSON.parse(user!)));
+      setIsLoading(false);
     }
-  }, [isLoading])
+  }, [isLoading]);
 
   if (isLoading) {
     return (
-      <VStack width="100%" height="100vh" align="center" justify="center">
+      <VStack
+        width="100%"
+        height="100vh"
+        align="center"
+        justify="center"
+      >
         <Spinner
           thickness="4px"
           speed="0.65s"
@@ -29,13 +34,23 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
           size="xl"
         />
       </VStack>
-    )
+    );
   }
 
   return (
-    <VStack w="full" height="100vh" gap={0} overflow={'hidden'}>
+    <VStack
+      w="full"
+      height="100vh"
+      gap={0}
+      overflow={'hidden'}
+    >
       <Header />
-      <HStack width={'100%'} height={'100%'} overflow={'hidden'} gap={0}>
+      <HStack
+        width={'100%'}
+        height={'100%'}
+        overflow={'hidden'}
+        gap={0}
+      >
         <Sidebar/>
         <Flex
           as={'main'}
@@ -52,7 +67,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
         </Flex>
       </HStack>
     </VStack>
-  )
-}
+  );
+};
 
-export default AppLayout
+export default AppLayout;

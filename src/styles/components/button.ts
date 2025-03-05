@@ -1,80 +1,104 @@
-import { defineStyle, defineStyleConfig } from '@chakra-ui/react'
+import { defineStyle, defineStyleConfig } from '@chakra-ui/react';
 
 const baseStyle = defineStyle({
-    paddingInlineStart: '0px',
-    paddingInlineEnd: '0px',
-    paddingTop: '0px',
-    paddingBottom: '0px',
-})
+  paddingInlineStart: '0px',
+  paddingInlineEnd: '0px',
+  paddingTop: '0px',
+  paddingBottom: '0px',
+});
 
 const auth = defineStyle({
-	width: '100%',
-	background: 'PRIMARY_BLUE',
-	_hover: {
-		bgGradient: 'linear(to-b, PRIMARY_BLUE, SECONDARY_BLUE)',
-	},
-	_disabled: {
-		background: 'SECONDARY_BLUE',
-		_hover: {
-			background: 'SECONDARY_BLUE',
-		}
-	}
-})
-
-const sidebar = defineStyle({
-	display: 'flex',
-	width: 'full',
-	gap: 2,
-	padding: 3,
-	color: 'gray.500',
-	fontWeight: 400,
-	borderRadius: 'md',
-	'& span': {
-		'& svg': {
-			margin: 'unset'
-		},
-		marginInlineEnd: 'unset'
-	},
-	_hover: {
-		bg: 'BLACK_300',
-		color: 'white'
-	},
-	_active: {
-		bg: 'BLACK_300',
-		color: 'white'
-	}
-})
+  width: '100%',
+  background: 'PRIMARY_BLUE',
+  _hover: {
+    bgGradient: 'linear(to-b, PRIMARY_BLUE, SECONDARY_BLUE)',
+  },
+  _disabled: {
+    background: 'SECONDARY_BLUE',
+    _hover: {
+      background: 'SECONDARY_BLUE',
+    },
+  },
+});
 
 const primary = defineStyle({
   bg: 'PRIMARY_BLUE',
   _hover: {
     bg: 'SECONDARY_BLUE',
   },
-})
+});
 
 const day = defineStyle({
-	display: 'flex',
-	flexDir: 'column-reverse',
+  display: 'flex',
+  flexDir: 'column-reverse',
+  minW: 'unset',
+  width: '40px',
+  height: '40px',
   _hover: {
-    bg: 'button.neuteal.bgDarker05',
-    color: 'text.primary',
+    bg: 'primary.blue',
+    color: 'white',
   },
   _active: {
-    bg: 'button.neuteal.bgDarker05',
-    color: 'text.primary',
+    bg: 'primary.blue',
+    color: 'white',
   },
-})
+});
 
 const iconButton = defineStyle({
   minW: 'unset',
   height: 'unset',
   padding: 1,
   _hover: {
-    color: 'primary.purple'
-  }
-})
+    color: 'primary.purple',
+  },
+});
+
+const openSidebar = defineStyle({
+  minW: 'unset',
+  width: 26,
+  height: 26,
+  borderRadius: 'full',
+  padding: 1,
+  fontSize: 'lg',
+  position: 'absolute',
+  zIndex: 1,
+  right: -13,
+  top: 23,
+  backgroundColor: 'button.neutral.bgDarker05',
+  boxShadow: 'dark-lg',
+  _hover: {
+    background: 'sidebar.hoverButton',
+    color: 'sidebar.hoverText',
+  },
+});
+
+const sidebar = defineStyle({
+  padding: 3,
+  width: 'full',
+  display: 'flex',
+  textAlign: 'center',
+  gap: 2,
+  borderRadius: 'md',
+  fontSize: 'sm',
+  fontWeight: '500',
+  '& span': {
+    margin: 'unset',
+    '& svg': {
+      width: 5,
+      height: 5,
+    },
+  },
+  _hover: {
+    background: 'sidebar.hoverButton',
+    color: 'sidebar.hoverText',
+  },
+  _active: {
+    background: 'sidebar.hoverButton',
+    color: 'sidebar.hoverText',
+  },
+});
 
 export const buttonTheme = defineStyleConfig({
   baseStyle,
-  variants: { auth, sidebar, primary, day, iconButton },
-})
+  variants: { auth, sidebar, primary, day, iconButton, openSidebar },
+});

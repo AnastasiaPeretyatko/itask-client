@@ -9,9 +9,10 @@ type Props = {
     path?: string
   }
   isCollapse: boolean | null
+  onClick?: () => void
 }
 
-const SidebarItem = ({ data, isCollapse }: Props) => {
+const SidebarItem = ({ data, isCollapse, onClick }: Props) => {
   const router = useRouter();
 
   return (!isCollapse ? (
@@ -23,16 +24,17 @@ const SidebarItem = ({ data, isCollapse }: Props) => {
       <Button
         variant="sidebar"
         leftIcon={data.icon}
-        onClick={() => data.path && router.push(data.path)}
+        onClick={() => (onClick && onClick()) || data.path && router.push(data.path)}
         isActive={router.asPath === data.path}
-      ></Button>
+
+      />
     </Tooltip>
   ) : (
     <Button
       variant="sidebar"
       justifyContent={isCollapse ? 'flex-start' : 'center'}
       leftIcon={data.icon}
-      onClick={() => data.path && router.push(data.path)}
+      onClick={() => (onClick && onClick()) || data.path && router.push(data.path)}
       isActive={router.asPath === data.path}
     >
       <Text

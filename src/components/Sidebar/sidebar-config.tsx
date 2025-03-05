@@ -1,15 +1,23 @@
-import { BookIcon, HomeIcon, SettingsIcon, UsersIcon } from '../customIcon';
+import { BookIcon, HomeIcon, LogoutIcon, SettingsIcon, GroupsIcon } from '../customIcon';
 
 export const NAVBAR_ITEM = [
   {
     title: 'Главная',
-    icon: <HomeIcon boxSize={5} color="currentColor" zIndex={1} />,
+    icon: <HomeIcon
+      boxSize={5}
+      color="currentColor"
+      zIndex={1}
+    />,
     path: '/',
     role: ['professor', 'student'],
   },
   {
     title: 'Группы',
-    icon: <UsersIcon boxSize={5} color="currentColor" zIndex={1} />,
+    icon: <GroupsIcon
+      boxSize={5}
+      color="currentColor"
+      zIndex={1}
+    />,
     path: '/groups',
     role: ['professor'],
   },
@@ -27,7 +35,11 @@ export const NAVBAR_ITEM = [
   // },
   {
     title: 'Курсы',
-    icon: <BookIcon boxSize={5} color="currentColor" zIndex={1} />,
+    icon: <BookIcon
+      boxSize={5}
+      color="currentColor"
+      zIndex={1}
+    />,
     path: '/courses',
     role: ['professor', 'student'],
   },
@@ -37,9 +49,9 @@ export const NAVBAR_ITEM = [
   //   path: '/task',
   //   role: ['professor', 'student'],
   // },
-]
+];
 
 export const sidebarMenuConfig = [
   { title: 'Настройки', icon: <SettingsIcon />, path: '' },
-  // { title: 'Выйти', icon: <LogoutIcon />, path: '' },
+  { title: 'Выйти', icon: <LogoutIcon />, path: '' },
 ];

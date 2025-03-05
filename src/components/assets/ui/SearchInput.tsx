@@ -1,6 +1,5 @@
-import { SearchIcon } from '@chakra-ui/icons'
-import { Input, InputGroup, InputRightElement } from '@chakra-ui/react'
-import React from 'react'
+import { SearchIcon } from '@chakra-ui/icons';
+import { Input, InputGroup, InputRightElement } from '@chakra-ui/react';
 
 type SearchInputProps = {
   size?: 'sm' | 'md' | 'lg' | 'xl'
@@ -18,7 +17,10 @@ const SearchInput = ({
   width = 72,
 }: SearchInputProps) => {
   return (
-    <InputGroup width={width} variant={'search'}>
+    <InputGroup
+      width={width}
+      variant={'search'}
+    >
       <Input
         size={size}
         onChange={onChange}
@@ -29,7 +31,7 @@ const SearchInput = ({
         <SearchIcon />
       </InputRightElement>
     </InputGroup>
-  )
-}
+  );
+};
 
-export default SearchInput
+export default SearchInput;

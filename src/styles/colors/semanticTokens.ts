@@ -10,6 +10,7 @@ export const semanticTokens = {
 
       //? new
       main: { _dark: 'almostBlack', _light: 'white.primary' },
+      mainRevert: { _light: 'almostBlack', _dark: 'white.primary' },
       20: { _dark: 'almostBlack20', _light: 'white.20' },
       secondary: { _dark: 'black.50', _light: 'warmGrey' },
     },
@@ -37,7 +38,7 @@ export const semanticTokens = {
     sidebar: {
       bg: { _light: 'warmGrey', _dark: 'veryDarkBlue' },
       text: { _light: 'rgb(78, 92, 110)', _dark: 'slate' },
-      hoverButton: { _dark: 'white.50', _light: 'almostBlack' },
+      hoverButton: { _dark: 'neutral.light', _light: 'almostBlack' },
       hoverText: { _light: 'white.75', _dark: 'rgb(78, 92, 110)' },
     },
     shadow: { _light: 'rgba(0, 0, 0, 0.2)', _dark: 'rgba(0, 0, 0, 0.6)' },
@@ -47,7 +48,7 @@ export const semanticTokens = {
     },
     divider: { _light: 'slate.light', _dark: '#262a37' },
     button: {
-      neuteal: {
+      neutral: {
         bg:{ _light: 'white.primary', _dark: 'almostBlack' },
         bgDarker05: { _light: '#f2f2f2', _dark: '#07070a' },
         text: { _light: 'almostBlack', _dark: 'white.primary' },
