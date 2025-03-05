@@ -1,4 +1,4 @@
-import { BookIcon, HomeIcon, UsersIcon } from '@/components/customIcon'
+import { BookIcon, HomeIcon, SettingsIcon, UsersIcon } from '../customIcon';
 
 export const NAVBAR_ITEM = [
   {
@@ -38,3 +38,8 @@ export const NAVBAR_ITEM = [
   //   role: ['professor', 'student'],
   // },
 ]
+
+export const sidebarMenuConfig = [
+  { title: 'Настройки', icon: <SettingsIcon />, path: '' },
+  // { title: 'Выйти', icon: <LogoutIcon />, path: '' },
+];

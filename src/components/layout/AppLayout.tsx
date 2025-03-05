@@ -1,20 +1,19 @@
 import { Flex, HStack, Spinner, VStack } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import Header from '../header'
-import Sidebar from '../sidebar'
+import Sidebar from '../Sidebar'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from '@/store'
-import { setUser } from '@/store/user/user.slice'
+import { settings } from '@/store/user/user.slice'
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
-  const [collapse, setCollapse] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
     if (isLoading) {
       const user = localStorage.getItem('user')
-      dispatch(setUser(JSON.parse(user!)))
+      dispatch(settings.setUser(JSON.parse(user!)))
       setIsLoading(false)
     }
   }, [isLoading])
@@ -37,7 +36,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
     <VStack w="full" height="100vh" gap={0} overflow={'hidden'}>
       <Header />
       <HStack width={'100%'} height={'100%'} overflow={'hidden'} gap={0}>
-        <Sidebar collapse={collapse} setCollapse={setCollapse} />
+        <Sidebar/>
         <Flex
           as={'main'}
           w="100%"

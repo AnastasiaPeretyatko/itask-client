@@ -1,4 +1,4 @@
-import { Avatar, Container, HStack } from '@chakra-ui/react'
+import { Avatar, Container, Divider, HStack } from '@chakra-ui/react'
 import NotificationsBlock from '../notifications'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store'
@@ -10,8 +10,9 @@ const Header = () => {
     <>
       {/* alignItems убрать когда появятся другие компоненты */}
       <Container variant="header" alignItems={'end'}>
-        <HStack>
+        <HStack height={'full'}>
           <NotificationsBlock />
+          <Divider orientation="vertical" height={'full'} />
           <Avatar size={'sm'} name={user?.fullNmae} />
         </HStack>
       </Container>

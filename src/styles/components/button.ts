@@ -1,5 +1,12 @@
 import { defineStyle, defineStyleConfig } from '@chakra-ui/react'
 
+const baseStyle = defineStyle({
+    paddingInlineStart: '0px',
+    paddingInlineEnd: '0px',
+    paddingTop: '0px',
+    paddingBottom: '0px',
+})
+
 const auth = defineStyle({
 	width: '100%',
 	background: 'PRIMARY_BLUE',
@@ -49,15 +56,25 @@ const day = defineStyle({
 	display: 'flex',
 	flexDir: 'column-reverse',
   _hover: {
-    bg: 'PRIMARY_BLUE',
-    color: 'white',
+    bg: 'button.neuteal.bgDarker05',
+    color: 'text.primary',
   },
   _active: {
-    bg: 'PRIMARY_BLUE',
-    color: 'white',
+    bg: 'button.neuteal.bgDarker05',
+    color: 'text.primary',
   },
 })
 
+const iconButton = defineStyle({
+  minW: 'unset',
+  height: 'unset',
+  padding: 1,
+  _hover: {
+    color: 'primary.purple'
+  }
+})
+
 export const buttonTheme = defineStyleConfig({
-  variants: { auth, sidebar, primary, day },
+  baseStyle,
+  variants: { auth, sidebar, primary, day, iconButton },
 })

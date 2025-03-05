@@ -18,9 +18,9 @@ import {
   useOutsideClick,
 } from '@chakra-ui/react'
 import React, { useRef } from 'react'
-import { BellIcon } from '../customIcon'
 import { SettingsIcon } from '@chakra-ui/icons'
 import Message from './Message'
+import { BellIcon } from '../customIcon'
 
 const NotificationsBlock = () => {
   const ref = useRef<HTMLDivElement>(null)
@@ -33,13 +33,12 @@ const NotificationsBlock = () => {
 
   return (
     <Box position={'relative'}>
-      <BellIcon
-        boxSize={7}
-        onClick={() => setIsOpen.toggle()}
-        cursor={'pointer'}
-        _hover={{
-          color: 'blue.500',
-        }}
+      <IconButton 
+        aria-label="bell" 
+        variant="iconButton" 
+        color={'text.lighter'}
+        icon={<BellIcon/>} 
+        onClick={setIsOpen.toggle}
       />
       {isOpen && (
         <Card

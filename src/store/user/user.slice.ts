@@ -11,11 +11,11 @@ const initialState: TInitialState = {
   user: null,
 }
 
-export const settings = createSlice({
+export const config = createSlice({
   name: 'user-setting',
   initialState,
   reducers: {
-    changeStateSidebar: (state, { payload }: { payload: boolean }) => {
+    toggleSidebar: (state, { payload }: { payload: boolean }) => {
       state.isOpenSidebar = payload
       localStorage.setItem('sidebar', String(payload))
     },
@@ -25,6 +25,7 @@ export const settings = createSlice({
   },
 })
 
-export const { changeStateSidebar, setUser } = settings.actions
 
-export default settings.reducer
+export const settings = config.actions
+
+export default config.reducer
