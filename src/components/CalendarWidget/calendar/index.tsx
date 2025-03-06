@@ -16,22 +16,34 @@ import {
   endOfMonth,
   endOfWeek,
   getDate,
+  getMonth,
   startOfMonth,
   startOfWeek,
 } from 'date-fns';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { dayWeekArray } from '@/common/const';
 
 const Calendar = ({ onChoiceDate }: { onChoiceDate: (date: Date) => void }) => {
-  const today = new Date();
   const [currentDate, setCurrentDate] = useState(new Date());
   const [prevMonthDays, setPrevMonthDays] = useState<Date[]>([]);
   const [nextMonthDays, setNextMonthDays] = useState<Date[]>([]);
   const [currentMonthDays, setCurrentMonthDays] = useState<Date[]>([]);
 
+  const today = useMemo(() => new Date(), []);
+
   const handleNextMonth = (month: number) => {
-    // возможно можно убрать month на 1
     setCurrentDate((prevMonthDays) => addMonths(prevMonthDays, month));
+  };
+
+  const changeCurrentDate = (date: Date) => {
+    if (prevMonthDays.some((d) => d === currentDate) ){
+      setCurrentDate((prevMonthDays) => addMonths(prevMonthDays, -1));
+    } else if (nextMonthDays.some((d) => d === currentDate) ){
+      setCurrentDate((prevMonthDays) => addMonths(prevMonthDays, 1));
+    } else {
+      setCurrentDate(date);
+    }
+    onChoiceDate(date);
   };
 
   const fetchArrayMonth = () => {
@@ -129,6 +141,7 @@ const Calendar = ({ onChoiceDate }: { onChoiceDate: (date: Date) => void }) => {
             key={date.toString()}
             variant={'day'}
             color={'text.tertiary'}
+            onClick={() => changeCurrentDate(date)}
           >
             {getDate(date)}
           </Button>
@@ -140,17 +153,15 @@ const Calendar = ({ onChoiceDate }: { onChoiceDate: (date: Date) => void }) => {
             isActive={getDate(currentDate) === getDate(date)}
             sx={
               getDate(today) === getDate(date) &&
-              getDate(currentDate) !== getDate(today)
+              getDate(currentDate) !== getDate(today) &&
+              getMonth(today) === getMonth(date)
                 ? {
                   border: '2px solid',
                   color: 'primary.blue',
                 }
                 : {}
             }
-            onClick={() => {
-              onChoiceDate(date);
-              setCurrentDate(date);
-            }}
+            onClick={() => changeCurrentDate(date)}
           >
             <HStack gap={'0.5'}>
               <Container
@@ -178,6 +189,7 @@ const Calendar = ({ onChoiceDate }: { onChoiceDate: (date: Date) => void }) => {
             key={date.toString()}
             variant={'day'}
             color={'text.tertiary'}
+            onClick={() => changeCurrentDate(date)}
           >
             {getDate(date)}
           </Button>
