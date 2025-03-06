@@ -1,10 +1,11 @@
-import { extendTheme } from '@chakra-ui/react'
-import { containerTheme } from './components/container'
-import { buttonTheme } from './components/button'
-import { inputTheme } from './components/input'
-import { tabsTheme } from './components/tabs'
-import { cardTheme } from './components/card'
-import { colors, semanticTokens } from './colors'
+import { extendTheme } from '@chakra-ui/react';
+import { colors, semanticTokens } from './colors';
+import { buttonTheme } from './components/button';
+import { cardTheme } from './components/card';
+import { containerTheme } from './components/container';
+import { inputTheme } from './components/input';
+import { modalTheme } from './components/modal';
+import { tabsTheme } from './components/tabs';
 
 const theme = extendTheme({
   colors,
@@ -15,6 +16,7 @@ const theme = extendTheme({
     Input: inputTheme,
     Tabs: tabsTheme,
     Card: cardTheme,
+    Modal: modalTheme,
   },
   breakpoints: {
     base: '0px',
@@ -23,6 +25,6 @@ const theme = extendTheme({
     xl: '1024px',
     '2xl': '1280px',
   },
-})
+});
 
-export default theme
+export default theme;
