@@ -95,7 +95,6 @@ const Calendar = ({ onChoiceDate }: { onChoiceDate: (date: Date) => void }) => {
         <Heading
           size={'sm'}
           fontWeight={600}
-          color={'blackAlpha.800'}
         >
           {currentDate.toLocaleString('default', { month: 'long' })}{' '}
           {currentDate.toLocaleString('default', { year: 'numeric' })}
@@ -121,7 +120,6 @@ const Calendar = ({ onChoiceDate }: { onChoiceDate: (date: Date) => void }) => {
             textTransform="uppercase"
             fontSize={'xs'}
             fontWeight={600}
-            color={'blackAlpha.600'}
           >
             {day}
           </Box>
@@ -130,7 +128,7 @@ const Calendar = ({ onChoiceDate }: { onChoiceDate: (date: Date) => void }) => {
           <Button
             key={date.toString()}
             variant={'day'}
-            color={'gray.400'}
+            color={'text.tertiary'}
           >
             {getDate(date)}
           </Button>
@@ -179,7 +177,7 @@ const Calendar = ({ onChoiceDate }: { onChoiceDate: (date: Date) => void }) => {
           <Button
             key={date.toString()}
             variant={'day'}
-            color={'gray.400'}
+            color={'text.tertiary'}
           >
             {getDate(date)}
           </Button>

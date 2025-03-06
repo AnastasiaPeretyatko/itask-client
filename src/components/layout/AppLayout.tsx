@@ -61,7 +61,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
           flexDir="column"
           overflowY="auto"
           p={2}
-          bg={'gray.100'}
+          bg={'background.secondary'}
         >
           {children}
         </Flex>

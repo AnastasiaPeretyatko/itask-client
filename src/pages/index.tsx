@@ -1,5 +1,5 @@
-import { Container, Flex, HStack } from '@chakra-ui/react';
-import CalendarInfo from '@/components/calendarInfo';
+import { Flex, HStack } from '@chakra-ui/react';
+import CalendarWidget from '@/components/CalendarWidget';
 import AppLayout from '@/components/layout/AppLayout';
 // import dynamic from 'next/dynamic'
 
@@ -20,15 +20,7 @@ export default function Home() {
           flex={1}
           h={'100%'}
         ></Flex>
-        <Container
-          width={320}
-          height={'full'}
-          background={'white'}
-          p={0}
-          borderRadius={'24'}
-        >
-          <CalendarInfo />
-        </Container>
+        <CalendarWidget />
       </HStack>
       {/* <HaveProblems /> */}
     </AppLayout>

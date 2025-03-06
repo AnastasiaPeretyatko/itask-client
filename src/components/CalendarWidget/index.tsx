@@ -1,15 +1,15 @@
-import { Flex, Heading, HStack, Text, VStack } from '@chakra-ui/react';
+import { Container, Flex, Heading, HStack, Text, VStack } from '@chakra-ui/react';
 import { getDate, getDay } from 'date-fns';
 import React, { useState } from 'react';
-import Calendar from '../calendar';
 import Task from './Task';
+import Calendar from './calendar';
 import { dayWeekArray } from '@/common/const';
 
-const CalendarInfo = () => {
+const CalendarWidget = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
 
   return (
-    <>
+    <Container variant={'calendarWidget'}>
       <Calendar onChoiceDate={setCurrentDate}/>
       <VStack
         align={'start'}
@@ -24,7 +24,7 @@ const CalendarInfo = () => {
           <VStack gap={0}>
             <Heading size={'lg'}>{getDate(currentDate)}</Heading>
             <Text fontSize={'md'}>
-              {dayWeekArray.find((_, indx) => indx + 1 === getDay(currentDate))}
+              {dayWeekArray.find((_, indx) => !getDay(currentDate) ? indx === dayWeekArray.length - 1 : indx + 1 === getDay(currentDate))}
             </Text>
           </VStack>
           <Flex
@@ -50,8 +50,8 @@ const CalendarInfo = () => {
         <Task />
         <Task />
       </VStack>
-    </>
+    </Container>
   );
 };
 
-export default CalendarInfo;
+export default CalendarWidget;
