@@ -12,7 +12,7 @@ export const semanticTokens = {
       main: { _dark: 'almostBlack', _light: 'white.primary' },
       mainRevert: { _light: 'almostBlack', _dark: 'white.primary' },
       20: { _dark: 'almostBlack20', _light: 'white.20' },
-      secondary: { _dark: 'black.50', _light: 'warmGrey' },
+      secondary: { _dark: 'black.300', _light: 'warmGrey' },
     },
     bg: { _dark: 'black', _light: 'white.300' },
     input: {

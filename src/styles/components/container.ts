@@ -51,11 +51,20 @@ const eventPoint = defineStyle(() => {
   };
 });
 
+const calendarWidget = defineStyle({
+  width: 320,
+  height: 'full',
+  background: 'background.main',
+  padding: 0,
+  borderRadius: 24,
+});
+
 export const containerTheme = defineStyleConfig({
   baseStyle,
   variants: {
     header,
     sidebar,
     eventPoint,
+    calendarWidget,
   },
 });
