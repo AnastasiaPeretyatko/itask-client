@@ -1,10 +1,15 @@
-import { inputAnatomy } from '@chakra-ui/anatomy'
-import { createMultiStyleConfigHelpers } from '@chakra-ui/react'
+import { inputAnatomy } from '@chakra-ui/anatomy';
+import { createMultiStyleConfigHelpers } from '@chakra-ui/react';
 
 const { definePartsStyle, defineMultiStyleConfig } =
-  createMultiStyleConfigHelpers(inputAnatomy.keys)
+  createMultiStyleConfigHelpers(inputAnatomy.keys);
 
-const baseStyle = definePartsStyle({})
+const baseStyle = definePartsStyle({
+  field: {
+    borderRadius: 8,
+    width: 'full',
+  },
+});
 
 const search = definePartsStyle({
   field: {
@@ -22,9 +27,21 @@ const search = definePartsStyle({
   element: {
     color: 'gray.500',
   },
-})
+});
+
+const property = definePartsStyle({
+  field: {
+    border: '1px solid',
+    borderColor: 'input.outline',
+    height:'unset',
+    paddingY: '7px',
+    paddingX: 1,
+    fontSize:'sm',
+    borderRadius: 6,
+  },
+});
 
 export const inputTheme = defineMultiStyleConfig({
   baseStyle,
-  variants: { search },
-})
+  variants: { search, property },
+});

@@ -20,6 +20,7 @@ const Modal = ({ title, children, action, ...rest }: Props) => {
         isOpen={isOpen}
         onClose={onClose}
         size={isFullSizeWindow ? 'full' : 'xl'}
+        isCentered
       >
         <ModalOverlay />
         <ModalContent>

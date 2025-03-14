@@ -34,6 +34,10 @@ const baseStyle = definePartsStyle({
       color: 'text.lighter',
     },
   },
+  body: {
+    paddingX: 24,
+    paddingY: 2,
+  },
 });
 
 export const modalTheme = defineMultiStyleConfig({

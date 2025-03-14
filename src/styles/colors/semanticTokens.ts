@@ -30,9 +30,10 @@ export const semanticTokens = {
     link: { _light: 'primary.blue', _dark: 'primary.darkBlue' },
     text: {
       primary: { _light: 'almostBlack', _dark: 'almostWhite' },
-      lighter: { _light: '#808aa9', _dark: '#fff' },
       secondary: { _light: 'slate.dark', _dark: '#b8c0c8' },
+      lighter: { _light: '#808aa9', _dark: '#fff' },
       tertiary: { _light: 'slate.primary', _dark: 'slate.primary' },
+      pale: { _light: 'rgb(120, 119, 116)', _dark: 'slate.light' },
     },
     placeholder: { _light: '#a2b2c3', _dark: 'slate.dark' },
     sidebar: {
@@ -62,6 +63,9 @@ export const semanticTokens = {
     toast: {
       bg: { _light: 'almostBlack', _dark: 'white.primary' },
       text: { _light: 'white.primary', _dark: 'lightBlack' },
+    },
+    menu: {
+      background: { _light: 'white.primary', _dark: '#1f2128' },
     },
   },
 };

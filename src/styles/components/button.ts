@@ -98,7 +98,23 @@ const sidebar = defineStyle({
   },
 });
 
+const new_record = defineStyle({
+  width: 'full',
+  justifyContent: 'flex-start',
+  outline: 'unset',
+  border: 'unset',
+  borderRadius: '4px',
+  padding: 0,
+  paddingLeft: 1,
+  fontWeight: 'normal',
+  fontSize: 'sm',
+  color: 'text.pale',
+  _hover: {
+    background: 'button.neutral.bgDarker05',
+  },
+});
+
 export const buttonTheme = defineStyleConfig({
   baseStyle,
-  variants: { auth, sidebar, primary, day, iconButton, openSidebar },
+  variants: { auth, sidebar, primary, day, iconButton, openSidebar, new_record },
 });

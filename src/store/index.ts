@@ -1,9 +1,11 @@
-import { configureStore } from '@reduxjs/toolkit'
-import userReducer from './user/user.slice'
-import coursesReducer from './course/course.slice'
-import professorCourseReducer from './professor.course/professor.course.slice'
+import { configureStore } from '@reduxjs/toolkit';
+import coursesReducer from './course/course.slice';
+import professorCourseReducer from './professor.course/professor.course.slice';
+import taskModule from './task/task.slice';
+import userReducer from './user/user.slice';
 
 export type RootState = ReturnType<typeof store.getState>
+
 export type AppDispatch = typeof store.dispatch
 
 export const store = configureStore({
@@ -11,5 +13,6 @@ export const store = configureStore({
     user: userReducer,
     courses: coursesReducer,
     professorCourse: professorCourseReducer,
+    taskModule,
   },
-})
+});

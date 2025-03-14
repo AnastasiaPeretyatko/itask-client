@@ -59,6 +59,15 @@ const calendarWidget = defineStyle({
   borderRadius: 24,
 });
 
+const property_label = defineStyle({
+  width: '160px',
+  minWidth: '160px',
+  padding: 0,
+  display: 'flex',
+  alignItems: 'center',
+  color: 'text.pale',
+});
+
 export const containerTheme = defineStyleConfig({
   baseStyle,
   variants: {
@@ -66,5 +75,6 @@ export const containerTheme = defineStyleConfig({
     sidebar,
     eventPoint,
     calendarWidget,
+    property_label,
   },
 });
