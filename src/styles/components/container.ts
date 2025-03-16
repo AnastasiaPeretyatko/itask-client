@@ -5,6 +5,8 @@ const baseStyle = defineStyle(() => {
     maxW: 'unset',
     width: 'unset',
     margin: 'unset',
+    paddingInline: 'unset',
+    marginInline: 'unset',
   };
 });
 
@@ -68,6 +70,13 @@ const property_label = defineStyle({
   color: 'text.pale',
 });
 
+const column_board = defineStyle({
+  borderRadius: 'md',
+  display:'flex',
+  flexDirection:'column',
+  gap: 2,
+});
+
 export const containerTheme = defineStyleConfig({
   baseStyle,
   variants: {
@@ -76,5 +85,6 @@ export const containerTheme = defineStyleConfig({
     eventPoint,
     calendarWidget,
     property_label,
+    column_board,
   },
 });
