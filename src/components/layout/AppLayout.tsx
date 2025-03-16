@@ -1,5 +1,6 @@
 import { Flex, HStack, Spinner, VStack } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { useLayoutEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Sidebar from '../Sidebar';
 import Header from '../header';
@@ -9,14 +10,19 @@ import { settings } from '@/store/user/user.slice';
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isLoading) {
       const user = localStorage.getItem('user');
+      if(!user) {
+        router.push('/auth');
+        return;
+      }
       dispatch(settings.setUser(JSON.parse(user!)));
       setIsLoading(false);
     }
-  }, [isLoading]);
+  }, [isLoading, router]);
 
   if (isLoading) {
     return (

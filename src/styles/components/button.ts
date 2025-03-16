@@ -22,9 +22,10 @@ const auth = defineStyle({
 });
 
 const primary = defineStyle({
-  bg: 'PRIMARY_BLUE',
+  bg: 'primary.purple',
+  color: 'sidebar.hoverText',
   _hover: {
-    bg: 'SECONDARY_BLUE',
+    bg: 'secondary.purple',
   },
 });
 
