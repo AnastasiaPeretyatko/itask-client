@@ -1,11 +1,11 @@
-import ProfessorCoursePage from '@/components/feature/professor/course/ProfessorCoursePage'
-import StudentCoursesPage from '@/components/feature/student/course/StudentCoursesPage'
-import AppLayout from '@/components/layout/AppLayout'
-import { RootState } from '@/store'
-import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux';
+import ProfessorCoursePage from '@/components/feature/professor/course/ProfessorCoursePage';
+import StudentCoursesPage from '@/components/feature/student/course/StudentCoursesPage';
+import AppLayout from '@/components/layout/AppLayout';
+import { RootState } from '@/store';
 
 const PageCourses = () => {
-  const { user } = useSelector((state: RootState) => state.user)
+  const { user } = useSelector((state: RootState) => state.user);
 
   return (
     <AppLayout>
@@ -15,7 +15,7 @@ const PageCourses = () => {
         <StudentCoursesPage />
       )}
     </AppLayout>
-  )
-}
+  );
+};
 
-export default PageCourses
+export default PageCourses;

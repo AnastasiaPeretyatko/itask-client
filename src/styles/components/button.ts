@@ -115,7 +115,31 @@ const new_record = defineStyle({
   },
 });
 
+const filter = defineStyle({
+  background:'none',
+  color: 'text.pale',
+  fontWeight: 'normal',
+  paddingInline: 'unset',
+  marginInline: 'unset',
+  gap: 2,
+  height: 'unset',
+  alignItems: 'center',
+  _hover: {
+    color: 'text.primary',
+  },
+  _active: {
+    color: 'text.primary',
+    _before: {
+      content: '""',
+      width: 2,
+      height: 2,
+      borderRadius: 'full',
+      background: 'primary.purple',
+    },
+  },
+});
+
 export const buttonTheme = defineStyleConfig({
   baseStyle,
-  variants: { auth, sidebar, primary, day, iconButton, openSidebar, new_record },
+  variants: { auth, sidebar, primary, day, iconButton, openSidebar, new_record, filter },
 });

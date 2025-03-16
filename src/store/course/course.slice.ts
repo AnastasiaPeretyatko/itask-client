@@ -1,6 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { getAllFromSemesterGroupThunk } from './course.thunk'
-import { CourseT } from '@/types/course.type'
+import { createSlice } from '@reduxjs/toolkit';
+import { getAllFromSemesterGroupThunk } from './course.thunk';
+import { CourseT } from '@/types/course.type';
 
 type TInitialState = {
   data: CourseT[]
@@ -10,27 +10,25 @@ type TInitialState = {
 const initialState: TInitialState = {
   data: [],
   isLoading: false,
-}
+};
 
 export const courses = createSlice({
   name: 'courses',
   initialState,
   reducers: {},
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
-      .addCase(getAllFromSemesterGroupThunk.pending, state => {
-        state.isLoading = true
+      .addCase(getAllFromSemesterGroupThunk.pending, (state) => {
+        state.isLoading = true;
       })
       .addCase(getAllFromSemesterGroupThunk.fulfilled, (state, { payload }) => {
-        state.isLoading = false
-        state.data = payload
+        state.isLoading = false;
+        state.data = payload;
       })
-      .addCase(getAllFromSemesterGroupThunk.rejected, state => {
-        state.isLoading = false
-      })
+      .addCase(getAllFromSemesterGroupThunk.rejected, (state) => {
+        state.isLoading = false;
+      });
   },
-})
+});
 
-// export const { changeStateSidebar, setUser } = courses.actions
-
-export default courses.reducer
+export default courses.reducer;

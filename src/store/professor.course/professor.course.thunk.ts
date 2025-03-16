@@ -1,7 +1,8 @@
-import { getAllByProfessor } from '@/services/course.service'
-import { MessageType } from '@/types/common.type'
-import { BaseCourseT } from '@/types/course.type'
-import { createAsyncThunk } from '@reduxjs/toolkit'
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { getAllByProfessor } from '@/services/course.service';
+import { MessageType } from '@/types/common.type';
+import { BaseCourseT } from '@/types/course.type';
+import { handleThunkError } from '@/utils/handleThunkError';
 
 export const getAllByProfessorThunk = createAsyncThunk<
   BaseCourseT[],
@@ -11,18 +12,11 @@ export const getAllByProfessorThunk = createAsyncThunk<
   }
 >('/get-professor-course', async (id, { rejectWithValue }) => {
   try {
-    const res = await getAllByProfessor(id)
+    const res = await getAllByProfessor(id);
 
-    return res.data
+    return res.data;
   } catch (error) {
-    const hasErrResponse = (
-      error as {
-        response: { data: { statusCode: number; message: MessageType } }
-      }
-    ).response
-    if (!hasErrResponse) {
-      throw error
-    }
-    return rejectWithValue(hasErrResponse.data)
+    return handleThunkError(error, rejectWithValue);
   }
-})
+});
+
