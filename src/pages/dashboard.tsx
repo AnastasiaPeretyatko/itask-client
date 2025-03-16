@@ -8,22 +8,19 @@ const Dashboard = () => {
   return (
     <AppLayout>
       <Tabs
-        width={'full'}
-        padding={3}
-        position="relative"
-        variant="unstyled"
+        variant={'dashboard'}
         size={'sm'}
       >
         <TabList>
-          <Tab><KanbanIcon mr={2}/> Kanban</Tab>
-          <Tab><TableIcon mr={2}/> Table</Tab>
-          <Tab><ListIcon mr={2}/> List</Tab>
+          <Tab><KanbanIcon/> Kanban</Tab>
+          <Tab><TableIcon/> Table</Tab>
+          <Tab><ListIcon/> List</Tab>
         </TabList>
         <TabIndicator
-          mt="-1.5px"
+          mt="-2px"
           height="2px"
-          bg="blue.500"
-          borderRadius="1px"
+          bg="primary.purple"
+          borderRadius="5px"
         />
         <TabPanels
           width={'full'}

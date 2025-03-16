@@ -1,11 +1,11 @@
-import { tabsAnatomy } from '@chakra-ui/anatomy'
-import { createMultiStyleConfigHelpers } from '@chakra-ui/react'
+import { tabsAnatomy } from '@chakra-ui/anatomy';
+import { createMultiStyleConfigHelpers } from '@chakra-ui/react';
 
 const { definePartsStyle, defineMultiStyleConfig } =
-  createMultiStyleConfigHelpers(tabsAnatomy.keys)
+  createMultiStyleConfigHelpers(tabsAnatomy.keys);
 
 
-  const notifications = definePartsStyle({
+const notifications = definePartsStyle({
   root: {
   },
   tab: {
@@ -16,12 +16,12 @@ const { definePartsStyle, defineMultiStyleConfig } =
       color: 'black',
       'span': {
         background: 'black',
-        color: 'white'
-      }
+        color: 'white',
+      },
     },
     display: 'flex',
     justifyContent: 'space-between',
-    gap: 2
+    gap: 2,
   },
   tablist: {
     paddingX: 3,
@@ -36,8 +36,32 @@ const { definePartsStyle, defineMultiStyleConfig } =
   tabpanels: {},
   indicator: {
     background: 'black',
-  }
-})
+  },
+});
 
+const dashboard = definePartsStyle({
+  root: {
+    width: 'full',
+    position: 'relative',
+  },
+  tablist: {
+    borderBottom: '1px solid',
+    borderColor: 'divider',
+  },
+  tab: {
+    color: 'text.pale',
+    padding: 3,
+    fontSize: 'md',
+    _selected: {
+      color: 'text.primary',
+    },
+    '& svg': {
+      marginRight: 2,
+    },
+  },
+  tabpanels: {
+    paddingY: 3,
+  },
+});
 
-export const tabsTheme = defineMultiStyleConfig({ variants: { notifications } })
+export const tabsTheme = defineMultiStyleConfig({ variants: { notifications, dashboard } });
