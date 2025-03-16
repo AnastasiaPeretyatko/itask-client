@@ -1,11 +1,11 @@
-import InputForm from '@/components/assets/ui/InputForm'
-import { Button, Flex, Heading, VStack } from '@chakra-ui/react'
-import { useForm, SubmitHandler } from 'react-hook-form'
-import React from 'react'
-import { loginRequest } from '@/services/auth.service'
-import { useDispatch } from 'react-redux'
-import { AppDispatch } from '@/store'
-import { setUser } from '@/store/user/user.slice'
+import { Button, Flex, Heading, Text, VStack } from '@chakra-ui/react';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import Circle from '@/components/assets/ui/Circle';
+import InputForm from '@/components/assets/ui/InputForm';
+import { loginRequest } from '@/services/auth.service';
+import { AppDispatch } from '@/store';
+import { settings } from '@/store/user/user.slice';
 
 type loginType = {
   email: string
@@ -13,28 +13,29 @@ type loginType = {
 }
 
 const AuthPage = () => {
-  const dispatch = useDispatch<AppDispatch>()
-  const { register, handleSubmit } = useForm<loginType>()
+  const dispatch = useDispatch<AppDispatch>();
+  const { register, handleSubmit } = useForm<loginType>();
 
-  const onSubmit: SubmitHandler<loginType> = async data => {
+  const onSubmit: SubmitHandler<loginType> = async (data) => {
     await loginRequest(data.email, data.password)
       .then( ({ data }) => {
-        localStorage.setItem('token', data.token)
-        localStorage.setItem('user', JSON.stringify(data.user))
-        dispatch(setUser(data.user))
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        dispatch(settings.setUser(data.user));
 
-        window.location.href = '/'
+        window.location.href = '/';
       })
-      .catch(err => console.log(err))
-  }
+      .catch((err) => console.log(err));
+  };
 
   return (
     <Flex
       width={'full'}
       height={'100vh'}
-      background={'black'}
       align={'center'}
       justify={'center'}
+      position={'relative'}
+      overflow={'hidden'}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <VStack
@@ -44,11 +45,22 @@ const AuthPage = () => {
           borderRadius={10}
           gap={8}
         >
-          <Heading size={'lg'}>Авторизация</Heading>
+          <VStack>
+            <Heading
+              size={'lg'}
+              color={'primary.purple'}
+            >Авторизация</Heading>
+            <Text
+              size="sm"
+              color={'text.pale'}
+            >Join the community today!</Text>
+
+          </VStack>
+
           <InputForm
             label="Email"
             placeholder="Email..."
-            // type="email"
+            type="email"
             register={register('email')}
           />
           <InputForm
@@ -57,13 +69,32 @@ const AuthPage = () => {
             type="password"
             register={register('password')}
           />
-          <Button type="submit" width={'100%'}>
+          <Button
+            type="submit"
+            width={'100%'}
+            variant={'primary'}
+          >
             Войти
           </Button>
         </VStack>
       </form>
+      <Circle
+        size={96}
+        top={-48}
+        right={-48}
+      />
+      <Circle
+        size={96}
+        bottom={-48}
+        left={-40}
+      />
+      <Circle
+        size={28}
+        bottom={28}
+        left={100}
+      />
     </Flex>
-  )
-}
+  );
+};
 
-export default AuthPage
+export default AuthPage;

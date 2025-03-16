@@ -77,6 +77,12 @@ const column_board = defineStyle({
   gap: 2,
 });
 
+const circle = defineStyle({
+  position: 'absolute',
+  borderRadius: 'full',
+  opacity: 0.5,
+});
+
 export const containerTheme = defineStyleConfig({
   baseStyle,
   variants: {
@@ -86,5 +92,6 @@ export const containerTheme = defineStyleConfig({
     calendarWidget,
     property_label,
     column_board,
+    circle,
   },
 });
