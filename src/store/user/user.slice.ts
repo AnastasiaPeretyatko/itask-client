@@ -17,13 +17,12 @@ export const config = createSlice({
   reducers: {
     toggleSidebar: (state, { payload }: { payload: boolean }) => {
       state.isOpenSidebar = payload;
-      localStorage.setItem('sidebar', String(payload));
+      localStorage.setItem('sidebar', payload.toString());
     },
     setUser: (state, { payload }: { payload: UserT }) => {
       state.user = payload;
     },
     logout: () => {
-      console.log('kek');
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       window.location.href = '/auth';

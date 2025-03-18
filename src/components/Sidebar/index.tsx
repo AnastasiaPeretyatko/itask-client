@@ -1,5 +1,6 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { Container, IconButton, VStack } from '@chakra-ui/react';
+import { useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ThemeToggle from '../assets/ui/ThemeToggle';
 import SidebarItem from './components/SidebarItem';
@@ -14,6 +15,15 @@ const Sidebar = () => {
   const handleClickLogOut = () => dispatch(settings.logout());
 
   const setCollapse = () => dispatch(settings.toggleSidebar(!isOpenSidebar));
+
+  useLayoutEffect(() => {
+    const state = localStorage.getItem('sidebar');
+
+    const isSidebarOpen = state !== null ? state === 'true' : true;
+    if (isOpenSidebar !== isSidebarOpen) {
+      dispatch(settings.toggleSidebar(isSidebarOpen));
+    }
+  }, [dispatch, isOpenSidebar]);
 
   return (
     <Container
