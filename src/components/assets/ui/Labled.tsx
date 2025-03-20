@@ -8,18 +8,19 @@ type LabeledProps = {
   isModal?: boolean
 } & FlexProps
 
-const Labeled = ({ label, children, variantLabel, isModal }: LabeledProps) => {
+const Labeled = ({ label, children, variantLabel, isModal = false, ...props }: LabeledProps) => {
   return (
     <Flex
       width={'full'}
       height={isModal ? '38px' : '100%'}
+      {...props}
     >
       <Container
         as="label"
         variant={variantLabel}
         alignContent="center"
         padding={0}
-        minW={'160px'}
+        minW={isModal ? '160px' : 'unset'}
         fontSize={'sm'}
         color={'text.pale'}
       >

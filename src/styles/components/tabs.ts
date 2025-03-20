@@ -64,4 +64,32 @@ const dashboard = definePartsStyle({
   },
 });
 
-export const tabsTheme = defineMultiStyleConfig({ variants: { notifications, dashboard } });
+const course_tab = definePartsStyle({
+  root: {
+    width: 'full',
+    height: 'full',
+    position: 'relative',
+  },
+  tablist: {
+    borderBottom: '1px solid',
+    borderColor: 'divider',
+  },
+  tab: {
+    color: 'text.pale',
+    padding: 2,
+    _selected: {
+      color: 'text.primary',
+    },
+    '& svg': {
+      marginRight: 2,
+    },
+  },
+});
+
+export const tabsTheme = defineMultiStyleConfig({
+  variants: {
+    notifications,
+    dashboard,
+    course_tab,
+  },
+});

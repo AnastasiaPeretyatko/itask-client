@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getCoursesForProfessor } from '@/services/course.service';
+import { getCoursesForProfessor, getOneCourse } from '@/services/course.service';
 import { BaseCourseT } from '@/types/course.type';
 import { handleThunkError } from '@/utils/handleThunkError';
 
@@ -18,3 +18,14 @@ export const getCoursesForProfessorThunk = createAsyncThunk<
     return handleThunkError(error, rejectWithValue);
   }
 });
+
+const get = createAsyncThunk<BaseCourseT, string, { rejectValue: string }>('course.get', async (id, { rejectWithValue }) => {
+  try {
+    const { data } = await getOneCourse(id);
+    return data;
+  } catch (error) {
+    return handleThunkError(error, rejectWithValue);
+  }
+});
+
+export const course = { getCoursesForProfessorThunk, get };

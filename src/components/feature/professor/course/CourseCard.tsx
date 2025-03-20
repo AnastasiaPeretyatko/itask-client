@@ -1,4 +1,5 @@
 import { Button, Card, Heading, HStack, Image, Tag, Text, VStack, Wrap } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import { BaseCourseT } from '@/types/course.type';
 import { getTextFromEditor } from '@/utils/getTextFromEditor';
 
@@ -7,8 +8,8 @@ type Props = {
 }
 
 const CourseCard = ({ course }: Props) => {
+  const router = useRouter();
   const description: string[] = getTextFromEditor(course.description);
-  console.log({ description });
 
   return (
     <Card
@@ -49,7 +50,8 @@ const CourseCard = ({ course }: Props) => {
           <Button
             size={'sm'}
             variant={'primary'}
-          >Подробнее</Button>
+            onClick={() => router.push(`/courses/${course.id}`)}
+          >Подробнее...</Button>
         </HStack>
       </VStack>
 

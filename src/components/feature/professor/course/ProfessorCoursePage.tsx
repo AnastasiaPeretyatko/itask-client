@@ -11,7 +11,7 @@ import { getCoursesForProfessorThunk } from '@/store/professorModule/course/cour
 
 const ProfessorCoursePage = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { courses } = useSelector((state: RootState) => state.courseModule);
+  const { courses } = useSelector((state: RootState) => state.courseStore);
 
   useLayoutEffect(() => {
     // TODO пока на бэке не достаем айди передаем дефолтный
@@ -68,7 +68,7 @@ const ProfessorCoursePage = () => {
 
       <SimpleGrid
         width={'full'}
-        templateColumns={{ sm: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
+        templateColumns={{ sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' }}
         spacing={6}
       >
         {

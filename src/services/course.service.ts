@@ -6,3 +6,6 @@ export const getAllFromSemesterGroup = (semesterId: string, groupId: string) =>
 export const getAllByProfessor = (id: string) => http.get(`/courses/professor/${id}`);
 
 export const getCoursesForProfessor = (id: string) => http.get(`/assignment/professor/${id}`);
+
+//? New request
+export const getOneCourse = (id: string) => http.get(`/courses/${id}`);

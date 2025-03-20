@@ -1,4 +1,4 @@
-import { http } from '.'
+import { http } from '.';
 
 export const getListSemesterFromGroup = (groupId: string) =>
-  http.get(`/semesters/name/${groupId}`)
+  http.get(`/semesters/name/${groupId}`);

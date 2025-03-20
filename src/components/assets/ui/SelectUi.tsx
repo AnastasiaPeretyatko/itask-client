@@ -1,5 +1,5 @@
-import { Select } from '@chakra-ui/react'
-import React from 'react'
+import { Select } from '@chakra-ui/react';
+import React from 'react';
 
 type SelectProps = {
   options: {
@@ -27,15 +27,21 @@ const SelectUi = ({ options, placeholder, onChange }: SelectProps) => {
           borderColor: 'blackAlpha.500',
           boxShadow: 'inherit',
         },
+        _placeholder: {
+          color: 'text.pale',
+        },
       }}
     >
       {options.map((option, index) => (
-        <option key={index} value={option.id}>
+        <option
+          key={index}
+          value={option.id}
+        >
           {option.name}
         </option>
       ))}
     </Select>
-  )
-}
+  );
+};
 
-export default SelectUi
+export default SelectUi;
