@@ -9,3 +9,23 @@ export * from './ListIcon';
 export * from './PaperClipIcon';
 
 export * from './MessageIcon';
+
+export * from './TextIcon';
+
+export * from './NumberIcon';
+
+export * from './SelectIcon';
+
+export * from './StatusIcon';
+
+export * from './CheckboxIcon';
+
+export * from './LinkIcon';
+
+export * from './DateIcon.tsx';
+
+export * from './PersonIcon';
+
+export * from './PeopleIcon';
+
+export * from './DotIcon';
