@@ -1,4 +1,4 @@
-import { Popover as PopoverChakra, PopoverContent, PopoverProps, PopoverTrigger, Portal } from '@chakra-ui/react';
+import { Popover as PopoverChakra, PopoverContent, PopoverProps, PopoverTrigger } from '@chakra-ui/react';
 import React from 'react';
 
 type Props = {
@@ -15,11 +15,9 @@ const Popover = ({ children, disclosureContent, placement = 'bottom-start', ...p
       <PopoverTrigger>
         {disclosureContent}
       </PopoverTrigger>
-      <Portal>
-        <PopoverContent>
-          {children}
-        </PopoverContent>
-      </Portal>
+      <PopoverContent>
+        {children}
+      </PopoverContent>
     </PopoverChakra>
   );
 };
