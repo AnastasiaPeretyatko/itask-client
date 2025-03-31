@@ -1,18 +1,20 @@
 import { popoverAnatomy as parts } from '@chakra-ui/anatomy';
 import { createMultiStyleConfigHelpers } from '@chakra-ui/react';
 
-const { definePartsStyle, defineMultiStyleConfig } =
-  createMultiStyleConfigHelpers(parts.keys);
+const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpers(parts.keys);
+
 const baseStyle = definePartsStyle({
+  popper: {
+    width: 'full', //TODO переместить в поповер чтобы можно было контролировать ширину
+  },
   content: {
     borderRadius: 8,
     backgroundColor: 'menu.background',
-    marginTop: 1,
     padding: 1,
     boxShadow: 'md',
     maxHeight: '20vw',
     overflow: 'auto',
-    width: '100%',
+    width: 'full',
   },
 });
 

@@ -1,6 +1,19 @@
-import { AddIcon, IconProps } from '@chakra-ui/icons';
+import { IconProps } from '@chakra-ui/icons';
 import { useMemo } from 'react';
 import { PropertyTypes } from './PropertyRegistry';
+import {
+  CheckboxIcon,
+  ListIcon,
+  NumberIcon,
+  SelectIcon,
+  StatusIcon,
+  TextIcon,
+  LinkIcon,
+  DateIcon,
+  PersonIcon,
+  PaperClipIcon,
+  PeopleIcon,
+} from '@/components/assets/icon';
 
 type PropertyIconProps = {
   type: string
@@ -17,31 +30,31 @@ const PropertyIcon = ({ type, ...props }: PropertyIconProps) => {
     // };
     switch (type) {
     case PropertyTypes.Text:
-      return <AddIcon {...props} />;
+      return <TextIcon {...props} />;
     case PropertyTypes.Number:
-      return <AddIcon {...props} />;
+      return <NumberIcon {...props} />;
     case PropertyTypes.Select:
-      return <AddIcon {...props} />;
+      return <SelectIcon {...props} />;
     case PropertyTypes.Status:
-      return <AddIcon {...props} />;
+      return <StatusIcon {...props} />;
     case PropertyTypes.Multiselect:
-      return <AddIcon {...props} />;
+      return <ListIcon {...props} />;
     case PropertyTypes.Checkbox:
-      return <AddIcon {...props} />;
+      return <CheckboxIcon {...props} />;
     case PropertyTypes.Url:
-      return <AddIcon {...props} />;
+      return <LinkIcon {...props} />;
     // case PropertyTypes.Email:
     //   return <AddIcon {...props} />;
     // case PropertyTypes.PhoneNumber:
     //   return <PhoneIcon {...props} />;
     case PropertyTypes.Date:
-      return <AddIcon {...props} />;
+      return <DateIcon {...props} />;
     case PropertyTypes.Person:
-      return <AddIcon {...props} />;
+      return <PersonIcon {...props} />;
     case PropertyTypes.People:
-      return <AddIcon {...props} />;
+      return <PeopleIcon {...props} />;
     case PropertyTypes.Files:
-      return <AddIcon {...props} />;
+      return <PaperClipIcon {...props} />;
     default:
       return null;
     }

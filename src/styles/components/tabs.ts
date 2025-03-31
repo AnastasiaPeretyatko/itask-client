@@ -84,6 +84,12 @@ const course_tab = definePartsStyle({
       marginRight: 2,
     },
   },
+  tabpanels: {
+    paddingY: 3,
+  },
+  tabpanel: {
+    padding: 0,
+  },
 });
 
 export const tabsTheme = defineMultiStyleConfig({

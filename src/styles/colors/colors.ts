@@ -15,6 +15,7 @@ export const colors = {
 
   black: {
     10: 'rgba(0, 0, 0, 0.1)',
+    30: 'rgba(0, 0, 0, 0.3)',
     50: 'rgba(0, 0, 0, 0.5)',
     100: '#111315',
     200: '#1A1D1F',
@@ -51,4 +52,17 @@ export const colors = {
     light: '#dae1e9',
   },
   lightBlack: '#2f3336',
+
+  tagColors: {
+    purple: '#492f64',
+    orange: '#854c1d',
+    red: '#6e3030',
+    yellow: '#896328',
+    cyan: '#415b7d',
+    green: '#2b593f',
+    pink: '#69314c',
+    blue: '#28456c',
+    black: '#373737',
+    grey: '#5a5a5a',
+  },
 };

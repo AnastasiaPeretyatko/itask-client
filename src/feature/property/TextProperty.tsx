@@ -56,12 +56,6 @@ const TextProperty = ({ property, type = 'text', task }: TextPropertyType) => {
     );
   };
 
-  // useEffect(() => {
-  //   if(isEdit && ref.current){
-  //     ref.current.focus();
-  //   }
-  // }, [isEdit]);
-
   return (
     <Container variant={'property_modal'}>
       {

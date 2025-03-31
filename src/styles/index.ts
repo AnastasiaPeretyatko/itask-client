@@ -3,6 +3,7 @@ import { colors, semanticTokens } from './colors';
 import { buttonTheme } from './components/button';
 import { cardTheme } from './components/card';
 import { containerTheme } from './components/container';
+import { drawerTheme } from './components/drawer';
 import { inputTheme } from './components/input';
 import { listTheme } from './components/list';
 import { modalTheme } from './components/modal';
@@ -23,6 +24,7 @@ const theme = extendTheme({
     Popover: popoverTheme,
     List: listTheme,
     Tag: tagTheme,
+    Drawer: drawerTheme,
   },
   breakpoints: {
     base: '0px',

@@ -1,44 +1,61 @@
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-} from '@chakra-ui/react'
+import { HStack } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+import { useCallback, useEffect, useState } from 'react';
+import Labeled from '@/components/assets/ui/Labled';
+import SearchInput from '@/components/assets/ui/SearchInput';
+import SelectUi from '@/components/assets/ui/SelectUi';
+import { listGroupsByCourse, listSemestersByCourse } from '@/services/assignment.service';
 
 const ViewTableGroups = () => {
-  return (
-    <TableContainer width={'100%'} bg={'white'} >
-      <Table size={'sm'}>
-        <Thead>
-          <Tr>
-            <Th>To convert</Th>
-            <Th>into</Th>
-            <Th isNumeric>multiply by</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          <Tr>
-            <Td>inches</Td>
-            <Td>millimetres (mm)</Td>
-            <Td isNumeric>25.4</Td>
-          </Tr>
-          <Tr>
-            <Td>feet</Td>
-            <Td>centimetres (cm)</Td>
-            <Td isNumeric>30.48</Td>
-          </Tr>
-          <Tr>
-            <Td>yards</Td>
-            <Td>metres (m)</Td>
-            <Td isNumeric>0.91444</Td>
-          </Tr>
-        </Tbody>
-      </Table>
-    </TableContainer>
-  )
-}
+  const { query } = useRouter();
+  const id = query.id as string;
 
-export default ViewTableGroups
+  const [semesters, setSemesters] = useState([]);
+  const [groups, setGroups] = useState([]);
+
+  const fetchGroupList = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    const semester_id = e.target.value;
+    listGroupsByCourse(id, semester_id).then((res) => setGroups(res.data));
+  }, [id]);
+
+  useEffect(() => {
+    if(!id) {return;}
+    listSemestersByCourse(id).then((res) => setSemesters(res.data) );
+  }, [id]);
+
+  return (
+    <HStack
+      w={'full'}
+      justify={'space-between'}
+      mb={5}
+    >
+      <SearchInput
+        size="sm"
+        placeholder="Поиск..."
+      />
+      <HStack gap={5}>
+        <Labeled
+          label="Семестр"
+          gap={3}
+        >
+          <SelectUi
+            options={semesters}
+            onChange={fetchGroupList}
+            placeholder="Выберите семестр"
+          />
+        </Labeled>
+        <Labeled
+          label="Группа"
+          gap={3}
+        >
+          <SelectUi
+            options={groups}
+            placeholder="Выберите группу"
+          />
+        </Labeled>
+      </HStack>
+    </HStack>
+  );
+};
+
+export default ViewTableGroups;

@@ -1,8 +1,8 @@
 import { ComponentType } from 'react';
+import SelectProperty from './SelectProperty';
 import StatusProperty from './StatusProperty';
 import TextProperty from './TextProperty';
-
-import { Property } from '@/types/property';
+import { PropertyModel, PropertyValues, TaskModel } from '@/types/course.type';
 
 export enum PropertyTypes {
   Text = 'text',
@@ -28,7 +28,9 @@ export type PropertyRegistryType = Record<string, PropertyRegistryItemType>;
 
 
 export type PropertySettingsProps = {
-  property: Property;
+  property: PropertyModel;
+  task: TaskModel;
+  onChange: (value: PropertyValues) => void;
   // mode?: 'viewProperty' | 'property';
 };
 
@@ -40,13 +42,15 @@ const propertyRegistry: PropertyRegistryType = {
     component: TextProperty,
     extraProps: { type: 'number' },
   },
-  // [PropertyTypes.Multiselect]: {
-  //   components: Miltiselect,
-  // },
+  [PropertyTypes.Select]: {
+    component: SelectProperty,
+    extraProps: { multiselect: false },
+  },
+  [PropertyTypes.Multiselect]: {
+    component: SelectProperty,
+    extraProps: { multiselect: true },
+  },
   // [PropertyTypes.Checkbox]: {
-  //   components: <span></span>,
-  // },
-  // [PropertyTypes.Select]: {
   //   components: <span></span>,
   // },
   // [PropertyTypes.Url]: {

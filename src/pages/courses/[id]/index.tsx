@@ -1,11 +1,15 @@
-import { Heading, Skeleton, Tag, VStack, Wrap } from '@chakra-ui/react';
+import { Button, Heading, HStack, Skeleton, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, Tag, VStack, Wrap } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Editor from '@/components/assets/ui/Editor/Editor';
+import Modal from '@/components/assets/ui/modal';
+import CourseDescription from '@/components/feature/professor/course/description/CourseDescription';
+import CourseMembers from '@/components/feature/professor/course/members/CourseMembers';
+import CourseTaskBoard from '@/components/feature/professor/course/tasks/CourseTaskBoard';
 import AppLayout from '@/components/layout/AppLayout';
+import AddTask from '@/feature/AddTask';
 import { AppDispatch, RootState } from '@/store';
-import { course } from '@/store/professorModule/course/course.thunk';
+import { fetchCourse } from '@/store/professorModule/course/course.thunk';
 
 const CoursePage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -13,22 +17,38 @@ const CoursePage = () => {
   const courseStore = useSelector((state: RootState) => state.courseStore);
 
   useEffect(() => {
-    if(query.id){
-      dispatch(course.get(query.id as string));
+    const id = query.id as string;
+    if(id){
+      dispatch(fetchCourse(query.id as string));
     }
-  }, [query.id]);
+  }, [dispatch, query.id]);
 
   return (
     <AppLayout>
-      <VStack
-        height={'50%'}
-      >
+      <VStack width={'full'} >
         <Skeleton
           isLoaded={!courseStore.isLoading}
-          width={'100%'}
+          width={'full'}
           mb={3}
+          display={'flex'}
+          flexDir={'row'}
+          alignItems={'center'}
+          justifyContent={'space-between'}
+          gap={4}
         >
-          <Heading >{courseStore.course.name}</Heading>
+          <HStack>
+            <Heading>{courseStore.course.name}</Heading>
+          </HStack>
+          <Modal
+            title="Добавить задание"
+            height="80%"
+            action={ <Button
+              size={'sm'}
+              variant={'primary'}
+            >Добавить задание</Button> }
+          >
+            <AddTask/>
+          </Modal>
         </Skeleton>
         <Skeleton
           isLoaded={!courseStore.isLoading}
@@ -40,38 +60,38 @@ const CoursePage = () => {
             <Tag colorScheme="cyan">Design</Tag>
           </Wrap>
         </Skeleton>
-        {
-          courseStore.course.description ? (
-            <Editor
-              isLoaded={!courseStore.isLoading}
-              initialContent={courseStore.course.description}
-            />
-          ) : null
-        }
+        <Wrap>
+          <Tag>kkkk</Tag>
+        </Wrap>
       </VStack>
-      {/* <HStack
-        width={'full'}
-        height={'full'}
+      <Tabs
+        size={'sm'}
+        variant={'course_tab'}
+        isLazy
       >
-        <Card
-          minWidth={72}
-          height={'full'}
-          background={'background.main'}
-          padding={3}
-          alignItems={'center'}
-          gap={3}
-        >
-          <Avatar
-            size={'lg'}
-            name="Vasiliy Pupkin"
-          />
-          <Wrap>
-            <Tag width={'min-content'}>language</Tag>
-            <Tag width={'min-content'}>language</Tag>
-          </Wrap>
-        </Card>
-        <SectionCourseTab/>
-      </HStack> */}
+        <TabList>
+          <Tab>Описание</Tab>
+          <Tab>Задания</Tab>
+          <Tab>Участники</Tab>
+        </TabList>
+        <TabIndicator
+          mt="-2px"
+          height="2px"
+          bg="primary.purple"
+          borderRadius="5px"
+        />
+        <TabPanels>
+          <TabPanel>
+            <CourseDescription/>
+          </TabPanel>
+          <TabPanel>
+            <CourseTaskBoard/>
+          </TabPanel>
+          <TabPanel>
+            <CourseMembers/>
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
     </AppLayout>
   );
 };

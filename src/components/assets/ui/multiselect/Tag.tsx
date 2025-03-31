@@ -1,40 +1,36 @@
-import { Tag as ChakraTag, TagLabel, TagProps as ChakraTagProps } from '@chakra-ui/react';
-import { useMemo } from 'react';
+import { Tag as ChakraTag, TagLabel, TagCloseButton, TagProps as TagPropsChakra } from '@chakra-ui/react';
+import { HTMLProps, ReactNode } from 'react';
+import { DotIcon } from '@/components/assets/icon';
 
-type TagProps<T> = {
-  option: T,
-  onChange: (option: T) => void,
+export type TagType = 'withDot' | 'withIcon' | 'link';
+
+export type TagProps= Omit<HTMLProps<HTMLDivElement>, 'size'> & {
+  selected?: boolean;
+  size?: 'xs' | 'sm' | 'md' | 'lg'
+  type?: TagType
   onClose?: () => void
-} & ChakraTagProps
+  label?: ReactNode | string;
+  color?: string;
+  dotColor?: string;
+  closable?: boolean;
+} & TagPropsChakra
 
-const Tag = <T,>({ option, onChange, onClose, ...props }: TagProps<T>) => {
-  const color = useMemo(() => {
-    switch (option.id) {
-    case 'todo':
-      return 'red';
-    case 'in_progress':
-      return 'yellow';
-    case 'done':
-      return 'green';
-    default:
-      return 'blue';
-    }
-  }, [option]);
+const defaultTagColor = 'grey';
+
+const Tag = ({ onClose, type, size, closable, color, dotColor, label, selected, onClick, ...props }: TagProps) => {
+  const theColor = color || (!selected && '#ffffff') || defaultTagColor;
 
   return (
     <ChakraTag
       {...props}
       variant={'property_tag'}
-      size={'sm'}
-      background={`${color}.200`}
-      onClick={() => {
-        onChange(option);
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        onClose && onClose();
-      }}
-
+      size={size}
+      background={theColor}
+      onClick={onClick}
     >
-      <TagLabel>{option.name}</TagLabel>
+      {type === 'withDot' ? <DotIcon/> : null}
+      <TagLabel>{label}</TagLabel>
+      {closable ? <TagCloseButton onClick={onClose}/> : null}
     </ChakraTag>
   );
 };

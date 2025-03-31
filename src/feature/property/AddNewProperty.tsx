@@ -6,7 +6,7 @@ import Popover from '../../components/assets/ui/popover';
 import PropertyIcon from './PropertyIcon';
 import { PropertyTypes } from './PropertyRegistry';
 import { AppDispatch } from '@/store';
-import { task } from '@/store/task/task.slice';
+import { addProperty } from '@/store/professorModule/course/course.thunk';
 
 const AddNewProperty = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -17,11 +17,11 @@ const AddNewProperty = () => {
   const items = useMemo(() => {
     return Object
       .keys(PropertyTypes)
-      .filter((item) => item.toLowerCase().includes(search.toLowerCase()));
+      .filter((item) => item.includes(search.toLowerCase()));
   }, [search]);
 
   const createProperty = (type: keyof typeof PropertyTypes) => {
-    dispatch(task.addProperty({ type }));
+    dispatch(addProperty(type));
     onClose();
   };
 

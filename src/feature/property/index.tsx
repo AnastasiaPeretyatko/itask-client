@@ -1,16 +1,25 @@
-import React from 'react';
+import { useCallback } from 'react';
 import propertyRegistry from './PropertyRegistry';
-import { Property as PropertyType } from '@/types/property';
+import { addValue } from '@/store/professorModule/course/course.thunk';
+import { PropertyModel, PropertyValues, TaskModel } from '@/types/course.type';
 
 export type PropertyProps = {
-  property: PropertyType
+  property: PropertyModel;
+  task: TaskModel;
+  onChange?: (value: PropertyValues) => void;
 }
 
-const Property = ({ property, ...props }: PropertyProps) => {
+const Property = ({ task, property, ...props }: PropertyProps) => {
+
+  const onChangeHandler = useCallback((value: PropertyValues) => {
+    addValue({ taskId: task.id, propertyId: property.id, value });
+  }, [property.id, task.id]);
 
   const rest = {
     ...props,
+    task,
     property,
+    onChange: onChangeHandler,
   };
 
   if (!property) {

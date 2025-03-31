@@ -2,7 +2,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import coursesReducer from './course/course.slice';
 import professorCourseReducer from './professor.course/professor.course.slice';
 import courseStore from './professorModule/course/course.slice';
-import taskModule from './task/task.slice';
 import userReducer from './user/user.slice';
 
 export type RootState = ReturnType<typeof store.getState>
@@ -14,7 +13,6 @@ export const store = configureStore({
     user: userReducer,
     courses: coursesReducer,
     professorCourse: professorCourseReducer,
-    taskModule,
     courseStore,
   },
 });

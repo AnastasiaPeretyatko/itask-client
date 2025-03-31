@@ -1,40 +1,48 @@
 import { Flex, Input, ModalBody } from '@chakra-ui/react';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Property from './property';
+import PropertyLine from './property/PropertyLine';
 import AddNewProperty from '@/feature/property/AddNewProperty';
 import { AppDispatch, RootState } from '@/store';
-import { task } from '@/store/task/task.slice';
+import { changeTaskTitle, createTask } from '@/store/professorModule/course/course.slice';
+import { TaskModel } from '@/types/course.type';
 
 const AddTask = () => {
-  const taskModule = useSelector((state:RootState) => state.taskModule);
+  const { course } = useSelector((state:RootState) => state.courseStore);
   const dispatch = useDispatch<AppDispatch>();
+  const [task, setTask] = useState<TaskModel | null>(null);
 
   const changeTitle = (e:ChangeEvent<HTMLInputElement>) => {
-    dispatch(task.addTitle(e.target.value));
+    dispatch(changeTaskTitle({ taskId: task?.id as string, title: e.target.value }));
   };
+
+  useEffect(() => {
+    const result = dispatch(createTask());
+    setTask(result.payload);
+  }, [dispatch]);
 
   return (
     <ModalBody as={'form'}>
       <Input
         variant={'unstyled'}
-        placeholder="Название задачи"
+        placeholder="Название задачи..."
         onChange={changeTitle}
         size={'lg'}
         _placeholder={{ fontSize: '24px' }}
         fontSize={'24px'}
-        mb={6}
-        value={taskModule?.task?.title}
+        mb={2}
+        value={task?.title}
       />
       <Flex
         flexDirection={'column'}
         mb={2}
       >
         {
-          taskModule?.task?.properties ? taskModule?.task?.properties.map((property) => (
-            <Property
+          course?.properties ? course.properties.map((property) => (
+            <PropertyLine
               key={property.id}
               property={property}
+              task={task as TaskModel}
             />
           )) : null
         }

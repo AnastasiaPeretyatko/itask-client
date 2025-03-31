@@ -83,6 +83,33 @@ const circle = defineStyle({
   opacity: 0.5,
 });
 
+const wrapper = defineStyle({
+  width: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  padding: 3,
+  background: 'background.main',
+  borderRadius: 'lg',
+  boxShadow: 'md',
+});
+
+const property_modal = defineStyle({
+  position: 'relative',
+  width: 'full',
+  height: 'full',
+  cursor: 'pointer',
+  display: 'flex',
+  flex: 'wrap',
+  flexDirection: 'row',
+  alignItems: 'center',
+  gap: 1,
+  padding: 1,
+  borderRadius: 3,
+  _hover: {
+    background: 'button.neutral.bgDarker05',
+  },
+});
+
 export const containerTheme = defineStyleConfig({
   baseStyle,
   variants: {
@@ -93,5 +120,7 @@ export const containerTheme = defineStyleConfig({
     property_label,
     column_board,
     circle,
+    wrapper,
+    property_modal,
   },
 });
