@@ -110,6 +110,31 @@ const property_modal = defineStyle({
   },
 });
 
+const property_title = defineStyle({
+  display: 'flex',
+  alignItems: 'center',
+  minW: '180px',
+  height: '100%',
+  color: 'text.pale',
+  overflow: 'hidden',
+  gap: 1,
+  padding: 1,
+  borderRadius: 3,
+  cursor: 'pointer',
+
+  '& p': {
+    fontSize: 'sm',
+    fontWeight: '500',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+
+  _hover: {
+    background: 'button.neutral.bgDarker05',
+  },
+});
+
 export const containerTheme = defineStyleConfig({
   baseStyle,
   variants: {
@@ -122,5 +147,6 @@ export const containerTheme = defineStyleConfig({
     circle,
     wrapper,
     property_modal,
+    property_title,
   },
 });

@@ -29,6 +29,7 @@ const Modal = ({ title, children, action, height, ...rest }: Props) => {
             title={title}
             stateSizeWindow={isFullSizeWindow}
             setIsFullSizeWindow={setIsFullSizeWindow.toggle}
+            isChangeSize
           />
           {React.cloneElement(children, { onClose })}
         </ModalContent>

@@ -1,37 +1,38 @@
-import { useState } from 'react';
+import { Container } from '@chakra-ui/react';
+import { useCallback, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { PropertyProps } from '.';
-import Labeled from '@/components/assets/ui/Labled';
-import Select from '@/components/assets/ui/multiselect/Select';
-import Tag from '@/components/assets/ui/multiselect/Tag';
+import { Multiselect } from '@/components/assets/ui/multiselect/Multiselect';
+import { OptionType } from '@/components/assets/ui/multiselect/Option';
+import { AppDispatch } from '@/store';
+import { addOption } from '@/store/professorModule/course/course.thunk';
 
 type StatusProperty = PropertyProps
 
-const StatusProperty = ({ property }: StatusProperty) => {
-  const [value, setValue] = useState(property.value);
+const StatusProperty = ({ task, property }: StatusProperty) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const [localValue, setLocalValue] = useState((task.values[property.id] || []) as string[]);
 
-  const options = [
-    { name: 'To do', id: 'todo' },
-    { name: 'In progress', id: 'in_progress' },
-    { name: 'Done', id: 'done' },
-  ];
+  const setOptions = useCallback((options: OptionType[]) => {
+    dispatch(addOption({ propertyId: property.id, options }));
+  }, [dispatch, property.id]);
 
-  const onChangeOption = (option: { name: string; id: string }) => {
-    setValue(option);
-  };
+  useEffect(() => {
+    setLocalValue(task.values[property.id] as string[] || []);
+  }, [property, task.values]);
 
   return (
-    <Labeled
-      label="Status"
-      isModal
-    >
-      <Select
-        localValue={value}
-        options={options}
-        renderItem={Tag}
-        renderOption={Tag}
-        onChange={onChangeOption}
+    <Container variant={'property_modal'}>
+      <Multiselect
+        value={localValue}
+        options={(property.options || []) as OptionType[]}
+        tagType="withDot"
+        onOptionsChange={setOptions}
+        onChange={setLocalValue}
+        selectionPlaceholder="Select option"
+        propertyId={property.id}
       />
-    </Labeled>
+    </Container>
   );
 };
 

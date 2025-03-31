@@ -25,10 +25,10 @@ const Tag = ({ onClose, type, size, closable, color, dotColor, label, selected, 
       {...props}
       variant={'property_tag'}
       size={size}
-      background={theColor}
+      background={`${theColor}.200`}
       onClick={onClick}
     >
-      {type === 'withDot' ? <DotIcon/> : null}
+      {type === 'withDot' ? <DotIcon color={`${theColor}.400`}/> : null}
       <TagLabel>{label}</TagLabel>
       {closable ? <TagCloseButton onClick={onClose}/> : null}
     </ChakraTag>

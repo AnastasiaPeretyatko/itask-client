@@ -1,4 +1,4 @@
-import { Box, HStack, Text } from '@chakra-ui/react';
+import { HStack, Text } from '@chakra-ui/react';
 import React, { forwardRef } from 'react';
 import { RenderOptionType } from './Multiselect';
 import { OptionType } from './Option';
@@ -12,7 +12,7 @@ type SelectedOptionsProps<T> = {
   onClick?: () => void;
 };
 
-export const SelectedOptions = forwardRef<HTMLDivElement, SelectedOptionsProps<T>>(
+export const SelectedOptions = forwardRef<HTMLDivElement, SelectedOptionsProps<unknown>>(
   ({ options, renderOption, selectionPlaceholder, tagType, onClick }, ref) => {
     if (!options.length && selectionPlaceholder) {
       return (

@@ -37,6 +37,7 @@ const baseStyle = definePartsStyle({
   body: {
     paddingX: 24,
     paddingY: 2,
+    height: 'calc(100% - 144px)', //TODO применять только для задач
   },
 });
 

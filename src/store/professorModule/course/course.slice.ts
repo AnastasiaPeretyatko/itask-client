@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { v4 as uuid } from 'uuid';
 import { addOption, addProperty, addValue, fetchCourse, getCoursesForProfessorThunk } from './course.thunk';
-import { TaskModel, TCourse } from '@/types/course.type';
+import { PropertyModel, TaskModel, TCourse } from '@/types/course.type';
 
 type TInitialState = {
   courses: TCourse[];
@@ -38,6 +38,10 @@ export const courseStore = createSlice({
       const { taskId, title } = payload;
       state.course.tasks = state.course.tasks.map((task) => task.id === taskId ? { ...task, title } : task);
     },
+    setTitleProperty: (state, { payload }: {payload : {property: PropertyModel}}) => {
+      const { property } = payload;
+      state.course.properties = state.course.properties.map((p) => p.id === property.id ? property : p);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -70,6 +74,6 @@ export const courseStore = createSlice({
   },
 });
 
-export const { createTask, changeTaskTitle } = courseStore.actions;
+export const { createTask, changeTaskTitle, setTitleProperty } = courseStore.actions;
 
 export default courseStore.reducer;

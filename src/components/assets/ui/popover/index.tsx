@@ -4,6 +4,7 @@ import React from 'react';
 type Props = {
   disclosureContent: React.ReactNode
   children: React.ReactNode
+  width?: string | number | 'full'
 } & PopoverProps
 
 const Popover = ({ children, disclosureContent, placement = 'bottom-start', ...props }: Props) => {

@@ -1,6 +1,6 @@
-import { HStack, Text } from '@chakra-ui/react';
-import PropertyIcon from './PropertyIcon';
-import Property from '.';
+import { HStack } from '@chakra-ui/react';
+import Property from '..';
+import Title from './Title';
 import { PropertyModel, TaskModel } from '@/types/course.type';
 
 type Props = {
@@ -14,18 +14,10 @@ const PropertyLine = ({ property, task }: Props) => {
       gap={2}
       height={'34px'}
     >
-      <HStack
-        minW={'160px'}
-        color={'text.pale'}
-        fontSize={'sm'}
-      >
-        <PropertyIcon type={property.type}/>
-        <Text textTransform={'capitalize'}>{property.title}</Text>
-      </HStack>
+      <Title property={property}/>
       <Property
         property={property}
         task={task}
-
       />
     </HStack>
   );

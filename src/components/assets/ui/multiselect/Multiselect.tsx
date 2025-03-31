@@ -151,6 +151,7 @@ export const Multiselect = React.memo(<T extends OptionType<unknown>>({
       onOpen={onOpen}
       placement="bottom-start"
       initialFocusRef={initialFocusRef}
+      width={'full'}
       disclosureContent={
         <SelectedOptions
           options={selectedOptions}

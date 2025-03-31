@@ -3,9 +3,9 @@ import { createMultiStyleConfigHelpers } from '@chakra-ui/react';
 
 const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpers(parts.keys);
 
-const baseStyle = definePartsStyle({
+const baseStyle = definePartsStyle((props) => ({
   popper: {
-    width: 'full', //TODO переместить в поповер чтобы можно было контролировать ширину
+    width: props.width || 'auto',
   },
   content: {
     borderRadius: 8,
@@ -16,6 +16,6 @@ const baseStyle = definePartsStyle({
     overflow: 'auto',
     width: 'full',
   },
-});
+}));
 
 export const popoverTheme = defineMultiStyleConfig({ baseStyle });

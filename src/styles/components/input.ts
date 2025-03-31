@@ -41,7 +41,20 @@ const property = definePartsStyle({
   },
 });
 
+const title = definePartsStyle({
+  field: {
+    fontWeight: 700,
+    fontSize: '40px',
+    outline: 'unset',
+    padding: 0,
+    _placeholder: {
+      color: 'input.placholder',
+
+    },
+  },
+});
+
 export const inputTheme = defineMultiStyleConfig({
   baseStyle,
-  variants: { search, property },
+  variants: { search, property, title },
 });

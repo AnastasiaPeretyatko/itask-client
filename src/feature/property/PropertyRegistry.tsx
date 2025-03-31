@@ -1,4 +1,6 @@
 import { ComponentType } from 'react';
+import CheckboxProperty from './CheckboxProperty';
+import PeopleProperty from './PeopleProperty/PeopleProperty';
 import SelectProperty from './SelectProperty';
 import StatusProperty from './StatusProperty';
 import TextProperty from './TextProperty';
@@ -50,19 +52,20 @@ const propertyRegistry: PropertyRegistryType = {
     component: SelectProperty,
     extraProps: { multiselect: true },
   },
-  // [PropertyTypes.Checkbox]: {
-  //   components: <span></span>,
-  // },
+  [PropertyTypes.Checkbox]: {
+    component: CheckboxProperty,
+  },
+  [PropertyTypes.Person]: {
+    component: PeopleProperty,
+  },
+  [PropertyTypes.People]: {
+    component: PeopleProperty,
+    extraProps: { multiselect: true },
+  },
   // [PropertyTypes.Url]: {
   //   components: <span></span>,
   // },
   // [PropertyTypes.Date]: {
-  //   components: <span></span>,
-  // },
-  // [PropertyTypes.Person]: {
-  //   components: <span></span>,
-  // },
-  // [PropertyTypes.People]: {
   //   components: <span></span>,
   // },
   // [PropertyTypes.Files]: {

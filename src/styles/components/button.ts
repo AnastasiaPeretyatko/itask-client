@@ -23,7 +23,7 @@ const auth = defineStyle({
 
 const primary = defineStyle({
   bg: 'primary.purple',
-  color: 'sidebar.hoverText',
+  color: 'white',
   _hover: {
     bg: 'secondary.purple',
   },
@@ -139,7 +139,15 @@ const filter = defineStyle({
   },
 });
 
+const secondary = defineStyle({
+  border: '1px solid',
+  borderColor: 'input.outline',
+  _hover: {
+    background: 'button.neutral.bgDarker05',
+  },
+});
+
 export const buttonTheme = defineStyleConfig({
   baseStyle,
-  variants: { auth, sidebar, primary, day, iconButton, openSidebar, new_record, filter },
+  variants: { auth, sidebar, primary, day, iconButton, openSidebar, new_record, filter, secondary },
 });

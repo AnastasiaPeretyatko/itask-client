@@ -32,6 +32,7 @@ const AddNewProperty = () => {
       onOpen={onOpen}
       initialFocusRef={firstFieldRef}
       flip={false}
+      width={40}
       disclosureContent={
         <Button
           variant={'new_record'}

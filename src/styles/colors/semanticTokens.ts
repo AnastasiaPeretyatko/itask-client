@@ -17,6 +17,7 @@ export const semanticTokens = {
     bg: { _dark: 'black', _light: 'white.300' },
     input: {
       outline: { _dark: 'whiteAlpha.200', _light: 'blackAlpha.300' },
+      placholder: { _dark: 'whiteAlpha.200', _light: '#e1e1e0' },
     },
     selector: {
       bg: { _dark: '#2e3337', _light: 'white.100' },
