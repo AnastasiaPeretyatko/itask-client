@@ -6,9 +6,10 @@ type Props = {
   title: string;
   children: JSX.Element
   action: JSX.Element
+  height?: string
 }
 
-const Modal = ({ title, children, action, ...rest }: Props) => {
+const Modal = ({ title, children, action, height, ...rest }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [ isFullSizeWindow, setIsFullSizeWindow ] = useBoolean();
 
@@ -19,11 +20,11 @@ const Modal = ({ title, children, action, ...rest }: Props) => {
       <ChakraModal
         isOpen={isOpen}
         onClose={onClose}
-        size={isFullSizeWindow ? 'full' : 'xl'}
+        size={isFullSizeWindow ? 'full' : '4xl'}
         isCentered
       >
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent height={height || 'unset'}>
           <Header
             title={title}
             stateSizeWindow={isFullSizeWindow}
