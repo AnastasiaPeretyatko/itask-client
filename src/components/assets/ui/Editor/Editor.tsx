@@ -1,7 +1,7 @@
 import { BlockNoteEditor, locales, PartialBlock } from '@blocknote/core';
 import { BlockNoteView } from '@blocknote/mantine';
 import { useCreateBlockNote } from '@blocknote/react';
-import { Box, Skeleton, useColorMode } from '@chakra-ui/react';
+import { Skeleton, useColorMode } from '@chakra-ui/react';
 import '@blocknote/core/fonts/inter.css';
 import '@blocknote/mantine/style.css';
 import dynamic from 'next/dynamic';
