@@ -1,10 +1,9 @@
-import { Box, Input, useBoolean, useOutsideClick } from '@chakra-ui/react';
+import { Box, Container, Input, useBoolean, useOutsideClick } from '@chakra-ui/react';
 import { KeyboardEvent, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { PropertyProps } from '.';
-import Labeled from '@/components/assets/ui/Labled';
 import { AppDispatch } from '@/store';
-import { task } from '@/store/task/task.slice';
+import { addValue } from '@/store/professorModule/course/course.thunk';
 
 export type TextPropertyType = {
   // align?: 'left' | 'right' | 'center';
@@ -14,57 +13,74 @@ export type TextPropertyType = {
   type?: 'number' | 'text' | 'file'
 } & PropertyProps;
 
-const TextProperty = ({ property, type = 'text' }: TextPropertyType) => {
+const TextProperty = ({ property, type = 'text', task }: TextPropertyType) => {
   const dispatch = useDispatch<AppDispatch>();
-  const [value, setValue] = useState(property.value || '');
+  const [value, setValue] = useState(task.values[property.id] as string);
   const [isEdit, setIsEdit] = useBoolean(false);
-  const ref = useRef(null);
+  const ref = useRef<HTMLInputElement>(null);
 
   useOutsideClick({
     ref: ref,
-    handler:  () => {
-      setIsEdit.off();
-      saveProperty();
-    },
+    handler: () => save,
   });
 
-  const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter'){
-      setIsEdit.off();
-    }
+  const save = () => {
+    dispatch(addValue({ taskId: task.id, propertyId: property.id, value }));
+    setIsEdit.off();
   };
 
-  const saveProperty = () => {
-    dispatch(task.changeProperty({ property: { ...property, value } }));
+  const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    switch (e.key) {
+    case 'Escape':
+      setIsEdit.off();
+      break;
+    case 'Enter':
+      save();
+      break;
+    }
   };
 
   const Edit = () => {
     return (
       <Input
+        autoFocus
         ref={ref}
         value={value}
         onKeyDown={onKeyDown}
         onChange={(e) => setValue(e.target.value)}
         variant={'property'}
+        height={'full'}
+        boxShadow={'md'}
         type={type}
       />
     );
   };
 
+  // useEffect(() => {
+  //   if(isEdit && ref.current){
+  //     ref.current.focus();
+  //   }
+  // }, [isEdit]);
+
   return (
-    <Labeled label="Текст">
+    <Container variant={'property_modal'}>
       {
         isEdit ? <Edit /> : (
           <Box
             fontSize={'sm'}
             onClick={setIsEdit.on}
-            paddingY={2}
+            padding={2}
             cursor={'pointer'}
             width={'full'}
+            height={'full'}
+            _hover={{
+              background: 'button.neutral.bgDarker05',
+              borderRadius: 3,
+            }}
           >{value}</Box>
         )
       }
-    </Labeled>
+    </Container>
   );
 };
 
