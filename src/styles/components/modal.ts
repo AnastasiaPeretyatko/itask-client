@@ -35,9 +35,11 @@ const baseStyle = definePartsStyle({
     },
   },
   body: {
-    paddingX: 24,
-    paddingY: 2,
+    padding: 0,
     height: 'calc(100% - 144px)', //TODO применять только для задач
+    overflowY: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
   },
 });
 

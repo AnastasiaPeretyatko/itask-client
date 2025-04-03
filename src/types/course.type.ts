@@ -1,3 +1,4 @@
+import { DateRange } from 'react-day-picker';
 import { PropertyTypes } from '@/feature/property/PropertyRegistry';
 
 export type ProfessorT = {
@@ -44,7 +45,7 @@ export type PropertyModel = {
   visible: boolean;
 }
 
-export type PropertyValues = string | number | string[] | undefined | boolean| null;
+export type PropertyValues = string | number | string[] | undefined | boolean | null | Date | DateRange;
 
 export type TaskModel = {
   id: string;

@@ -1,4 +1,4 @@
-import { Button, HStack, IconButton, ModalCloseButton, ModalHeader, Text } from '@chakra-ui/react';
+import { HStack, IconButton, ModalCloseButton, ModalHeader, Text } from '@chakra-ui/react';
 import React from 'react';
 import { ArrowsAngleContract } from '../../icon/ArrowsAngleContract';
 import { ArrowsAngleExpand } from '../../icon/ArrowsAngleExpand';
@@ -29,13 +29,7 @@ const Header = ({ title, icon, isChangeSize, stateSizeWindow, setIsFullSizeWindo
         {icon}
         <Text>{title}</Text>
       </HStack>
-      <HStack>
-        <Button
-          size={'sm'}
-          variant={'primary'}
-        >Опубликовать</Button>
-        <ModalCloseButton />
-      </HStack>
+      <ModalCloseButton />
     </ModalHeader>
   );
 };

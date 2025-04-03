@@ -92,10 +92,34 @@ const course_tab = definePartsStyle({
   },
 });
 
+const task_modal = definePartsStyle({
+  root: {
+    height: 'full',
+  },
+  tablist: {
+    paddingX: 24,
+    paddingY: 2,
+    borderBottom: '1px solid',
+    borderColor: 'divider',
+  },
+  tab: {
+    fontSize: 'sm',
+    fontWeight: 500,
+    color: 'text.pale',
+    _selected: {
+      color: 'black',
+    },
+  },
+  tabpanel: {
+    paddingX: 24,
+  },
+});
+
 export const tabsTheme = defineMultiStyleConfig({
   variants: {
     notifications,
     dashboard,
     course_tab,
+    task_modal,
   },
 });

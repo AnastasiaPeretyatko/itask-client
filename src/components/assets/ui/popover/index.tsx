@@ -5,9 +5,11 @@ type Props = {
   disclosureContent: React.ReactNode
   children: React.ReactNode
   width?: string | number | 'full'
+  maxHeight?: string | number
+  contentStyle?: React.CSSProperties
 } & PopoverProps
 
-const Popover = ({ children, disclosureContent, placement = 'bottom-start', ...props }: Props) => {
+const Popover = ({ children, disclosureContent, placement = 'bottom-start', maxHeight = '20vw', contentStyle = {}, ...props }: Props) => {
   return (
     <PopoverChakra
       placement={placement}
@@ -16,7 +18,10 @@ const Popover = ({ children, disclosureContent, placement = 'bottom-start', ...p
       <PopoverTrigger>
         {disclosureContent}
       </PopoverTrigger>
-      <PopoverContent>
+      <PopoverContent
+        maxHeight={maxHeight}
+        sx={contentStyle}
+      >
         {children}
       </PopoverContent>
     </PopoverChakra>

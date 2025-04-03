@@ -1,13 +1,13 @@
 import { Button, Heading, HStack, Skeleton, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, Tag, VStack, Wrap } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from '@/components/assets/ui/modal';
 import CourseDescription from '@/components/feature/professor/course/description/CourseDescription';
 import CourseMembers from '@/components/feature/professor/course/members/CourseMembers';
+import AddTask from '@/components/feature/professor/course/tasks/AddTask/AddTask';
 import CourseTaskBoard from '@/components/feature/professor/course/tasks/CourseTaskBoard';
 import AppLayout from '@/components/layout/AppLayout';
-import AddTask from '@/feature/AddTask';
 import { AppDispatch, RootState } from '@/store';
 import { fetchCourse } from '@/store/professorModule/course/course.thunk';
 
@@ -40,15 +40,14 @@ const CoursePage = () => {
             <Heading>{courseStore.course.name}</Heading>
           </HStack>
           <Modal
-            title="Добавить задание"
             height="80%"
             action={ <Button
               size={'sm'}
               variant={'primary'}
             >Добавить задание</Button> }
-          >
-            <AddTask/>
-          </Modal>
+            isTask
+            renderBody={(props) => <AddTask {...props} />}
+          />
         </Skeleton>
         <Skeleton
           isLoaded={!courseStore.isLoading}

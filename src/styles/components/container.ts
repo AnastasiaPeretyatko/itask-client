@@ -102,6 +102,7 @@ const property_modal = defineStyle({
   flex: 'wrap',
   flexDirection: 'row',
   alignItems: 'center',
+  fontSize: 'sm',
   gap: 1,
   padding: 1,
   borderRadius: 3,

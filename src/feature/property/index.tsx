@@ -6,6 +6,7 @@ import { PropertyModel, PropertyValues, TaskModel } from '@/types/course.type';
 export type PropertyProps = {
   property: PropertyModel;
   task: TaskModel;
+  size?: 'xs' | 'sm' | 'md' | 'lg'
   onChange?: (value: PropertyValues) => void;
 }
 

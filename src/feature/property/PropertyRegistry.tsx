@@ -1,5 +1,6 @@
 import { ComponentType } from 'react';
 import CheckboxProperty from './CheckboxProperty';
+import DateProperty from './DateProperty/DateProperty';
 import PeopleProperty from './PeopleProperty/PeopleProperty';
 import SelectProperty from './SelectProperty';
 import StatusProperty from './StatusProperty';
@@ -65,9 +66,9 @@ const propertyRegistry: PropertyRegistryType = {
   // [PropertyTypes.Url]: {
   //   components: <span></span>,
   // },
-  // [PropertyTypes.Date]: {
-  //   components: <span></span>,
-  // },
+  [PropertyTypes.Date]: {
+    component: DateProperty,
+  },
   // [PropertyTypes.Files]: {
   //   components: <span></span>,
   // },

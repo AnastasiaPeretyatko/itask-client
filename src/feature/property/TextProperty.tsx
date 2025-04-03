@@ -63,7 +63,6 @@ const TextProperty = ({ property, type = 'text', task }: TextPropertyType) => {
           <Box
             fontSize={'sm'}
             onClick={setIsEdit.on}
-            padding={2}
             cursor={'pointer'}
             width={'full'}
             height={'full'}

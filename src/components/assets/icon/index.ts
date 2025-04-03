@@ -29,3 +29,9 @@ export * from './PersonIcon';
 export * from './PeopleIcon';
 
 export * from './DotIcon';
+
+export * from './EmailIcon';
+
+export * from './DotsVerticalIcon';
+
+export * from './StarIcon';
