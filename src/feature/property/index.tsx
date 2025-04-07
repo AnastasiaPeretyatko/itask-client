@@ -1,5 +1,7 @@
 import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import propertyRegistry from './PropertyRegistry';
+import { AppDispatch } from '@/store';
 import { addValue } from '@/store/professorModule/course/course.thunk';
 import { PropertyModel, PropertyValues, TaskModel } from '@/types/course.type';
 
@@ -11,10 +13,11 @@ export type PropertyProps = {
 }
 
 const Property = ({ task, property, ...props }: PropertyProps) => {
+  const dispatch = useDispatch<AppDispatch>();
 
   const onChangeHandler = useCallback((value: PropertyValues) => {
-    addValue({ taskId: task.id, propertyId: property.id, value });
-  }, [property.id, task.id]);
+    dispatch(addValue({ taskId: task.id, propertyId: property.id, value }));
+  }, [dispatch, property.id, task]);
 
   const rest = {
     ...props,

@@ -37,7 +37,7 @@ const CoursePage = () => {
           gap={4}
         >
           <HStack>
-            <Heading>{courseStore.course.name}</Heading>
+            <Heading>{courseStore.course?.name}</Heading>
           </HStack>
           <Modal
             height="80%"

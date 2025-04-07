@@ -54,10 +54,18 @@ export type TaskModel = {
   values: {[id: string]: PropertyValues}
   createdAt?: Date;
   updatedAt?: Date;
+  assignment?: TAssignment
+  creatorId?: string
 }
 
 export type PropertyOptions = {
   id: string;
   label: string;
   color: string | null;
+}
+
+export type TAssignment = {
+  courseId: string;
+  professorId?: string;
+  semesterId?: string
 }

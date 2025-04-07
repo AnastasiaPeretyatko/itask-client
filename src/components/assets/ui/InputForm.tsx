@@ -1,4 +1,4 @@
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import {
   FormControl,
   FormHelperText,
@@ -7,9 +7,9 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-} from '@chakra-ui/react'
-import React, { useMemo, useState } from 'react'
-import { UseFormRegisterReturn } from 'react-hook-form'
+} from '@chakra-ui/react';
+import React, { useMemo, useState } from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
 
 type InputProps = {
   size?: 'sm' | 'md' | 'lg' | 'xl'
@@ -28,10 +28,9 @@ const InputForm = ({
   type = 'text',
   register,
 }: InputProps) => {
-  const [typeInput, setTypeInput] = useState(type)
+  const [typeInput, setTypeInput] = useState(type);
 
   const passwordElement = useMemo(() => {
-    console.log(type)
     if (type === 'password') {
       return (
         <InputRightElement height={'100%'}>
@@ -44,9 +43,9 @@ const InputForm = ({
             }
           />
         </InputRightElement>
-      )
+      );
     }
-  }, [typeInput])
+  }, [type, typeInput]);
 
   return (
     <FormControl size={size}>
@@ -62,7 +61,7 @@ const InputForm = ({
       </InputGroup>
       <FormHelperText>We&apos;ll never share your email.</FormHelperText>
     </FormControl>
-  )
-}
+  );
+};
 
-export default InputForm
+export default InputForm;

@@ -1,16 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { v4 as uuid } from 'uuid';
-import { addOption, addProperty, addValue, fetchCourse, getCoursesForProfessorThunk } from './course.thunk';
+import { addOption, addProperty, addValue, fetchCourse, getAllTaskThunk, getCoursesForProfessorThunk } from './course.thunk';
 import { PropertyModel, TaskModel, TCourse } from '@/types/course.type';
 
 type TInitialState = {
+  temTask: null | TaskModel;
   courses: TCourse[];
-  course: TCourse;
+  course: TCourse | null;
   isLoading: boolean;
 }
 
 const initialState: TInitialState = {
-  course: {} as TCourse,
+  temTask: null,
+  course: null,
   courses: [],
   isLoading: true,
 };
@@ -19,28 +21,42 @@ export const courseStore = createSlice({
   name: 'courses',
   initialState,
   reducers: {
-    createTask: {
-      reducer: (state, { payload }: PayloadAction<TaskModel>) => {
-        if(!state.course.tasks) {state.course.tasks = [];}
-        state.course.tasks.push(payload);
-      },
-      prepare: () => {
-        const task: TaskModel = {
-          id: uuid(),
-          title: '',
-          description: '',
-          values: {},
-        };
-        return { payload: task };
-      },
+    createTask: (state) => {
+      const task: TaskModel = {
+        id: uuid(),
+        title: '',
+        description: '',
+        values: {},
+        creatorId: '783cedb0-4146-4db2-8930-4f4a5e481f47', //TODO добавить пом айди пользователя
+      };
+      state.temTask = task;
     },
-    changeTaskTitle: (state, { payload }: { payload: { taskId: string, title: string } }) => {
-      const { taskId, title } = payload;
-      state.course.tasks = state.course.tasks.map((task) => task.id === taskId ? { ...task, title } : task);
+    changeTaskTitle: (state, action: PayloadAction<string>) => {
+      if(state.temTask && state.temTask.title){
+        state.temTask = { ...state.temTask, title: action.payload };
+      }
     },
     setTitleProperty: (state, { payload }: {payload : {property: PropertyModel}}) => {
       const { property } = payload;
-      state.course.properties = state.course.properties.map((p) => p.id === property.id ? property : p);
+      if(state.course){
+        state.course.properties = state.course.properties.map((p) => p.id === property.id ? property : p);
+      }
+    },
+    removeProperty: (state, action: PayloadAction<string>) => {
+      const propertyId = action.payload;
+      if (state.course?.properties) {
+        state.course.properties = state.course.properties.filter(
+          (p) => p.id !== propertyId,
+        );
+      }
+      if (state.temTask?.values) {
+        delete state.temTask.values[propertyId];
+      }
+    },
+    chengeDescription: (state, action: PayloadAction<string>) => {
+      if(state.temTask){
+        state.temTask = { ...state.temTask, description: action.payload };
+      }
     },
   },
   extraReducers: (builder) => {
@@ -60,20 +76,31 @@ export const courseStore = createSlice({
         state.isLoading = false;
       })
       .addCase(addProperty.fulfilled, (state, { payload }) => {
-        if(!state.course.properties) {state.course.properties = [];}
-        state.course.properties.push(payload);
+        if(state.course){
+          if(!state.course?.properties) {state.course.properties = [];}
+          state.course?.properties.push(payload);
+        }
       })
       .addCase(addValue.fulfilled, (state, { payload }) => {
-        const { newValue, taskId } = payload;
-        state.course.tasks = state.course.tasks.map((task) => task.id === taskId ? { ...task, values: { ...task.values, ...newValue } } : task);
+        const { newValue } = payload;
+        if(!state.temTask){return;}
+        state.temTask = { ...state.temTask, values: { ...state.temTask.values, ...newValue } };
       })
       .addCase(addOption.fulfilled, (state, { payload }) => {
         const { newOption, propertyId } = payload;
-        state.course.properties = state.course.properties.map((p) => p.id === propertyId ? { ...p, options: [...(p.options || []), newOption ] } : p);
+        if(state.course && state.course?.properties){
+          state.course.properties = state.course?.properties.map((p) => p.id === propertyId ? { ...p, options: [...(p.options || []), newOption ] } : p);
+        }
+      })
+      .addCase(getAllTaskThunk.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        if(state.course){
+          state.course.tasks = payload;
+        }
       });
   },
 });
 
-export const { createTask, changeTaskTitle, setTitleProperty } = courseStore.actions;
+export const { createTask, changeTaskTitle, setTitleProperty, removeProperty, chengeDescription } = courseStore.actions;
 
 export default courseStore.reducer;

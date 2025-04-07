@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import PropertyIcon from '../PropertyIcon';
 import Popover from '@/components/assets/ui/popover';
 import { AppDispatch } from '@/store';
-import { setTitleProperty } from '@/store/professorModule/course/course.slice';
+import { removeProperty, setTitleProperty } from '@/store/professorModule/course/course.slice';
 import { PropertyModel } from '@/types/course.type';
 
 type Props = {
@@ -21,13 +21,17 @@ const Title = ({ property }: Props) => {
   const onChangeTitle = useCallback(() => {
     dispatch(setTitleProperty({ property: { ...property, title } }));
     onClose();
-  }, [property, title]);
+  }, [dispatch, onClose, property, title]);
 
   const onKeyPress = useCallback((e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       onChangeTitle();
     }
   }, [onChangeTitle]);
+
+  const remove = useCallback(() => {
+    dispatch(removeProperty(property.id));
+  },[dispatch, property.id]);
 
 
   return (
@@ -64,7 +68,7 @@ const Title = ({ property }: Props) => {
           />
         </HStack>
         <ListItem>Property visibility</ListItem>
-        <ListItem>Удалить свойство</ListItem>
+        <ListItem onClick={remove}>Удалить свойство</ListItem>
       </List>
     </Popover>
   );

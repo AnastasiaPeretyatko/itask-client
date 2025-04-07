@@ -1,7 +1,14 @@
 import { Avatar, AvatarGroup, Box, Card, Divider, Heading, HStack, Tag, Text } from '@chakra-ui/react';
 import { MessageIcon, PaperClipIcon } from '@/components/assets/icon';
+import { TaskModel } from '@/types/course.type';
+import { getTextFromEditor } from '@/utils/getTextFromEditor';
 
-const CardTask = () => {
+type Props = {
+  task: TaskModel
+}
+
+const CardTask = ({ task }: Props) => {
+  const description: string[] = getTextFromEditor(task.description);
   return (
     <Card
       padding={3}
@@ -11,11 +18,11 @@ const CardTask = () => {
         <Tag>medium</Tag>
         <Tag>medium</Tag>
       </HStack>
-      <Heading size={'sm'}> Emplayee Details</Heading>
+      <Heading size={'sm'}>{task.title}</Heading>
       <Text
         size={'sm'}
         color={'text.pale'}
-      >Create a page where there is infor...</Text>
+      >{description}</Text>
       <Divider borderColor={'divider'}/>
       <HStack justify={'space-between'}>
         <AvatarGroup

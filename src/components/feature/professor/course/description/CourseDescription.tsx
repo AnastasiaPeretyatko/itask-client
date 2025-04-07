@@ -9,7 +9,7 @@ const CourseDescription = () => {
 
   return (
     <Skeleton isLoaded={!courseStore.isLoading}>
-      <Editor initialContent={courseStore.course.description}/>
+      <Editor initialContent={courseStore.course?.description}/>
     </Skeleton>
   );
 };

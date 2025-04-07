@@ -1,9 +1,6 @@
 import { Box, Container, Input, useBoolean, useOutsideClick } from '@chakra-ui/react';
 import { KeyboardEvent, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { PropertyProps } from '.';
-import { AppDispatch } from '@/store';
-import { addValue } from '@/store/professorModule/course/course.thunk';
 
 export type TextPropertyType = {
   // align?: 'left' | 'right' | 'center';
@@ -13,8 +10,7 @@ export type TextPropertyType = {
   type?: 'number' | 'text' | 'file'
 } & PropertyProps;
 
-const TextProperty = ({ property, type = 'text', task }: TextPropertyType) => {
-  const dispatch = useDispatch<AppDispatch>();
+const TextProperty = ({ property, type = 'text', task, onChange }: TextPropertyType) => {
   const [value, setValue] = useState(task.values[property.id] as string);
   const [isEdit, setIsEdit] = useBoolean(false);
   const ref = useRef<HTMLInputElement>(null);
@@ -25,14 +21,15 @@ const TextProperty = ({ property, type = 'text', task }: TextPropertyType) => {
   });
 
   const save = () => {
-    dispatch(addValue({ taskId: task.id, propertyId: property.id, value }));
+    // dispatch(addValue({ taskId: task.id, propertyId: property.id, value }));
+    onChange?.(value);
     setIsEdit.off();
   };
 
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     switch (e.key) {
     case 'Escape':
-      setIsEdit.off();
+      save();
       break;
     case 'Enter':
       save();
@@ -44,7 +41,6 @@ const TextProperty = ({ property, type = 'text', task }: TextPropertyType) => {
     return (
       <Input
         autoFocus
-        ref={ref}
         value={value}
         onKeyDown={onKeyDown}
         onChange={(e) => setValue(e.target.value)}

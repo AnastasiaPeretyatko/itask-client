@@ -2,7 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { v4 as uuid } from 'uuid';
 import { PropertyTypes } from '@/feature/property/PropertyRegistry';
 import { getCoursesForProfessor, getOneCourse } from '@/services/course.service';
-import { PropertyModel, PropertyOptions, PropertyValues, TaskModel, TCourse } from '@/types/course.type';
+import { createTaskRequest, getAllTaskRequest } from '@/services/task.service';
+import { PropertyModel, PropertyOptions, PropertyValues, TaskModel, TAssignment, TCourse } from '@/types/course.type';
 import { handleThunkError } from '@/utils/handleThunkError';
 
 export const getCoursesForProfessorThunk = createAsyncThunk<TCourse[], string,
@@ -20,7 +21,6 @@ export const getCoursesForProfessorThunk = createAsyncThunk<TCourse[], string,
 
 export const fetchCourse = createAsyncThunk<TCourse, string, { rejectValue: string }>('course.get', async (id, { rejectWithValue }) => {
   try {
-    console.log(id);
     const { data } = await getOneCourse(id);
     return data;
   } catch (error) {
@@ -73,5 +73,37 @@ export const addOption = createAsyncThunk<
       return handleThunkError(error, rejectWithValue);
     }
   });
+
+export const createTaskThunk = createAsyncThunk<
+{task: TaskModel, message: string},
+{data: {task: TaskModel, assignment: TAssignment}},
+{
+  rejectValue: { statusCode: number; message: string }
+  fulfilled: { task: TaskModel, message: string }
+}>
+('task.create', async ({ data: { task, assignment } }, { rejectWithValue, fulfillWithValue }) => {
+  try {
+    const { data: { data, message } } = await createTaskRequest({ task, assignment });
+    return fulfillWithValue({
+      task: data,
+      message,
+    });
+  } catch (error) {
+    return handleThunkError(error, rejectWithValue);
+  }
+});
+
+export const getAllTaskThunk = createAsyncThunk<
+TaskModel[],
+string,
+{ rejectValue: { statusCode: number; message: string }}>
+('task.create', async (courseId, { rejectWithValue }) => {
+  try {
+    const { data } = await getAllTaskRequest(courseId);
+    return data;
+  } catch (error) {
+    return handleThunkError(error, rejectWithValue);
+  }
+});
 
 export const course = { getCoursesForProfessorThunk, fetchCourse, addProperty };

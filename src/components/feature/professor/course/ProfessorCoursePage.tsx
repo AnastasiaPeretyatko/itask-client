@@ -35,7 +35,7 @@ const ProfessorCoursePage = () => {
       label:'archive',
     },
   ];
-  console.log(courses);
+
   return (
 
     <VStack
