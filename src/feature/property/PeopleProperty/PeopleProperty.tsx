@@ -16,9 +16,10 @@ export type PeoplePropertyProps = {
   multiselect?: boolean;
 } & PropertyProps;
 
-const PeopleProperty = ({ task, property, multiselect }: PeoplePropertyProps) => {
+const PeopleProperty = ({ task, property, multiselect, mode }: PeoplePropertyProps) => {
   const [localValue, setLocalValue] = useState((task.values[property.id] || []) as string[]);
   const [options, setOptions] = useState<PeopleOptionType[]>([]);
+  const isModal = mode === 'property';
 
   useEffect(() => {
     setOptions((property?.options as PeopleOptionType[]) ?? []);
@@ -29,7 +30,7 @@ const PeopleProperty = ({ task, property, multiselect }: PeoplePropertyProps) =>
   }, [property.id, task.values]);
 
   return (
-    <Container variant={'property_modal'}>
+    <Container variant={isModal ? 'property_modal' : 'property_card'}>
       <Multiselect
         value={localValue}
         options={options}

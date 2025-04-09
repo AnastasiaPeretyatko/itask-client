@@ -6,9 +6,10 @@ import { PropertyModel, TaskModel } from '@/types/course.type';
 type Props = {
   property: PropertyModel
   task: TaskModel
+  readOnly?: boolean
 }
 
-const PropertyLine = ({ property, task }: Props) => {
+const PropertyLine = ({ property, task, readOnly }: Props) => {
   return (
     <HStack
       gap={2}
@@ -18,6 +19,8 @@ const PropertyLine = ({ property, task }: Props) => {
       <Property
         property={property}
         task={task}
+        mode="property"
+        readOnly={readOnly}
       />
     </HStack>
   );

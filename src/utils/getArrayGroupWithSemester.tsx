@@ -8,7 +8,7 @@ export const getArrayGroupWithSemester = (data: {group: Group, semesters: Semest
     const { group, semesters } = el;
 
     // Добавляем группу
-    groups.push({ id: group.id, label: group.groupCode });
+    groups.push({ id: group.id, label: group.groupCode, color: 'green' });
 
     // Инициализируем массив для группы, если его еще нет
     if (!newSemesters[group.id]) {
@@ -25,7 +25,7 @@ export const getArrayGroupWithSemester = (data: {group: Group, semesters: Semest
       );
 
       if (!isDuplicate) {
-        newSemesters[group.id].push({ id: s.id, label: s.name });
+        newSemesters[group.id].push({ id: s.id, label: s.name, color: 'cyan' });
       }
     });
   });

@@ -10,10 +10,14 @@ export type TextPropertyType = {
   type?: 'number' | 'text' | 'file'
 } & PropertyProps;
 
-const TextProperty = ({ property, type = 'text', task, onChange }: TextPropertyType) => {
+const TextProperty = ({ property, type = 'text', task, onChange, mode, readOnly }: TextPropertyType) => {
   const [value, setValue] = useState(task.values[property.id] as string);
   const [isEdit, setIsEdit] = useBoolean(false);
   const ref = useRef<HTMLInputElement>(null);
+
+  console.log({ mode });
+
+  const isModal = mode === 'property';
 
   useOutsideClick({
     ref: ref,
@@ -53,9 +57,9 @@ const TextProperty = ({ property, type = 'text', task, onChange }: TextPropertyT
   };
 
   return (
-    <Container variant={'property_modal'}>
+    <Container variant={isModal && !readOnly ? 'property_modal' : 'property_card'}>
       {
-        isEdit ? <Edit /> : (
+        isModal && !readOnly && isEdit ? <Edit /> : (
           <Box
             fontSize={'sm'}
             onClick={setIsEdit.on}

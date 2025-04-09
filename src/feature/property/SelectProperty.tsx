@@ -14,11 +14,13 @@ export type SelectPropertyProps = {
   multiselect?: boolean;
 } & PropertyProps;
 
-const SelectProperty = ({ multiselect, property, task, onChange }: SelectPropertyProps) => {
+const SelectProperty = ({ multiselect, property, task, onChange, mode }: SelectPropertyProps) => {
   const { course } = useSelector((state: RootState) => state.courseStore);
   const dispatch = useDispatch<AppDispatch>();
   const [localValue, setLocalValue] = useState<string[]>(task.values[property.id] as string[] || []);
   const [options, setOptions] = useState<OptionType[]>(property.options as OptionType[]);
+
+  const isModal = mode === 'property';
 
   const handleChange = useCallback((value: string[]) => {
     setLocalValue(value);
@@ -69,7 +71,7 @@ const SelectProperty = ({ multiselect, property, task, onChange }: SelectPropert
 
 
   return (
-    <Container variant={'property_modal'}>
+    <Container variant={isModal ? 'property_modal' : 'property_card'}>
       <Multiselect
         value={localValue}
         options={(options || []) as OptionType[]}
@@ -79,6 +81,7 @@ const SelectProperty = ({ multiselect, property, task, onChange }: SelectPropert
         selectionPlaceholder="Select"
         propertyId={property.id}
         canCreateOptions
+        isModal={isModal}
       />
     </Container>
   );

@@ -5,9 +5,11 @@ import Header from './header';
 type Props = {
   title?: string;
   renderBody: (props: BodyItemProps) => React.ReactElement;
-  action: JSX.Element
+  action?: JSX.Element
   height?: string
   isTask?: boolean
+  isOpenModal?: boolean
+  onCloseModal?: () => void
 }
 
 export type BodyItemProps = {
@@ -19,17 +21,17 @@ export type BodyItemProps = {
 export type RenderBodyType = React.ReactElement<BodyItemProps>;
 
 
-const Modal = ({ title, renderBody, action, height, isTask, ...rest }: Props) => {
+const Modal = ({ title, renderBody, action, height, isTask, isOpenModal, onCloseModal, ...rest }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [ isFullSizeWindow, setIsFullSizeWindow ] = useBoolean();
 
   return (
     <>
-      {React.cloneElement(action, { onClick: onOpen, ...rest })}
+      {!isOpenModal && action ? React.cloneElement(action, { onClick: onOpen, ...rest }) : null}
 
       <ChakraModal
-        isOpen={isOpen}
-        onClose={onClose}
+        isOpen={isOpenModal || isOpen}
+        onClose={onCloseModal || onClose}
         size={isFullSizeWindow ? 'full' : '4xl'}
         isCentered
       >
@@ -46,7 +48,7 @@ const Modal = ({ title, renderBody, action, height, isTask, ...rest }: Props) =>
             ) : null
           }
           {renderBody({
-            onClose,
+            onClose: onCloseModal || onClose,
             isFullSizeWindow,
             setIsFullSizeWindow: setIsFullSizeWindow.toggle,
           })}

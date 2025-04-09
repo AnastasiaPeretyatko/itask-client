@@ -32,7 +32,8 @@ export const courseStore = createSlice({
       state.temTask = task;
     },
     changeTaskTitle: (state, action: PayloadAction<string>) => {
-      if(state.temTask && state.temTask.title){
+      if(state.temTask){
+        console.log({ action });
         state.temTask = { ...state.temTask, title: action.payload };
       }
     },

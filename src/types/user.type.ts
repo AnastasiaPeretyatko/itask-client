@@ -1,7 +1,7 @@
 export type UserT = {
   id: string
   email: string
-  role: 'professor' | 'student' | 'admin'
+  role: UserRole
   isActivated: boolean
   activationLink: null
   createdAt: Date
@@ -10,4 +10,10 @@ export type UserT = {
   fullNmae: string
   studentId: string | null
   professorId: string | null
+}
+
+export enum UserRole {
+  Professor = 'professor',
+  Student = 'student',
+  Admin = 'admin',
 }

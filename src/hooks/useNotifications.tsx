@@ -1,22 +1,33 @@
 import { useToast } from '@chakra-ui/react';
 import ToastAlert from '@/components/assets/ui/toast/ToastAlert';
 
+type NotificationData = { message: string } | string;
+
 export const useNotifications = () => {
   const toast = useToast();
 
-  const showErrorMessage = (data: {message: string} | string) => {
+  const showNotification = (
+    data: NotificationData,
+    type: 'error' | 'success',
+  ) => {
+    const message = typeof data === 'string' ? data : data.message;
+
     toast({
       position: 'bottom-left',
-      render: () => <ToastAlert message={data?.message ?? data} />,
+      render: () => (
+        <ToastAlert
+          message={message}
+          {...(type === 'error' ? { error: true } : { success: true })}
+        />
+      ),
     });
   };
 
-  const showSuccessMessage = (data: {message: string} | string) => {
-    toast({
-      position: 'bottom-left',
-      render: () => <ToastAlert message={data?.message ?? data} />,
-    });
-  };
+  const showErrorMessage = (data: NotificationData) =>
+    showNotification(data, 'error');
+
+  const showSuccessMessage = (data: NotificationData) =>
+    showNotification(data, 'success');
 
   return { showErrorMessage, showSuccessMessage };
 };

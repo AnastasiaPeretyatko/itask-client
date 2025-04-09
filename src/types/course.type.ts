@@ -34,6 +34,10 @@ export type TCourse = {
   updatedAt: Date;
   properties: PropertyModel[];
   tasks: TaskModel[];
+  learning_form: string | null;
+  language: string | null;
+  assessment_system: string | null;
+  access: string | null;
 }
 
 export type PropertyModel = {

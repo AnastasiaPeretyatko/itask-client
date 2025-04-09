@@ -34,7 +34,7 @@ export type PropertySettingsProps = {
   property: PropertyModel;
   task: TaskModel;
   onChange: (value: PropertyValues) => void;
-  // mode?: 'viewProperty' | 'property';
+  mode?: 'viewProperty' | 'property';
 };
 
 const propertyRegistry: PropertyRegistryType = {

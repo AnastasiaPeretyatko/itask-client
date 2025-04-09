@@ -29,6 +29,8 @@ type MultiselectProps<T> = {
   onSearch?: (term: string) => void;
   canCreateOptions?: boolean;
   propertyId: string;
+  isModal?: boolean;
+  readOnly?: boolean;
 } & PropsWithChildren;
 
 export const Multiselect = React.memo(<T extends OptionType<unknown>>({
@@ -46,6 +48,8 @@ export const Multiselect = React.memo(<T extends OptionType<unknown>>({
   search,
   canCreateOptions,
   propertyId,
+  isModal,
+  readOnly,
 }: MultiselectProps<T>) => {
   const dispatch = useDispatch<AppDispatch>();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -146,7 +150,8 @@ export const Multiselect = React.memo(<T extends OptionType<unknown>>({
 
   return (
     <Popover
-      isOpen={isOpen}
+      // eslint-disable-next-line react/jsx-no-leaked-render
+      isOpen={isModal && isOpen}
       onClose={onClose}
       onOpen={onOpen}
       placement="bottom-start"

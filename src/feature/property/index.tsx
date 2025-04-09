@@ -10,6 +10,8 @@ export type PropertyProps = {
   task: TaskModel;
   size?: 'xs' | 'sm' | 'md' | 'lg'
   onChange?: (value: PropertyValues) => void;
+  mode?: 'viewProperty' | 'property';
+  readOnly?: boolean
 }
 
 const Property = ({ task, property, ...props }: PropertyProps) => {

@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import Circle from '@/components/assets/ui/Circle';
 import InputForm from '@/components/assets/ui/InputForm';
+import { useNotifications } from '@/hooks/useNotifications';
 import { loginRequest } from '@/services/auth.service';
 import { AppDispatch } from '@/store';
 import { settings } from '@/store/user/user.slice';
@@ -15,6 +16,7 @@ type loginType = {
 const AuthPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { register, handleSubmit } = useForm<loginType>();
+  const { showErrorMessage } = useNotifications();
 
   const onSubmit: SubmitHandler<loginType> = async (data) => {
     await loginRequest(data.email, data.password)
@@ -25,7 +27,7 @@ const AuthPage = () => {
 
         window.location.href = '/';
       })
-      .catch((err) => console.log(err));
+      .catch((err) => showErrorMessage(err.response.data.message));
   };
 
   return (

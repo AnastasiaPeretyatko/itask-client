@@ -16,8 +16,7 @@ const property_tag = definePartsStyle({
   label: {
     cursor: 'pointer',
     color: 'text.primary',
-    fontSize: 'sm',
-    padding: 1,
+    fontSize: 'xs',
   },
 });
 

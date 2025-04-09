@@ -1,5 +1,5 @@
 import { Container, Divider, HStack, Input, useDisclosure, VStack } from '@chakra-ui/react';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { DateRange } from 'react-day-picker';
 import { PropertyProps } from '..';
 import WrapperDatePicker from './WrapperDatePicker';
@@ -9,11 +9,12 @@ import Popover from '@/components/assets/ui/popover';
 
 export type DateFieldType = PropertyProps;
 
-const DateProperty = ({ task, property, onChange }: DateFieldType) => {
+const DateProperty = ({ task, property, onChange, mode }: DateFieldType) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [value, setValue] = useState<DateRange | Date>((task.values[property.id] || new Date()) as Date);
   const [endDate, setEndDate] = useState(false);
   const [includeTime, setIncludeTime] = useState(false);
+  const isModal = mode === 'property';
 
   const onChangeDate = (date: DateRange | Date) => {
     setValue(date);
@@ -31,11 +32,17 @@ const DateProperty = ({ task, property, onChange }: DateFieldType) => {
     return !endDate && !('from' in value) ? value : new Date();
   }, [value, endDate]);
 
-  useEffect(()=> {
-    if(!isOpen){
+  const wasOpen = useRef(isOpen);
+
+  useEffect(() => {
+    // Если поповер закрылся, и он был открыт ранее
+    if (wasOpen.current && !isOpen) {
       onChange?.(value);
     }
-  }, [isOpen, onChange, value]);
+
+    // Обновляем предыдущее состояние
+    wasOpen.current = isOpen;
+  }, [isOpen, value, onChange]);
 
   return (
     <Popover
@@ -45,7 +52,7 @@ const DateProperty = ({ task, property, onChange }: DateFieldType) => {
       maxHeight={'unset'}
       contentStyle={{ width: '280px' }}
       disclosureContent={<Container
-        variant={'property_modal'}
+        variant={isModal ? 'property_modal' : 'property_card'}
         onClick={onOpen}
       >{(endDate ?
           `${localeValueFrom?.toLocaleDateString()} ⇾ ${localeValueTo?.toLocaleDateString()}`
@@ -124,7 +131,6 @@ const DateProperty = ({ task, property, onChange }: DateFieldType) => {
             </HStack>
           ) : null
         }
-
 
         <WrapperDatePicker>
           <DatePicker

@@ -1,4 +1,7 @@
 import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
   IconButton, ModalCloseButton,
   ModalHeader, Text,
 } from '@chakra-ui/react';
@@ -7,7 +10,21 @@ import { ArrowsAngleContract } from '@/components/assets/icon/ArrowsAngleContrac
 import { ArrowsAngleExpand } from '@/components/assets/icon/ArrowsAngleExpand';
 import { BodyItemProps } from '@/components/assets/ui/modal';
 
-const Header = ({ isFullSizeWindow, setIsFullSizeWindow }: BodyItemProps) => {
+type Props = {
+  create?: boolean,
+  review?: boolean,
+  courseName?: string,
+  taskName?: string
+} & BodyItemProps
+
+const Header = ({
+  isFullSizeWindow,
+  setIsFullSizeWindow,
+  create,
+  review,
+  courseName,
+  taskName,
+}: Props) => {
   return (
     <ModalHeader
       display={'flex'}
@@ -25,14 +42,30 @@ const Header = ({ isFullSizeWindow, setIsFullSizeWindow }: BodyItemProps) => {
         icon={isFullSizeWindow ? <ArrowsAngleContract/> : <ArrowsAngleExpand/>}
         onClick={setIsFullSizeWindow}
       />
-      <Text
-        fontSize={'md'}
-        fontWeight={600}
-        color={'text.tertiary'}
-        display={'inline-block'}
-        width={'100%'}
-        textAlign={'center'}
-      >Создать новую задачу</Text>
+      {
+        create ? (
+          <Text
+            fontSize={'md'}
+            fontWeight={600}
+            color={'text.tertiary'}
+            display={'inline-block'}
+            width={'100%'}
+            textAlign={'center'}
+          >Создать новую задачу</Text>
+        ) : null
+      }
+      {
+        review ? (
+          <Breadcrumb
+            width={'full'}
+            fontSize={'sm'}
+            fontWeight={600}
+          >
+            <BreadcrumbItem color={'text.pale'}> <BreadcrumbLink>{courseName}</BreadcrumbLink></BreadcrumbItem>
+            <BreadcrumbItem><BreadcrumbLink>{taskName}</BreadcrumbLink></BreadcrumbItem>
+          </Breadcrumb>
+        ) : null
+      }
       <IconButton
         size={'sm'}
         aria-label="menu"

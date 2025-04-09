@@ -3,6 +3,7 @@ import { v4 as uuid } from 'uuid';
 import { PropertyTypes } from '@/feature/property/PropertyRegistry';
 import { getCoursesForProfessor, getOneCourse } from '@/services/course.service';
 import { createTaskRequest, getAllTaskRequest } from '@/services/task.service';
+import { transaction } from '@/services/transition.service';
 import { PropertyModel, PropertyOptions, PropertyValues, TaskModel, TAssignment, TCourse } from '@/types/course.type';
 import { handleThunkError } from '@/utils/handleThunkError';
 
@@ -19,7 +20,11 @@ export const getCoursesForProfessorThunk = createAsyncThunk<TCourse[], string,
   }
 });
 
-export const fetchCourse = createAsyncThunk<TCourse, string, { rejectValue: string }>('course.get', async (id, { rejectWithValue }) => {
+export const fetchCourse = createAsyncThunk<
+TCourse,
+string,
+{ rejectValue: string }
+>('course.get', async (id, { rejectWithValue }) => {
   try {
     const { data } = await getOneCourse(id);
     return data;
@@ -68,6 +73,7 @@ export const addOption = createAsyncThunk<
         label: option.label,
         color: option.color,
       };
+
       return { propertyId, newOption };
     } catch (error) {
       return handleThunkError(error, rejectWithValue);
@@ -101,6 +107,18 @@ string,
   try {
     const { data } = await getAllTaskRequest(courseId);
     return data;
+  } catch (error) {
+    return handleThunkError(error, rejectWithValue);
+  }
+});
+
+export const changeProperty = createAsyncThunk<
+unknown,
+{path: string, data: any},
+{ rejectValue: { statusCode: number; message: string }}>
+('task.create', async (data, { rejectWithValue }) => {
+  try {
+    await transaction(data);
   } catch (error) {
     return handleThunkError(error, rejectWithValue);
   }

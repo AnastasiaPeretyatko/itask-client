@@ -1,10 +1,11 @@
-import { Button, Card, Heading, HStack, Image, Tag, Text, VStack, Wrap } from '@chakra-ui/react';
+import { ChevronRightIcon } from '@chakra-ui/icons';
+import { Card, Heading, HStack, IconButton, Image, Tag, Text, VStack, Wrap } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { BaseCourseT } from '@/types/course.type';
+import { TCourse } from '@/types/course.type';
 import { getTextFromEditor } from '@/utils/getTextFromEditor';
 
 type Props = {
-  course: BaseCourseT
+  course: TCourse
 }
 
 const CourseCard = ({ course }: Props) => {
@@ -29,29 +30,48 @@ const CourseCard = ({ course }: Props) => {
         width={'full'}
         align={'start'}
         padding={2}
-        gap={0}
+        gap={1}
       >
-        <Wrap>
-          <Tag>language</Tag>
-          <Tag>language</Tag>
-        </Wrap>
         <Heading
-          size="lg"
-          mb={4}
+          size="md"
+          noOfLines={2}
         >
           {course.name}
         </Heading>
-        <Text>{description[0]}</Text>
-        <Text>{description[1]}</Text>
+        <Wrap>
+          <Tag
+            size={'sm'}
+            colorScheme="cyan"
+          >language</Tag>
+          <Tag
+            size={'sm'}
+            colorScheme="cyan"
+          >language</Tag>
+        </Wrap>
+        <VStack
+          flex={1}
+          alignItems={'start'}
+          gap={0}
+        >
+          <Text>{description[0]}</Text>
+          <Text>{description[1]}</Text>
+        </VStack>
         <HStack
           width={'full'}
           justify={'end'}
         >
-          <Button
+          <IconButton
             size={'sm'}
-            variant={'primary'}
+            aria-label="more..."
+            icon={<ChevronRightIcon/>}
             onClick={() => router.push(`/courses/${course.id}`)}
-          >Подробнее...</Button>
+            _hover={{
+              boxShadow:'md',
+              background: 'primary.darkBlue',
+              color: 'white',
+            }}
+            isRound
+          />
         </HStack>
       </VStack>
 

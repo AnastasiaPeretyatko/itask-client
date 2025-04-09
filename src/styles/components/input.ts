@@ -43,6 +43,7 @@ const property = definePartsStyle({
 
 const title = definePartsStyle({
   field: {
+    height: 'unset',
     fontWeight: 700,
     fontSize: '40px',
     outline: 'unset',

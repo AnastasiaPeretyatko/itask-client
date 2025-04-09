@@ -1,12 +1,12 @@
-import { Button, Heading, HStack, Skeleton, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, Tag, VStack, Wrap } from '@chakra-ui/react';
+import { Button, Heading, Skeleton, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, Tag, VStack, Wrap } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from '@/components/assets/ui/modal';
 import CourseDescription from '@/components/feature/professor/course/description/CourseDescription';
 import CourseMembers from '@/components/feature/professor/course/members/CourseMembers';
-import AddTask from '@/components/feature/professor/course/tasks/AddTask/AddTask';
 import CourseTaskBoard from '@/components/feature/professor/course/tasks/CourseTaskBoard';
+import AddTask from '@/components/feature/professor/course/tasks/modal/AddTask';
 import AppLayout from '@/components/layout/AppLayout';
 import { AppDispatch, RootState } from '@/store';
 import { fetchCourse } from '@/store/professorModule/course/course.thunk';
@@ -14,31 +14,53 @@ import { fetchCourse } from '@/store/professorModule/course/course.thunk';
 const CoursePage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { query } = useRouter();
-  const courseStore = useSelector((state: RootState) => state.courseStore);
+  const { course, isLoading } = useSelector((state: RootState) => state.courseStore);
+
+  const tabs = [
+    {
+      name: 'Задания',
+      tabId: 'tasks',
+      content: <CourseTaskBoard />,
+    },
+    {
+      name: 'Описание',
+      tabId: 'description',
+      content: <CourseDescription />,
+    },
+    {
+      name: 'Участники',
+      tabId: 'members',
+      content: <CourseMembers />,
+    },
+  ];
 
   useEffect(() => {
     const id = query.id as string;
     if(id){
       dispatch(fetchCourse(query.id as string));
     }
-  }, [dispatch, query.id]);
+  }, [query.id]);
+
+  if(!course){
+    return null;
+  }
 
   return (
     <AppLayout>
-      <VStack width={'full'} >
+      <VStack
+        width={'full'}
+        gap={4}
+      >
         <Skeleton
-          isLoaded={!courseStore.isLoading}
+          isLoaded={!isLoading}
           width={'full'}
           mb={3}
           display={'flex'}
           flexDir={'row'}
           alignItems={'center'}
           justifyContent={'space-between'}
-          gap={4}
         >
-          <HStack>
-            <Heading>{courseStore.course?.name}</Heading>
-          </HStack>
+          <Heading>{course?.name}</Heading>
           <Modal
             height="80%"
             action={ <Button
@@ -50,18 +72,16 @@ const CoursePage = () => {
           />
         </Skeleton>
         <Skeleton
-          isLoaded={!courseStore.isLoading}
+          isLoaded={!isLoading}
           width={'100%'}
-          mb={4}
         >
           <Wrap>
-            <Tag colorScheme="green">Design</Tag>
-            <Tag colorScheme="cyan">Design</Tag>
+            {course.learning_form ? <Tag>{course.learning_form}</Tag> : null}
+            {course.language ? <Tag>{course.language}</Tag> : null}
+            {course.assessment_system ? <Tag>{course.assessment_system}</Tag> : null}
+            {course.access ? <Tag>{course.access}</Tag> : null}
           </Wrap>
         </Skeleton>
-        <Wrap>
-          <Tag>kkkk</Tag>
-        </Wrap>
       </VStack>
       <Tabs
         size={'sm'}
@@ -69,9 +89,9 @@ const CoursePage = () => {
         isLazy
       >
         <TabList>
-          <Tab>Описание</Tab>
-          <Tab>Задания</Tab>
-          <Tab>Участники</Tab>
+          { tabs.map((tab) => (
+            <Tab key={tab.tabId}>{tab.name}</Tab>
+          )) }
         </TabList>
         <TabIndicator
           mt="-2px"
@@ -80,15 +100,11 @@ const CoursePage = () => {
           borderRadius="5px"
         />
         <TabPanels>
-          <TabPanel>
-            <CourseDescription/>
-          </TabPanel>
-          <TabPanel>
-            <CourseTaskBoard/>
-          </TabPanel>
-          <TabPanel>
-            <CourseMembers/>
-          </TabPanel>
+          { tabs.map((tab) => (
+            <TabPanel key={tab.tabId}>
+              {tab.content}
+            </TabPanel>
+          )) }
         </TabPanels>
       </Tabs>
     </AppLayout>

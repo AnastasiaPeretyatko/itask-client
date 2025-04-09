@@ -1,4 +1,5 @@
 import { extendTheme } from '@chakra-ui/react';
+import { breakpoints } from './breakpoints';
 import { colors, semanticTokens } from './colors';
 import { buttonTheme } from './components/button';
 import { cardTheme } from './components/card';
@@ -26,13 +27,7 @@ const theme = extendTheme({
     Tag: tagTheme,
     Drawer: drawerTheme,
   },
-  breakpoints: {
-    base: '0px',
-    sm: '320px',
-    md: '768px',
-    xl: '1024px',
-    '2xl': '1280px',
-  },
+  breakpoints,
 });
 
 export default theme;

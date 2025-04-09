@@ -4,9 +4,10 @@ import { PropertyProps } from '.';
 
 export type CheckboxFieldType = PropertyProps;
 
-const CheckboxProperty = ({ task, property, onChange }: CheckboxFieldType) => {
+const CheckboxProperty = ({ task, property, onChange, mode }: CheckboxFieldType) => {
   const value = task.values[property.id];
   const [localValue, setLocalValue] = useState('0');
+  const isModal = mode === 'property';
 
   const onClick = useCallback(() => {
     // if (readOnly) {
@@ -32,7 +33,7 @@ const CheckboxProperty = ({ task, property, onChange }: CheckboxFieldType) => {
   }, [value]);
 
   return (
-    <Container variant={'property_modal'}>
+    <Container variant={isModal ? 'property_modal' : 'property_card'}>
       <Checkbox
         checked={localValue === '1'}
         onChange={onClick}

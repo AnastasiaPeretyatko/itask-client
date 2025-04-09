@@ -111,6 +111,20 @@ const property_modal = defineStyle({
   },
 });
 
+const property_card = defineStyle({
+  position: 'relative',
+  width: 'full',
+  height: 'full',
+  display: 'flex',
+  flex: 'wrap',
+  flexDirection: 'row',
+  alignItems: 'center',
+  fontSize: 'sm',
+  gap: 1,
+  padding: 1,
+  borderRadius: 3,
+});
+
 const property_title = defineStyle({
   display: 'flex',
   alignItems: 'center',
@@ -148,6 +162,7 @@ export const containerTheme = defineStyleConfig({
     circle,
     wrapper,
     property_modal,
+    property_card,
     property_title,
   },
 });

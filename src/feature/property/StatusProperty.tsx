@@ -9,9 +9,10 @@ import { addOption } from '@/store/professorModule/course/course.thunk';
 
 type StatusProperty = PropertyProps
 
-const StatusProperty = ({ task, property }: StatusProperty) => {
+const StatusProperty = ({ task, property, mode, readOnly }: StatusProperty) => {
   const dispatch = useDispatch<AppDispatch>();
   const [localValue, setLocalValue] = useState((task.values[property.id] || []) as string[]);
+  const isModal = mode === 'property';
 
   const setOptions = useCallback((options: OptionType[]) => {
     dispatch(addOption({ propertyId: property.id, options }));
@@ -22,7 +23,7 @@ const StatusProperty = ({ task, property }: StatusProperty) => {
   }, [property, task.values]);
 
   return (
-    <Container variant={'property_modal'}>
+    <Container variant={isModal && !readOnly ? 'property_modal' : 'property_card'}>
       <Multiselect
         value={localValue}
         options={(property.options || []) as OptionType[]}

@@ -41,6 +41,11 @@ const AddTask = ({ ...props }: BodyItemProps) => {
     }
   };
 
+  const handleChangeOnKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if(e.key === 'Enter') {
+      handleChangeTitle();
+    }
+  };
 
   useEffect(() => {
     if(task){
@@ -54,7 +59,10 @@ const AddTask = ({ ...props }: BodyItemProps) => {
 
   return (
     <>
-      <Header {...props}/>
+      <Header
+        create
+        {...props}
+      />
       <ModalBody as={'form'}>
         <Box
           width={'full'}
@@ -69,11 +77,7 @@ const AddTask = ({ ...props }: BodyItemProps) => {
             mb={6}
             value={title}
             onBlur={handleChangeTitle}
-            // onKeyPress={(e) => {
-            //   if (e.key === 'Enter') {
-            //     handleChangeTitle();
-            //   }
-            // }}
+            onKeyDown={handleChangeOnKey}
           />
           <Flex
             flexDirection={'column'}
