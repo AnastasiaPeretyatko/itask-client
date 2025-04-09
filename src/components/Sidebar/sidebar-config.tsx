@@ -1,4 +1,4 @@
-import { DashboardIcon } from '../assets/icon/DashboardIcon';
+import { DashboardIcon } from '../icon/DashboardIcon';
 import { BookIcon, HomeIcon, LogoutIcon, SettingsIcon, GroupsIcon } from '../customIcon';
 
 export const NAVBAR_ITEM = [

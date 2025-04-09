@@ -1,9 +1,8 @@
 import { Avatar, AvatarGroup, Box, Card, Divider, Heading, HStack, Text, useDisclosure, VStack } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
-import { MessageIcon, PaperClipIcon } from '@/components/assets/icon';
-import Modal from '@/components/assets/ui/modal';
 import ReviewTask from '@/components/feature/professor/course/tasks/modal/ReviewTask';
-import Property from '@/feature/property';
+import { MessageIcon, PaperClipIcon } from '@/components/icon';
+import Modal from '@/components/ui/modal';
 import { RootState } from '@/store';
 import { TaskModel } from '@/types/course.type';
 import { getTextFromEditor } from '@/utils/getTextFromEditor';
@@ -26,15 +25,7 @@ const CardTask = ({ task }: Props) => {
       >
         <Heading size={'sm'}>{task.title}</Heading>
         <VStack gap={0}>
-          {
-            course?.properties ? course?.properties.map((p) => (
-              <Property
-                property={p}
-                task={task}
-                mode="viewProperty"
-              />
-            )) : null
-          }
+          {/* TODO добавить вывод проперти */}
 
         </VStack>
         {

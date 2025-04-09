@@ -5,7 +5,7 @@ import {
 import { useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CourseCard from './CourseCard';
-import SearchInput from '@/components/assets/ui/SearchInput';
+import SearchInput from '@/components/ui/SearchInput';
 import { AppDispatch, RootState } from '@/store';
 import { getCoursesForProfessorThunk } from '@/store/professorModule/course/course.thunk';
 

@@ -1,5 +1,5 @@
 import { useToast } from '@chakra-ui/react';
-import ToastAlert from '@/components/assets/ui/toast/ToastAlert';
+import ToastAlert from '@/components/ui/toast/ToastAlert';
 
 type NotificationData = { message: string } | string;
 

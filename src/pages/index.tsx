@@ -1,6 +1,6 @@
 import { Flex, HStack } from '@chakra-ui/react';
-import CalendarWidget from '@/components/CalendarWidget';
 import AppLayout from '@/components/layout/AppLayout';
+import CalendarWidget from '@/components/widget/CalendarWidget';
 // import dynamic from 'next/dynamic'
 
 // const HaveProblems = dynamic(

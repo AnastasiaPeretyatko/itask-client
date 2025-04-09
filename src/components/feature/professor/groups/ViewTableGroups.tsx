@@ -1,9 +1,9 @@
 import { HStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
-import Labeled from '@/components/assets/ui/Labled';
-import SearchInput from '@/components/assets/ui/SearchInput';
-import SelectUi from '@/components/assets/ui/SelectUi';
+import Labeled from '@/components/ui/Labled';
+import SearchInput from '@/components/ui/SearchInput';
+import SelectUi from '@/components/ui/SelectUi';
 import { listGroupsByCourse, listSemestersByCourse } from '@/services/assignment.service';
 
 const ViewTableGroups = () => {

@@ -1,4 +1,4 @@
-import { OptionType } from '@/components/assets/ui/multiselect/Option';
+import { OptionType } from '@/components/ui/multiselect/Option';
 
 export const getArrayGroupWithSemester = (data: {group: Group, semesters: Semester[]}[]) => {
   const groups: OptionType[] = [];

@@ -1,6 +1,6 @@
 import { Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import React from 'react';
-import { KanbanIcon, ListIcon, TableIcon } from '@/components/assets/icon';
+import { KanbanIcon, ListIcon, TableIcon } from '@/components/icon';
 import AppLayout from '@/components/layout/AppLayout';
 import Board from '@/feature/view/board';
 

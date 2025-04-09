@@ -1,6 +1,6 @@
 import { Tag as ChakraTag, TagLabel, TagCloseButton, TagProps as TagPropsChakra } from '@chakra-ui/react';
 import { HTMLProps, ReactNode } from 'react';
-import { DotIcon } from '@/components/assets/icon';
+import { DotIcon } from '@/components/icon';
 
 export type TagType = 'withDot' | 'withIcon' | 'link';
 

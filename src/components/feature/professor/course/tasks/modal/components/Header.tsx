@@ -5,10 +5,10 @@ import {
   IconButton, ModalCloseButton,
   ModalHeader, Text,
 } from '@chakra-ui/react';
-import { DotsVerticalIcon, StarIcon } from '@/components/assets/icon';
-import { ArrowsAngleContract } from '@/components/assets/icon/ArrowsAngleContract';
-import { ArrowsAngleExpand } from '@/components/assets/icon/ArrowsAngleExpand';
-import { BodyItemProps } from '@/components/assets/ui/modal';
+import { DotsVerticalIcon, StarIcon } from '@/components/icon';
+import { ArrowsAngleContract } from '@/components/icon/ArrowsAngleContract';
+import { ArrowsAngleExpand } from '@/components/icon/ArrowsAngleExpand';
+import { BodyItemProps } from '@/components/ui/modal';
 
 type Props = {
   create?: boolean,

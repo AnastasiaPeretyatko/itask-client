@@ -1,8 +1,8 @@
 import { Button, Flex, Heading, Text, VStack } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import Circle from '@/components/assets/ui/Circle';
-import InputForm from '@/components/assets/ui/InputForm';
+import Circle from '@/components/ui/Circle';
+import InputForm from '@/components/ui/InputForm';
 import { useNotifications } from '@/hooks/useNotifications';
 import { loginRequest } from '@/services/auth.service';
 import { AppDispatch } from '@/store';

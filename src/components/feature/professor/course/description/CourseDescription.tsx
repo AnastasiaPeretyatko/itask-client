@@ -1,8 +1,8 @@
 import { Skeleton } from '@chakra-ui/react';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Editor from '@/components/assets/ui/Editor/Editor';
-import Empty from '@/components/assets/ui/Empty';
+import Editor from '@/components/ui/Editor/Editor';
+import Empty from '@/components/ui/Empty';
 import { RootState } from '@/store';
 
 const CourseDescription = () => {

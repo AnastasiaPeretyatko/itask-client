@@ -1,18 +1,10 @@
-import {
-  Box,
-  Button,
-  Flex,
-  HStack,
-  Input,
-  ModalBody,
-} from '@chakra-ui/react';
+import { Box, Button, Divider, Flex, HStack, Input, ModalBody } from '@chakra-ui/react';
 import { useEffect, useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import PropertyLine from '../../../../../../feature/property/PropertyLine/PropertyLine';
 import Header from './components/Header';
-import Editor from '@/components/assets/ui/Editor/Editor';
-import { BodyItemProps } from '@/components/assets/ui/modal';
-import AddNewProperty from '@/feature/property/AddNewProperty';
+import TaskProperty from './components/TaskProperty';
+import Editor from '@/components/ui/Editor/Editor';
+import { BodyItemProps } from '@/components/ui/modal';
 import { useNotifications } from '@/hooks/useNotifications';
 import { AppDispatch, RootState } from '@/store';
 import { changeTaskTitle, chengeDescription, createTask } from '@/store/professorModule/course/course.slice';
@@ -79,47 +71,12 @@ const AddTask = ({ ...props }: BodyItemProps) => {
             onBlur={handleChangeTitle}
             onKeyDown={handleChangeOnKey}
           />
-          <Flex
-            flexDirection={'column'}
-            mb={2}
-          >
-            {
-              task &&course?.properties ? course.properties.map((property) => (
-                <PropertyLine
-                  key={property.id}
-                  property={property}
-                  task={task}
-                />
-              )) : null
-            }
-          </Flex>
-          <AddNewProperty/>
+          <TaskProperty/>
         </Box>
-        {/* <Tabs variant={'task_modal'}>
-          <TabList>
-            <Tab>Описание</Tab>
-            <Tab>Комментарии</Tab>
-          </TabList>
-          <TabIndicator
-            mt="-1.5px"
-            height="2px"
-            bg="black"
-            borderRadius="1px"
-          />
-
-          <TabPanels>
-            <TabPanel>
-              <Editor
-                editable
-                initialContent={editor}
-                onChange={setEditor}
-              />
-            </TabPanel>
-            <TabPanel>
-              <CommentsBox/>
-            </TabPanel>
-          </TabPanels>
-        </Tabs> */}
+        <Divider
+          borderColor={'divider'}
+          mb={2}
+        />
         <Flex
           flexDirection={'column'}
           flex={1}

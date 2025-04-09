@@ -2,9 +2,9 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { Container, IconButton, VStack } from '@chakra-ui/react';
 import { useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ThemeToggle from '../assets/ui/ThemeToggle';
 import SidebarItem from './components/SidebarItem';
 import { NAVBAR_ITEM, sidebarMenuConfig } from './sidebar-config';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 import { AppDispatch, RootState } from '@/store';
 import { settings } from '@/store/user/user.slice';
 

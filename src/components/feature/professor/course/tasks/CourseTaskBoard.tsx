@@ -2,7 +2,7 @@ import { SimpleGrid } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Empty from '@/components/assets/ui/Empty';
+import Empty from '@/components/ui/Empty';
 import CardTask from '@/feature/view/board/CardTask';
 import { AppDispatch, RootState } from '@/store';
 import { getAllTaskThunk } from '@/store/professorModule/course/course.thunk';

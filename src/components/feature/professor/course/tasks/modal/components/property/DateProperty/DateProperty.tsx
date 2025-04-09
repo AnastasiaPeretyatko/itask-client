@@ -1,48 +1,51 @@
-import { Container, Divider, HStack, Input, useDisclosure, VStack } from '@chakra-ui/react';
+import { Container, Divider, HStack, Input, useBoolean, useDisclosure, VStack } from '@chakra-ui/react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { DateRange } from 'react-day-picker';
-import { PropertyProps } from '..';
 import WrapperDatePicker from './WrapperDatePicker';
-import DatePicker from '@/components/assets/ui/DatePicker/DatePicker';
-import SwitchControl from '@/components/assets/ui/SwitchControl/SwitchControl';
-import Popover from '@/components/assets/ui/popover';
+import DatePicker from '@/components/ui/DatePicker/DatePicker';
+import SwitchControl from '@/components/ui/SwitchControl/SwitchControl';
+import Popover from '@/components/ui/popover';
 
-export type DateFieldType = PropertyProps;
+type Props = {
+  value: DateRange | Date | null
+  onChange: (value: DateRange | Date) => void
+}
 
-const DateProperty = ({ task, property, onChange, mode }: DateFieldType) => {
+const DateProperty = ({ value, onChange }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [value, setValue] = useState<DateRange | Date>((task.values[property.id] || new Date()) as Date);
-  const [endDate, setEndDate] = useState(false);
-  const [includeTime, setIncludeTime] = useState(false);
-  const isModal = mode === 'property';
+  const [endDate, setEndDate] = useBoolean(false);
+  const [includeTime, setIncludeTime] = useBoolean(false);
+  const [date, setDate] = useState<DateRange | Date>((value || new Date()) as Date);
 
-  const onChangeDate = (date: DateRange | Date) => {
-    setValue(date);
+  const isModal = true;
+
+  const onChangeDate = (d: DateRange | Date) => {
+    setDate(d);
   };
 
   const localeValueFrom = useMemo(() => {
-    return endDate ? 'from' in value ? value.from : new Date() : new Date();
-  }, [value, endDate]);
+    return endDate ? 'from' in date ? date.from : new Date() : new Date();
+  }, [date, endDate]);
 
   const localeValueTo = useMemo(() => {
-    return endDate ? 'to' in value ? value.to : new Date() : new Date();
-  }, [value, endDate]);
+    return endDate ? 'to' in date ? date.to : new Date() : new Date();
+  }, [date, endDate]);
 
   const localeValue = useMemo(() => {
-    return !endDate && !('from' in value) ? value : new Date();
-  }, [value, endDate]);
+    return !endDate && !('from' in date) ? date : new Date();
+  }, [date, endDate]);
 
   const wasOpen = useRef(isOpen);
 
   useEffect(() => {
     // Если поповер закрылся, и он был открыт ранее
     if (wasOpen.current && !isOpen) {
-      onChange?.(value);
+      onChange?.(date);
     }
 
     // Обновляем предыдущее состояние
     wasOpen.current = isOpen;
-  }, [isOpen, value, onChange]);
+  }, [isOpen, date, onChange]);
 
   return (
     <Popover
@@ -134,7 +137,7 @@ const DateProperty = ({ task, property, onChange, mode }: DateFieldType) => {
 
         <WrapperDatePicker>
           <DatePicker
-            value={value}
+            value={date}
             onChange={onChangeDate}
             mode={endDate ? 'range' : 'single'}
           />
@@ -143,13 +146,13 @@ const DateProperty = ({ task, property, onChange, mode }: DateFieldType) => {
         <SwitchControl
           id="end-date"
           label="Окончание"
-          onChange={setEndDate}
+          onChange={setEndDate.toggle}
           fontSize={'sm'}
         />
         <SwitchControl
           id="include-time"
           label="Включая время"
-          onChange={setIncludeTime}
+          onChange={setIncludeTime.toggle}
           fontSize={'sm'}
         />
       </VStack>
