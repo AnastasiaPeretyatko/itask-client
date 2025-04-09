@@ -1,7 +1,4 @@
-import {
-  Button, Heading,
-  HStack, SimpleGrid, VStack,
-} from '@chakra-ui/react';
+import { Button, Heading, HStack, SimpleGrid, VStack } from '@chakra-ui/react';
 import { useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CourseCard from './CourseCard';
@@ -30,7 +27,7 @@ const filterCourse = [
 const ProfessorCoursePage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { courses } = useSelector((state: RootState) => state.courseStore);
-  const { user } = useSelector((state: RootState) => state.user);
+  // const { user } = useSelector((state: RootState) => state.user);
 
   useLayoutEffect(() => {
     // TODO пока на бэке не достаем айди передаем дефолтный

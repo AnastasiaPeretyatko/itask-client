@@ -1,9 +1,7 @@
 import { Avatar, AvatarGroup, Box, Card, Divider, Heading, HStack, Text, useDisclosure, VStack } from '@chakra-ui/react';
-import { useSelector } from 'react-redux';
 import ReviewTask from '@/components/feature/professor/course/tasks/modal/ReviewTask';
 import { MessageIcon, PaperClipIcon } from '@/components/icon';
 import Modal from '@/components/ui/modal';
-import { RootState } from '@/store';
 import { TaskModel } from '@/types/course.type';
 import { getTextFromEditor } from '@/utils/getTextFromEditor';
 
@@ -13,7 +11,6 @@ type Props = {
 
 const CardTask = ({ task }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { course } = useSelector((state: RootState) => state.courseStore);
   const description: string[] = getTextFromEditor(task.description);
 
   return (

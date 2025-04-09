@@ -1,5 +1,5 @@
-import { Card, Heading, Text } from '@chakra-ui/react'
-import React from 'react'
+import { Card, Heading, Text } from '@chakra-ui/react';
+import React from 'react';
 
 const Task = () => {
   return (
@@ -8,7 +8,7 @@ const Task = () => {
       <Heading size={'sm'}>Lunch with Adam</Heading>
       <Text fontSize={'sm'}>The view from the top</Text>
     </Card>
-  )
-}
+  );
+};
 
-export default Task
+export default Task;

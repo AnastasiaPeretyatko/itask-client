@@ -1,5 +1,5 @@
-import { DashboardIcon } from '../icon/DashboardIcon';
 import { BookIcon, HomeIcon, LogoutIcon, SettingsIcon, GroupsIcon } from '../customIcon';
+import { DashboardIcon } from '../icon/DashboardIcon';
 
 export const NAVBAR_ITEM = [
   {

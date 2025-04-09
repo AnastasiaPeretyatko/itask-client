@@ -1,8 +1,8 @@
-import { cardAnatomy } from '@chakra-ui/anatomy'
-import { createMultiStyleConfigHelpers } from '@chakra-ui/react'
+import { cardAnatomy } from '@chakra-ui/anatomy';
+import { createMultiStyleConfigHelpers } from '@chakra-ui/react';
 
 const { definePartsStyle, defineMultiStyleConfig } =
-  createMultiStyleConfigHelpers(cardAnatomy.keys)
+  createMultiStyleConfigHelpers(cardAnatomy.keys);
 
 const taskSmall = definePartsStyle({
   container: {
@@ -18,6 +18,6 @@ const taskSmall = definePartsStyle({
     transition: 'all 0.2s ease-in-out',
     cursor: 'pointer',
   },
-})
+});
 
-export const cardTheme = defineMultiStyleConfig({ variants: { taskSmall } })
+export const cardTheme = defineMultiStyleConfig({ variants: { taskSmall } });

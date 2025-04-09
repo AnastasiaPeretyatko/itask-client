@@ -1,4 +1,4 @@
-import { http } from '.'
+import { http } from '.';
 
 export const loginRequest = (email: string, password: string) =>
-  http.post('/auth', { email, password })
+  http.post('/auth', { email, password });

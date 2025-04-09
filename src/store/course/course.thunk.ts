@@ -1,7 +1,7 @@
-import { getAllFromSemesterGroup } from '@/services/course.service'
-import { MessageType } from '@/types/common.type'
-import { CourseT } from '@/types/course.type'
-import { createAsyncThunk } from '@reduxjs/toolkit'
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { getAllFromSemesterGroup } from '@/services/course.service';
+import { MessageType } from '@/types/common.type';
+import { CourseT } from '@/types/course.type';
 
 export const getAllFromSemesterGroupThunk = createAsyncThunk<
   CourseT[],
@@ -11,18 +11,18 @@ export const getAllFromSemesterGroupThunk = createAsyncThunk<
   }
 >('/course.create', async ({ semesterId, groupId }, { rejectWithValue }) => {
   try {
-    const res = await getAllFromSemesterGroup(semesterId, groupId)
+    const res = await getAllFromSemesterGroup(semesterId, groupId);
 
-    return res.data
+    return res.data;
   } catch (error) {
     const hasErrResponse = (
       error as {
         response: { data: { statusCode: number; message: MessageType } }
       }
-    ).response
+    ).response;
     if (!hasErrResponse) {
-      throw error
+      throw error;
     }
-    return rejectWithValue(hasErrResponse.data)
+    return rejectWithValue(hasErrResponse.data);
   }
-})
+});

@@ -1,3 +1,4 @@
+import { SettingsIcon } from '@chakra-ui/icons';
 import {
   Box,
   Card,
@@ -16,31 +17,30 @@ import {
   Text,
   useBoolean,
   useOutsideClick,
-} from '@chakra-ui/react'
-import React, { useRef } from 'react'
-import { SettingsIcon } from '@chakra-ui/icons'
-import Message from './Message'
-import { BellIcon } from '../customIcon'
+} from '@chakra-ui/react';
+import React, { useRef } from 'react';
+import { BellIcon } from '../customIcon';
+import Message from './Message';
 
 const NotificationsBlock = () => {
-  const ref = useRef<HTMLDivElement>(null)
-  const [isOpen, setIsOpen] = useBoolean(false)
+  const ref = useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen] = useBoolean(false);
 
   useOutsideClick({
     ref: ref,
     handler: () => setIsOpen.off(),
-  })
+  });
 
   return (
     <Box position={'relative'}>
-      <IconButton 
-        aria-label="bell" 
-        variant="iconButton" 
+      <IconButton
+        aria-label="bell"
+        variant="iconButton"
         color={'text.lighter'}
-        icon={<BellIcon/>} 
+        icon={<BellIcon/>}
         onClick={setIsOpen.toggle}
       />
-      {isOpen && (
+      {isOpen ? (
         <Card
           ref={ref}
           zIndex={10}
@@ -50,15 +50,25 @@ const NotificationsBlock = () => {
           minW={400}
           boxShadow={'lg'}
         >
-          <CardHeader p={3} fontWeight={600} fontSize={16}>
+          <CardHeader
+            p={3}
+            fontWeight={600}
+            fontSize={16}
+          >
             <HStack justify={'space-between'}>
               <Heading size={'sm'}>Notifications</Heading>
-              <Link fontSize={'sm'} textDecor={'underline'}>
+              <Link
+                fontSize={'sm'}
+                textDecor={'underline'}
+              >
                 Read all
               </Link>
             </HStack>
           </CardHeader>
-          <Tabs position="relative" variant="notifications">
+          <Tabs
+            position="relative"
+            variant="notifications"
+          >
             <TabList fontSize={'sm'}>
               <HStack>
                 <Tab>
@@ -79,7 +89,11 @@ const NotificationsBlock = () => {
                 transition="transform 1s ease-in-out"
               />
             </TabList>
-            <TabIndicator mt="-1.7px" height="2px" borderRadius="1px" />
+            <TabIndicator
+              mt="-1.7px"
+              height="2px"
+              borderRadius="1px"
+            />
             <TabPanels>
               <TabPanel>
                 <Message />
@@ -94,9 +108,9 @@ const NotificationsBlock = () => {
             </TabPanels>
           </Tabs>
         </Card>
-      )}
+      ) : null}
     </Box>
-  )
-}
+  );
+};
 
-export default NotificationsBlock
+export default NotificationsBlock;

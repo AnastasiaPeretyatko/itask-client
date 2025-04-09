@@ -8,7 +8,7 @@ export type TDisabledDays = Date[] | { from: Date; to: Date }[];
 export type TDatePicker = {
   /** use to apply modifications pertinent to date property */
   isProperty?: boolean;
-  value: any;
+  value: Date;
   /** show subscribe to notifications toggle */
   showSubscribeToggle?: boolean;
   onChange?: (value: any) => void;

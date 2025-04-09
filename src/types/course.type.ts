@@ -1,6 +1,3 @@
-import { DateRange } from 'react-day-picker';
-import { PropertyTypes } from '@/feature/property/PropertyRegistry';
-
 export type ProfessorT = {
   id: string
   user_id: string
@@ -32,7 +29,6 @@ export type TCourse = {
   description: string;
   createdAt: Date;
   updatedAt: Date;
-  properties: PropertyModel[];
   tasks: TaskModel[];
   learning_form: string | null;
   language: string | null;
@@ -40,26 +36,23 @@ export type TCourse = {
   access: string | null;
 }
 
-export type PropertyModel = {
-  id: string;
-  title: string;
-  type: PropertyTypes;
-  options?: PropertyOptions[];
-  o: number;
-  visible: boolean;
-}
-
-export type PropertyValues = string | number | string[] | undefined | boolean | null | Date | DateRange;
 
 export type TaskModel = {
   id: string;
   title: string;
   description: string;
-  values: {[id: string]: PropertyValues}
   createdAt?: Date;
   updatedAt?: Date;
   assignment?: TAssignment
   creatorId?: string
+} & Property;
+
+export type Property = {
+  score: number | null;
+  startDate: Date | null;
+  endDate: Date | null;
+  tags: string[] | null;
+  priority: string | null;
 }
 
 export type PropertyOptions = {
