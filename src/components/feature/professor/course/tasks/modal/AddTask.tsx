@@ -7,8 +7,9 @@ import Editor from '@/components/ui/Editor/Editor';
 import { BodyItemProps } from '@/components/ui/modal';
 import { useNotifications } from '@/hooks/useNotifications';
 import { AppDispatch, RootState } from '@/store';
-import { changeTaskTitle, chengeDescription, createTask } from '@/store/professorModule/course/course.slice';
+import { changeTaskTitle, createTask } from '@/store/professorModule/course/course.slice';
 import { createTaskThunk } from '@/store/professorModule/course/course.thunk';
+import { OptionType, Property } from '@/types/course.type';
 
 const AddTask = ({ ...props }: BodyItemProps) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -18,12 +19,30 @@ const AddTask = ({ ...props }: BodyItemProps) => {
   const [editor, setEditor] = useState<string>('');
   const [title, setTitle] = useState<string>(task?.title || '');
 
+  const [property, setProperty] = useState<Property & {group: null | OptionType, semester: null | OptionType}>({
+    group: null,
+    semester: null,
+    score: null,
+    priority: null,
+    tags: null,
+    endDate: null,
+    startDate: new Date(),
+  });
+
   const save = () => {
     if(!task || !course) {return;}
-    dispatch(chengeDescription(editor));
-    dispatch(createTaskThunk({ data: { task: { ...task, title, description: editor }, assignment: { courseId: course.id } } }))
+    const { group, semester, ...allProperty } = property;
+    const { id, ...newTask } = task;
+    dispatch(createTaskThunk({ task: {
+      ...newTask,
+      ...allProperty,
+      text: editor,
+    }, assignment: { courseId: course.id, semesterId: semester?.id, groupId: group?.id } }))
       .unwrap()
-      .then((res) => showSuccessMessage(res.message))
+      .then((res) => {
+        showSuccessMessage(res);
+        props.onClose();
+      })
       .catch(showErrorMessage);
   };
 
@@ -71,7 +90,10 @@ const AddTask = ({ ...props }: BodyItemProps) => {
             onBlur={handleChangeTitle}
             onKeyDown={handleChangeOnKey}
           />
-          <TaskProperty/>
+          <TaskProperty
+            property={property}
+            onChangeProperty={setProperty}
+          />
         </Box>
         <Divider
           borderColor={'divider'}

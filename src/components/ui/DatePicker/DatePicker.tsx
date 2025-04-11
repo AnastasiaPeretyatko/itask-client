@@ -4,13 +4,12 @@ import { DateRange, DayPicker } from 'react-day-picker';
 import 'react-day-picker/style.css';
 
 type DatePickerType = {
-  value: any;
+  value: Date | DateRange | undefined;
   onChange: (value: Date | DateRange) => void;
   mode?: 'single'| 'multiple'|'range';
 };
 
 const DatePicker = ({ onChange, value, mode = 'single' }: DatePickerType) => {
-
   return (
     <DayPicker
       animate

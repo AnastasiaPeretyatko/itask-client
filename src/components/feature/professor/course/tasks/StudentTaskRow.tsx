@@ -1,7 +1,14 @@
 import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
 import { Avatar, Box, Card, CircularProgress, CircularProgressLabel, Collapse, Grid, HStack, IconButton, Text, useDisclosure, VStack } from '@chakra-ui/react';
+import { TaskModel } from '@/types/course.type';
+import { StudentTask } from '@/types/student.type';
+import { UserTask } from '@/types/task.type';
 
-const StudentTaskRow = () => {
+type Props = {
+  student: StudentTask
+}
+
+const StudentTaskRow = ({ student }: Props) => {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
@@ -16,7 +23,7 @@ const StudentTaskRow = () => {
       >
         <HStack width={'40%'}>
           <Avatar size={'xs'}/>
-          <Text size={'sm'}>Вася Пупкин</Text>
+          <Text size={'sm'}>{student.fullName}</Text>
         </HStack>
         <HStack>
           <CircularProgress
@@ -24,7 +31,7 @@ const StudentTaskRow = () => {
             size={'30px'}
             color="green.400"
           >
-            <CircularProgressLabel fontSize={'10px'}>40%</CircularProgressLabel>
+            <CircularProgressLabel fontSize={'10px'}>{student.totalGrade}</CircularProgressLabel>
           </CircularProgress>
           <IconButton
             aria-label="unwrap"
@@ -60,28 +67,38 @@ const StudentTaskRow = () => {
               <Box>Статус</Box>
             </Grid>
           </HStack>
-          <Task/>
+          {
+            student.task.map((t) => {
+              const { task, user_task } = t;
+              return (
+                <Task
+                  key={user_task.id}
+                  task={{ task, user_task }}
+                />
+              );
+            })
+          }
         </VStack>
       </Collapse>
     </Card>
   );
 };
 
-const Task = () => {
+const Task = ({ task }: {task: {task: TaskModel, user_task: UserTask}}) => {
   return (
     <HStack
       width={'full'}
       color={'text.secondary'}
       fontSize={'sm'}
     >
-      <Box width={'40%'}>Лабораторная работа 1</Box>
+      <Box width={'40%'}>{task.task.title}</Box>
       <Grid
         width={'60%'}
         templateColumns={'repeat(3, 1fr)'}
       >
         <Box>Дата</Box>
-        <Box>Оценка</Box>
-        <Box>Статус</Box>
+        <Box>{task.user_task.grade || 0}/{task.task.score}</Box>
+        <Box>{task.user_task.status}</Box>
       </Grid>
     </HStack>
   );

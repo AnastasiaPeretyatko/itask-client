@@ -17,7 +17,6 @@ export const config = createSlice({
   reducers: {
     toggleSidebar: (state, { payload }: { payload: boolean }) => {
       state.isOpenSidebar = payload;
-      console.log(state.user);
       localStorage.setItem('sidebar', payload.toString());
     },
     setUser: (state, { payload }: { payload: UserT }) => {

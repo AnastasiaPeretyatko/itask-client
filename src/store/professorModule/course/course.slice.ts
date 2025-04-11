@@ -1,12 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { v4 as uuid } from 'uuid';
-import { fetchCourse, getAllTaskThunk, getCoursesForProfessorThunk } from './course.thunk';
+import { createTaskThunk, fetchCourse, getAllStudentsTaskByCourseThunk, getAllTaskThunk, getCoursesForProfessorThunk } from './course.thunk';
 import { TaskModel, TCourse } from '@/types/course.type';
+import { StudentTask } from '@/types/student.type';
 
 type TInitialState = {
-  temTask: null | TaskModel;
+  temTask: null | Omit<TaskModel, 'assignment'>;
   courses: TCourse[];
   course: TCourse | null;
+  students: StudentTask[];
   isLoading: boolean;
 }
 
@@ -14,6 +16,7 @@ const initialState: TInitialState = {
   temTask: null,
   course: null,
   courses: [],
+  students: [],
   isLoading: true,
 };
 
@@ -22,10 +25,10 @@ export const courseStore = createSlice({
   initialState,
   reducers: {
     createTask: (state) => {
-      const task: TaskModel = {
+      const task: Omit<TaskModel, 'assignment'> = {
         id: uuid(),
         title: '',
-        description: '',
+        text: '',
         creatorId: '783cedb0-4146-4db2-8930-4f4a5e481f47', //TODO добавить пом айди пользователя
         endDate: null,
         startDate: null,
@@ -37,13 +40,12 @@ export const courseStore = createSlice({
     },
     changeTaskTitle: (state, action: PayloadAction<string>) => {
       if(state.temTask){
-        console.log({ action });
         state.temTask = { ...state.temTask, title: action.payload };
       }
     },
     chengeDescription: (state, action: PayloadAction<string>) => {
       if(state.temTask){
-        state.temTask = { ...state.temTask, description: action.payload };
+        state.temTask = { ...state.temTask, text: action.payload };
       }
     },
   },
@@ -68,6 +70,14 @@ export const courseStore = createSlice({
         if(state.course){
           state.course.tasks = payload;
         }
+      })
+      .addCase(createTaskThunk.fulfilled, (state, { payload }) => {
+        if(state.course){
+          state.course.tasks.push(payload.task);
+        }
+      }).addCase(getAllStudentsTaskByCourseThunk.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.students = payload;
       });
   },
 });

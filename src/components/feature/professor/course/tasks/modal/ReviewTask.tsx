@@ -3,16 +3,31 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import CommentsBox from './components/CommentsBox';
 import Header from './components/Header';
+import TaskProperty from './components/TaskProperty';
 import Editor from '@/components/ui/Editor/Editor';
 import { BodyItemProps } from '@/components/ui/modal';
 import { RootState } from '@/store';
-import { TaskModel } from '@/types/course.type';
+import { OptionType, Property, TaskModel } from '@/types/course.type';
 
 const ReviewTask = ({ ...props }: BodyItemProps & {task: TaskModel}) => {
   const { course } = useSelector((state:RootState) => state.courseStore);
 
   const task = props.task;
-  const [editor, setEditor] = useState<string>('');
+  const [editor, setEditor] = useState<string>(task.text);
+  const { groupId, semesterId } = task.assignment;
+  const [property, setProperty] = useState<Property & {group: null | OptionType | string, semester: null | OptionType | string}>({
+    group: groupId || '',
+    semester: semesterId || '',
+    score: task.score,
+    priority: task.priority,
+    tags: task.tags,
+    endDate: task.endDate,
+    startDate: task.startDate,
+  });
+
+  const onChengeProperty = (newProperty: Property & {group: null | OptionType, semester: null | OptionType}) => {
+    setProperty(newProperty);
+  };
 
   return (
     <>
@@ -32,6 +47,11 @@ const ReviewTask = ({ ...props }: BodyItemProps & {task: TaskModel}) => {
             mt={10}
             mb={6}
           >{task.title}</Heading>
+          <TaskProperty
+            property={property}
+            onChangeProperty={onChengeProperty}
+            readOnly
+          />
 
         </Box>
         <Tabs variant={'task_modal'}>

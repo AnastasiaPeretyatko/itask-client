@@ -3,14 +3,14 @@
 import { Container, List, ListItem, Tag, TagCloseButton, TagLabel, Text, useDisclosure } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { OptionType } from '@/components/ui/multiselect/Option';
 import Popover from '@/components/ui/popover';
 import { getGroupAndSemesterRequest } from '@/services/assignment.service';
 import { RootState } from '@/store';
+import { OptionType } from '@/types/course.type';
 import { getArrayGroupWithSemester } from '@/utils/getArrayGroupWithSemester';
 
 type Props = {
-  value: OptionType | null
+  value: OptionType | null | string
   groupId: string
   onChange: (value: OptionType) => void
   readOnly?: boolean
@@ -21,20 +21,28 @@ const SemesterProperty = ({ value, onChange, readOnly, onDelete, groupId }: Prop
   const { course } = useSelector((state: RootState) => state.courseStore);
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [options, setOptions] = useState<OptionType[]>([]);
+  const [data, setData] = useState<OptionType | string>();
 
   const fetchGroup = async() => {
     if(course){
       const { data } = await getGroupAndSemesterRequest(course.id);
       const { newSemesters } = getArrayGroupWithSemester(data);
+      if(typeof(value) === 'string' && groupId){
+        setData(newSemesters[groupId].find((group) => group.id === value));
+      }
       setOptions(newSemesters[groupId]);
     }
   };
 
   useEffect(() => {
-    if(isOpen) {
+    if((readOnly || isOpen) && groupId) {
       fetchGroup();
     }
-  }, [isOpen]);
+  }, [isOpen, readOnly, groupId]);
+
+  if(typeof(data) === 'string' && !data){
+    return null;
+  }
 
   return (
     <Popover
@@ -46,14 +54,14 @@ const SemesterProperty = ({ value, onChange, readOnly, onDelete, groupId }: Prop
       disclosureContent={
         <Container variant={'property_modal'}>
           {
-            !value?.label ? (
+            !data?.label ? (
               <Text
                 size={'small'}
                 color={'text.pale'}
               >Выберите семестр...</Text>
             ) : (
               <Tag onClick={(e) => e.stopPropagation()}>
-                <TagLabel>{value.label}</TagLabel>
+                <TagLabel>{data?.label}</TagLabel>
                 {!readOnly && <TagCloseButton onClick={onDelete}/>}
               </Tag>
             )
@@ -64,12 +72,13 @@ const SemesterProperty = ({ value, onChange, readOnly, onDelete, groupId }: Prop
       <Container>
         <List>
           {
-            options.map((option) => (
+            !readOnly && options.map((option) => (
               <ListItem key={option.id} >
                 <Tag
                   cursor={'pointer'}
                   onClick={() => {
                     onChange(option);
+                    setData(option);
                     onClose();
                   }}
                 >

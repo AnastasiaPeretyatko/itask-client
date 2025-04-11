@@ -11,7 +11,7 @@ type Props = {
 
 const CardTask = ({ task }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const description: string[] = getTextFromEditor(task.description);
+  const description: string[] = getTextFromEditor(task.text);
 
   return (
     <>

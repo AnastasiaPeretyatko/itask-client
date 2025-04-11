@@ -1,20 +1,17 @@
 import { Container, Flex, HStack } from '@chakra-ui/react';
-import { useState } from 'react';
 import DateProperty from './property/DateProperty/DateProperty';
 import GroupProperty from './property/GroupProperty';
 import ScoreProperty from './property/ScoreProperty';
 import SemesterProperty from './property/SemesterProperty';
+import { OptionType, Property } from '@/types/course.type';
 
-const TaskProperty = () => {
-  const [property, setProperty] = useState({
-    group: null,
-    semester: null,
-    score: '',
-    priority: '',
-    tags: '',
-    deadline: null,
-  });
+type Props = {
+  property: Property & {group: null | OptionType | string, semester: null | OptionType | string}
+  onChangeProperty: (property: Property & {group: null | OptionType, semester: null | OptionType}) => void
+  readOnly?: boolean
+}
 
+const TaskProperty = ({ property, onChangeProperty, readOnly }: Props) => {
   return (
     <Flex
       width={'full'}
@@ -29,8 +26,9 @@ const TaskProperty = () => {
         <Container variant={'property_title'}>Группа</Container>
         <GroupProperty
           value={property.group}
-          onChange={(value) => setProperty((prev) => ({ ...prev, group: value }))}
-          onDelete={() => setProperty((prev) => ({ ...prev, group: null }))}
+          onChange={(value) => onChangeProperty({ ...property, group: value })}
+          onDelete={() => onChangeProperty({ ...property, group: null })}
+          readOnly={readOnly}
         />
       </HStack>
       <HStack
@@ -43,8 +41,9 @@ const TaskProperty = () => {
         <SemesterProperty
           value={property.semester}
           groupId={property.group?.id || ''}
-          onChange={(value) => setProperty((prev) => ({ ...prev, semester: value }))}
-          onDelete={() => setProperty((prev) => ({ ...prev, semester: null }))}
+          onChange={(value) => onChangeProperty({ ...property, semester: value })}
+          onDelete={() => onChangeProperty({ ...property, semester: null })}
+          readOnly={readOnly}
         />
       </HStack>
       <HStack
@@ -54,7 +53,8 @@ const TaskProperty = () => {
         <Container variant={'property_title'}>Оценка</Container>
         <ScoreProperty
           value={property.score}
-          onChange={(value) => setProperty((prev) => ({ ...prev, score: value }))}
+          onChange={(value) => onChangeProperty({ ...property, score: +value })}
+          readOnly={readOnly}
         />
       </HStack>
       {/* <HStack
@@ -79,16 +79,12 @@ const TaskProperty = () => {
         gap={2}
         height={'34px'}
       >
-        <Container variant={'property_title'}>
-        Дата
-        </Container>
+        <Container variant={'property_title'}>Дата</Container>
         <DateProperty
-          value={property.deadline}
-          onChange={(value) => setProperty((prev) => ({ ...prev, deadline: value }))}
+          value={{ from: property.startDate, to: property.endDate }}
+          onChange={(value) => onChangeProperty({ ...property, endDate: value.to, startDate: value.from })}
+          readOnly={readOnly}
         />
-        {/* <Container variant={'property_modal'}>
-
-        </Container> */}
       </HStack>
     </Flex>
   );

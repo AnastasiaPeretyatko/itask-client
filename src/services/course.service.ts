@@ -9,3 +9,8 @@ export const getCoursesForProfessor = (id: string) => http.get(`/assignment/prof
 
 //? New request
 export const getOneCourse = (id: string) => http.get(`/courses/${id}`);
+
+export const getStudentsTaskByCourse = (id: string, params: {
+  semesterId: string,
+  groupId: string
+}) => http.get(`/courses/${id}/students`, { params });

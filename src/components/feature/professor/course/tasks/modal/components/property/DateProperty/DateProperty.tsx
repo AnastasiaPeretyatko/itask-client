@@ -1,46 +1,55 @@
+/* eslint-disable react/jsx-no-leaked-render */
 import { Container, Divider, HStack, Input, useBoolean, useDisclosure, VStack } from '@chakra-ui/react';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { DateRange } from 'react-day-picker';
 import WrapperDatePicker from './WrapperDatePicker';
 import DatePicker from '@/components/ui/DatePicker/DatePicker';
 import SwitchControl from '@/components/ui/SwitchControl/SwitchControl';
 import Popover from '@/components/ui/popover';
 
-type Props = {
-  value: DateRange | Date | null
-  onChange: (value: DateRange | Date) => void
+type ValueProp = {
+  from: Date | null;
+    to: Date | null;
 }
 
-const DateProperty = ({ value, onChange }: Props) => {
+type Props = {
+  value: ValueProp
+  onChange: (value: ValueProp) => void
+  readOnly?: boolean
+}
+
+const DateProperty = ({ value, onChange, readOnly }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [endDate, setEndDate] = useBoolean(false);
   const [includeTime, setIncludeTime] = useBoolean(false);
-  const [date, setDate] = useState<DateRange | Date>((value || new Date()) as Date);
+  const [date, setDate] = useState<{ from: Date | undefined; to: Date | undefined }>({
+    from: value.from || new Date(),
+    to: value.to || undefined,
+  });
 
   const isModal = true;
 
   const onChangeDate = (d: DateRange | Date) => {
-    setDate(d);
+    if ('from' in d && 'to' in d) {
+      setDate({ from: d.from, to: d.to });
+    } else if (d instanceof Date) {
+      setDate({ from: d, to: undefined });
+    }
   };
-
-  const localeValueFrom = useMemo(() => {
-    return endDate ? 'from' in date ? date.from : new Date() : new Date();
-  }, [date, endDate]);
-
-  const localeValueTo = useMemo(() => {
-    return endDate ? 'to' in date ? date.to : new Date() : new Date();
-  }, [date, endDate]);
-
-  const localeValue = useMemo(() => {
-    return !endDate && !('from' in date) ? date : new Date();
-  }, [date, endDate]);
 
   const wasOpen = useRef(isOpen);
 
   useEffect(() => {
     // Если поповер закрылся, и он был открыт ранее
     if (wasOpen.current && !isOpen) {
-      onChange?.(date);
+      // if(!date.from && !date.to) {
+      //   console.log('1',{ date });
+      //   onChange({ from: date.from || null, to: date.to || null });
+      // } else {
+      //   console.log('2',{ date });
+      onChange({ from: date.from || null, to: date.to || null });
+      // }
+
     }
 
     // Обновляем предыдущее состояние
@@ -49,7 +58,7 @@ const DateProperty = ({ value, onChange }: Props) => {
 
   return (
     <Popover
-      isOpen={isOpen}
+      isOpen={!readOnly && isOpen}
       onClose={onClose}
       onOpen={onOpen}
       maxHeight={'unset'}
@@ -57,10 +66,10 @@ const DateProperty = ({ value, onChange }: Props) => {
       disclosureContent={<Container
         variant={isModal ? 'property_modal' : 'property_card'}
         onClick={onOpen}
-      >{(endDate ?
-          `${localeValueFrom?.toLocaleDateString()} ⇾ ${localeValueTo?.toLocaleDateString()}`
-          : localeValue.toLocaleDateString())
-        }</Container>}
+      >
+        { new Date(date.from || new Date()).toLocaleDateString() }
+        { date.to && new Date(date.from || new Date()).toLocaleDateString() ? ' ⇾ ' + new Date(date.to || new Date()).toLocaleDateString() : null }
+      </Container>}
     >
       <VStack
         width={'full'}
@@ -77,7 +86,7 @@ const DateProperty = ({ value, onChange }: Props) => {
           <Input
             size={'sm'}
             variant={'unstyled'}
-            value={endDate ? localeValueFrom?.toLocaleDateString() : localeValue?.toLocaleDateString()}
+            value={new Date(date.from || new Date()).toLocaleDateString()}
             onChange={() => {}}
           />
           {
@@ -91,7 +100,7 @@ const DateProperty = ({ value, onChange }: Props) => {
                 <Input
                   size={'sm'}
                   variant={'unstyled'}
-                  value={localeValue.toLocaleTimeString()}
+                  value={new Date(date.from || new Date()).toLocaleDateString()}
                   onChange={() => {}}
                 />
               </>
@@ -111,7 +120,7 @@ const DateProperty = ({ value, onChange }: Props) => {
               <Input
                 size={'sm'}
                 variant={'unstyled'}
-                value={localeValueTo?.toLocaleDateString()}
+                value={new Date(date.to || new Date()).toLocaleDateString()}
                 onChange={() => {}}
               />
               {
@@ -125,7 +134,7 @@ const DateProperty = ({ value, onChange }: Props) => {
                     <Input
                       size={'sm'}
                       variant={'unstyled'}
-                      value={localeValue?.toLocaleTimeString()}
+                      value={new Date(date.to || new Date()).toLocaleDateString()}
                       onChange={() => {}}
                     />
                   </>
@@ -137,7 +146,7 @@ const DateProperty = ({ value, onChange }: Props) => {
 
         <WrapperDatePicker>
           <DatePicker
-            value={date}
+            value={endDate ? date : date.from}
             onChange={onChangeDate}
             mode={endDate ? 'range' : 'single'}
           />

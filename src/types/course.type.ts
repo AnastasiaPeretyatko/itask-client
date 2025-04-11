@@ -40,15 +40,15 @@ export type TCourse = {
 export type TaskModel = {
   id: string;
   title: string;
-  description: string;
+  text: string;
   createdAt?: Date;
   updatedAt?: Date;
-  assignment?: TAssignment
+  assignment: TAssignment
   creatorId?: string
 } & Property;
 
 export type Property = {
-  score: number | null;
+  score: number | null | string;
   startDate: Date | null;
   endDate: Date | null;
   tags: string[] | null;
@@ -65,4 +65,11 @@ export type TAssignment = {
   courseId: string;
   professorId?: string;
   semesterId?: string
+  groupId?: string
+}
+
+export type OptionType = {
+  id: string;
+  label: string;
+  color: string | null;
 }
