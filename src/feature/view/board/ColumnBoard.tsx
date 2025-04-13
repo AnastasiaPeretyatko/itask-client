@@ -1,8 +1,18 @@
-import { AddIcon } from '@chakra-ui/icons';
-import { Container, HStack, IconButton, Tag, Text } from '@chakra-ui/react';
-import CardTask from './CardTask';
+import { Container, HStack, Tag, Text, VStack } from '@chakra-ui/react';
+import { useDroppable } from '@dnd-kit/core';
+import TaskCard from './TaskCard';
+import { Column } from '.';
+import { DashboardTask } from '@/types/task.type';
 
-const ColumnBoard = () => {
+type ColumnProps = {
+  column: Column;
+  tasks: DashboardTask[];
+};
+
+const ColumnBoard = ({ column, tasks }: ColumnProps) => {
+  const { setNodeRef } = useDroppable({
+    id: column.id,
+  });
   return (
     <Container variant={'column_board'}>
       <HStack
@@ -14,27 +24,39 @@ const ColumnBoard = () => {
         justify={'space-between'}
         mb={2}
       >
-        <HStack>
+        <HStack width={'full'}>
           <Container
-            width={4}
+            minWidth={4}
             height={4}
             border={'2px solid red'}
             borderRadius={'full'}
           />
-          <Text>To-do</Text>
-          <Tag>3</Tag>
+          <Text
+            whiteSpace={'nowrap'}
+            width={'full'}
+            overflow={'hidden'}
+            textOverflow={'ellipsis'}
+            display={'inline-flex'}
+            flex={1}
+          >{column.title}</Text>
+          <Tag>{tasks.length}</Tag>
         </HStack>
-        <IconButton
-          aria-label="add task"
-          variant={'unstyled'}
-          size={'sm'}
-          icon={<AddIcon/>}
-        />
       </HStack>
-      <CardTask/>
-      <CardTask/>
-      <CardTask/>
-      <CardTask/>
+      <VStack
+        ref={setNodeRef}
+        height={'100%'}
+      >
+        {
+          tasks.map((task) => {
+            return (
+              <TaskCard
+                key={task.id}
+                task={task}
+              />
+            );
+          })
+        }
+      </VStack>
     </Container>
   );
 };

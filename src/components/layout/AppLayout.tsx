@@ -66,6 +66,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
           justifyContent="start"
           flexDir="column"
           overflowY="auto"
+          overflowX="hidden"
           p={2}
           paddingLeft={6}
           bg={'background.secondary'}

@@ -71,6 +71,7 @@ const property_label = defineStyle({
 });
 
 const column_board = defineStyle({
+  height: '100%',
   borderRadius: 'md',
   display:'flex',
   flexDirection:'column',
