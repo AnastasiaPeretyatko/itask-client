@@ -12,7 +12,6 @@ import { OptionType, Property, TaskModel } from '@/types/course.type';
 
 const ReviewTask = ({ role = 'professor', ...props }: BodyItemProps & {task: TaskModel, role?: 'student' | 'professor'}) => {
   const { course } = useSelector((state:RootState) => state.courseStore);
-
   const task = props.task;
   const [editor, setEditor] = useState<string>(task.text);
   const [property, setProperty] = useState<Property & {group: null | OptionType | string, semester: null | OptionType | string}>({
@@ -26,7 +25,8 @@ const ReviewTask = ({ role = 'professor', ...props }: BodyItemProps & {task: Tas
   });
 
   const onChangeProperty = (newProperty: PropertyType) => {
-    setProperty(newProperty);
+    //TODO пока что эта функция тригерит рендер в модалке, нужно пудет подумать на рефоктором этого кода при редактировани задач
+    // setProperty(newProperty);
   };
 
   return (
@@ -70,7 +70,7 @@ const ReviewTask = ({ role = 'professor', ...props }: BodyItemProps & {task: Tas
           <TabPanels>
             <TabPanel>
               <Editor
-                initialContent={editor}
+                markdown={editor}
                 onChange={setEditor}
               />
             </TabPanel>

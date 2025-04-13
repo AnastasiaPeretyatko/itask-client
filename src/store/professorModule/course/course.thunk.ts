@@ -54,7 +54,7 @@ export const getAllTaskThunk = createAsyncThunk<
 TaskModel[],
 string,
 { rejectValue: { statusCode: number; message: string }}>
-('all_tasks', async (courseId, { rejectWithValue }) => {
+('all_tasks_course', async (courseId, { rejectWithValue }) => {
   try {
     const { data } = await getAllTaskRequest(courseId);
     return data;
