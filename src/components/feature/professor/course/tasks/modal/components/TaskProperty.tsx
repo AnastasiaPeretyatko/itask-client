@@ -16,8 +16,6 @@ const TaskProperty = ({ property, onChangeProperty, readOnly, studentRole = fals
   const groupId = property.group && typeof property.group === 'object' ? property.group.id : property.group;
   const semesterId = property.semester && typeof property.semester === 'object' ? property.semester.id : property.semester;
 
-  console.log({ studentRole });
-
   return (
     <Flex
       width={'full'}

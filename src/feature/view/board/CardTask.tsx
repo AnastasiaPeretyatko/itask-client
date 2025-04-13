@@ -3,7 +3,6 @@ import ReviewTask from '@/components/feature/professor/course/tasks/modal/Review
 import { MessageIcon, PaperClipIcon } from '@/components/icon';
 import Modal from '@/components/ui/modal';
 import { TaskModel } from '@/types/course.type';
-import { getTextFromEditor } from '@/utils/getTextFromEditor';
 
 type Props = {
   task: TaskModel
@@ -11,7 +10,6 @@ type Props = {
 
 const CardTask = ({ task }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const description: string[] = getTextFromEditor(task.text);
 
   return (
     <>
@@ -25,14 +23,10 @@ const CardTask = ({ task }: Props) => {
           {/* TODO добавить вывод проперти */}
 
         </VStack>
-        {
-          description ? (
-            <Text
-              size={'sm'}
-              color={'text.pale'}
-            >{description}</Text>
-          ) : null
-        }
+        <Text
+          size={'sm'}
+          noOfLines={2}
+        >{task.text}</Text>
         <Divider borderColor={'divider'}/>
         <HStack justify={'space-between'}>
           <AvatarGroup

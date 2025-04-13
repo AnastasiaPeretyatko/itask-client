@@ -108,7 +108,7 @@ const AddTask = ({ ...props }: BodyItemProps) => {
         >
           <Editor
             editable
-            initialContent={editor}
+            markdown={editor}
             onChange={setEditor}
           />
 

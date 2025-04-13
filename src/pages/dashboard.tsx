@@ -1,5 +1,5 @@
 import { Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
-import { useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { KanbanIcon } from '@/components/icon';
 import AppLayout from '@/components/layout/AppLayout';
@@ -10,9 +10,10 @@ import { getStudentsAndTaskThunk } from '@/store/studentModule/tasks/dashboard.t
 const Dashboard = () => {
   const dispatch = useDispatch<AppDispatch>();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
+    console.log('kek');
     dispatch(getStudentsAndTaskThunk('d2a887e1-cfce-4f49-935a-1a77f9ff1169')); //TODO пока на бэке не достаем айди передаем дефолтный
-  }, []);
+  }, [dispatch]);
 
   return (
     <AppLayout>

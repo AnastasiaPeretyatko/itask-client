@@ -2,7 +2,6 @@ import { ChevronRightIcon } from '@chakra-ui/icons';
 import { Card, Heading, HStack, IconButton, Image, Tag, Text, VStack, Wrap } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { TCourse } from '@/types/course.type';
-import { getTextFromEditor } from '@/utils/getTextFromEditor';
 
 type Props = {
   course: TCourse
@@ -10,7 +9,6 @@ type Props = {
 
 const CourseCard = ({ course }: Props) => {
   const router = useRouter();
-  const description: string[] = getTextFromEditor(course.description);
 
   return (
     <Card
@@ -53,8 +51,10 @@ const CourseCard = ({ course }: Props) => {
           alignItems={'start'}
           gap={0}
         >
-          <Text>{description[0]}</Text>
-          <Text>{description[1]}</Text>
+          <Text
+            fontSize={'sm'}
+            noOfLines={3}
+          >{course.description}</Text>
         </VStack>
         <HStack
           width={'full'}

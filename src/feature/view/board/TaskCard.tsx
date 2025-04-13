@@ -1,12 +1,10 @@
 import { DragHandleIcon } from '@chakra-ui/icons';
 import { Avatar, AvatarGroup, Box, Card, Divider, Heading, HStack, IconButton, Text, useDisclosure, VStack } from '@chakra-ui/react';
 import { useDraggable } from '@dnd-kit/core';
-import React from 'react';
 import ReviewTask from '@/components/feature/professor/course/tasks/modal/ReviewTask';
 import { MessageIcon, PaperClipIcon } from '@/components/icon';
 import Modal from '@/components/ui/modal';
 import { DashboardTask } from '@/types/task.type';
-import { getTextFromEditor } from '@/utils/getTextFromEditor';
 
 type TaskCardProps = {
   task: DashboardTask;
@@ -17,7 +15,6 @@ const TaskCard = ({ task }: TaskCardProps) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: task.user_task.id,
   });
-  const description: string[] = getTextFromEditor(task.text);
 
   const style = transform
     ? {
@@ -25,6 +22,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
       zIndex: 2,
     }
     : undefined;
+
   return (
     <>
       <Card
@@ -50,14 +48,12 @@ const TaskCard = ({ task }: TaskCardProps) => {
           />
         </HStack>
         <VStack gap={0}>{/* TODO добавить вывод проперти */}</VStack>
-        {
-          description ? (
-            <Text
-              size={'sm'}
-              color={'text.pale'}
-            >{description}</Text>
-          ) : null
-        }
+        <Text
+          noOfLines={2}
+          whiteSpace={'pre-line'}
+        >
+          {task.text.replace(/\\\n/g, '\n')}
+        </Text>
         <Divider borderColor={'divider'}/>
         <HStack justify={'space-between'}>
           <AvatarGroup

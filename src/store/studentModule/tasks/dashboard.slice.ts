@@ -16,8 +16,9 @@ export const dashboardTask = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getStudentsAndTaskThunk.fulfilled, (state, { payload }) => {
-        state.tasks = payload;
+      .addCase(getStudentsAndTaskThunk.fulfilled, (state, action) => {
+        console.log('payload', { action });
+        state.tasks = action.payload;
       })
       .addCase(updateTaskStatusThunk.fulfilled, (state, { payload }) => {
         state.tasks = state.tasks.map((task) => {
