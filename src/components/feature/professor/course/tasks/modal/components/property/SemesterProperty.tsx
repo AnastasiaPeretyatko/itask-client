@@ -4,10 +4,9 @@ import { Container, List, ListItem, Tag, TagCloseButton, TagLabel, Text, useDisc
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Popover from '@/components/ui/popover';
-import { getGroupAndSemesterRequest } from '@/services/assignment.service';
+import { getSemesterByCourse } from '@/services/assignment.service';
 import { RootState } from '@/store';
 import { OptionType } from '@/types/course.type';
-import { getArrayGroupWithSemester } from '@/utils/getArrayGroupWithSemester';
 
 type Props = {
   value: OptionType | null | string
@@ -21,16 +20,16 @@ const SemesterProperty = ({ value, onChange, readOnly, onDelete, groupId }: Prop
   const { course } = useSelector((state: RootState) => state.courseStore);
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [options, setOptions] = useState<OptionType[]>([]);
-  const [data, setData] = useState<OptionType | string>();
+  const [data, setData] = useState<OptionType>();
 
   const fetchGroup = async() => {
     if(course){
-      const { data } = await getGroupAndSemesterRequest(course.id);
-      const { newSemesters } = getArrayGroupWithSemester(data);
-      if(typeof(value) === 'string' && groupId){
-        setData(newSemesters[groupId].find((group) => group.id === value));
+      const { data } = await getSemesterByCourse(course.id, groupId ? { groupId } : {}) as { data: OptionType[] };
+      if(typeof(value) === 'string' && groupId && data){
+        onChange(data.find((g) => g.id === value) as OptionType);
+        setData(data.find((g) => g.id === value));
       }
-      setOptions(newSemesters[groupId]);
+      setOptions(data);
     }
   };
 

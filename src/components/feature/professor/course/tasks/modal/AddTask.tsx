@@ -11,6 +11,11 @@ import { changeTaskTitle, createTask } from '@/store/professorModule/course/cour
 import { createTaskThunk } from '@/store/professorModule/course/course.thunk';
 import { OptionType, Property } from '@/types/course.type';
 
+export type PropertyType = {
+  group: null | OptionType | string,
+  semester: null | OptionType | string
+} & Property
+
 const AddTask = ({ ...props }: BodyItemProps) => {
   const dispatch = useDispatch<AppDispatch>();
   const { course, temTask: task } = useSelector((state:RootState) => state.courseStore);
@@ -19,7 +24,7 @@ const AddTask = ({ ...props }: BodyItemProps) => {
   const [editor, setEditor] = useState<string>('');
   const [title, setTitle] = useState<string>(task?.title || '');
 
-  const [property, setProperty] = useState<Property & {group: null | OptionType, semester: null | OptionType}>({
+  const [property, setProperty] = useState<PropertyType>({
     group: null,
     semester: null,
     score: null,
@@ -33,11 +38,8 @@ const AddTask = ({ ...props }: BodyItemProps) => {
     if(!task || !course) {return;}
     const { group, semester, ...allProperty } = property;
     const { id, ...newTask } = task;
-    dispatch(createTaskThunk({ task: {
-      ...newTask,
-      ...allProperty,
-      text: editor,
-    }, assignment: { courseId: course.id, semesterId: semester?.id, groupId: group?.id } }))
+    dispatch(createTaskThunk({ task: { ...newTask, ...allProperty, text: editor },
+      assignment: { courseId: course.id, semesterId: (semester as OptionType)?.id, groupId: (group as OptionType)?.id } }))
       .unwrap()
       .then((res) => {
         showSuccessMessage(res);

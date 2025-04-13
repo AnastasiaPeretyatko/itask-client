@@ -1,3 +1,5 @@
+import { TaskModel } from './course.type';
+
 export type UserTask = {
   id: string,
   status: string,
@@ -10,3 +12,7 @@ export type UserTask = {
   createdAt: Date,
   updatedAt: Date
 }
+
+export type DashboardTask = {
+  user_task: UserTask
+} & TaskModel

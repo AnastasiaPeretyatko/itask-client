@@ -27,11 +27,10 @@ const filterCourse = [
 const ProfessorCoursePage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { courses } = useSelector((state: RootState) => state.courseStore);
-  // const { user } = useSelector((state: RootState) => state.user);
+  const { user } = useSelector((state: RootState) => state.user);
 
   useLayoutEffect(() => {
-    // TODO пока на бэке не достаем айди передаем дефолтный
-    dispatch(getCoursesForProfessorThunk('783cedb0-4146-4db2-8930-4f4a5e481f47'));
+    dispatch(getCoursesForProfessorThunk(user?.professorId || ''));
   }, []);
 
   return (

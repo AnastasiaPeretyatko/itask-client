@@ -1,11 +1,9 @@
 import { Select } from '@chakra-ui/react';
 import React from 'react';
+import { OptionType } from '@/types/course.type';
 
 type SelectProps = {
-  options: {
-    id: string
-    name: string
-  }[]
+  options: OptionType[]
   placeholder?: string
   onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void
 }
@@ -32,12 +30,12 @@ const SelectUi = ({ options, placeholder, onChange }: SelectProps) => {
         },
       }}
     >
-      {options.map((option, index) => (
+      {options.map((option) => (
         <option
-          key={index}
+          key={option.id}
           value={option.id}
         >
-          {option.name}
+          {option.label}
         </option>
       ))}
     </Select>

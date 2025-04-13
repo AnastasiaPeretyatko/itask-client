@@ -25,25 +25,29 @@ export const courseStore = createSlice({
   initialState,
   reducers: {
     createTask: (state) => {
-      const task: Omit<TaskModel, 'assignment'> = {
-        id: uuid(),
-        title: '',
-        text: '',
-        creatorId: '783cedb0-4146-4db2-8930-4f4a5e481f47', //TODO добавить пом айди пользователя
-        endDate: null,
-        startDate: null,
-        priority: null,
-        tags: null,
-        score: null,
-      };
-      state.temTask = task;
+      const user = localStorage.getItem('user');
+      if(user && 'professorId' in JSON.parse(user) && JSON.parse(user).professorId){
+        const task: Omit<TaskModel, 'assignment'> = {
+          id: uuid(),
+          title: '',
+          text: '',
+          creatorId: JSON.parse(user).professorId,
+          endDate: null,
+          startDate: null,
+          priority: null,
+          tags: null,
+          score: null,
+        };
+        state.temTask = task;
+
+      }
     },
     changeTaskTitle: (state, action: PayloadAction<string>) => {
       if(state.temTask){
         state.temTask = { ...state.temTask, title: action.payload };
       }
     },
-    chengeDescription: (state, action: PayloadAction<string>) => {
+    changeDescription: (state, action: PayloadAction<string>) => {
       if(state.temTask){
         state.temTask = { ...state.temTask, text: action.payload };
       }
@@ -82,6 +86,6 @@ export const courseStore = createSlice({
   },
 });
 
-export const { createTask, changeTaskTitle, chengeDescription } = courseStore.actions;
+export const { createTask, changeTaskTitle, changeDescription } = courseStore.actions;
 
 export default courseStore.reducer;

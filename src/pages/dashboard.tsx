@@ -1,20 +1,32 @@
 import { Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
-import React from 'react';
-import { KanbanIcon, ListIcon, TableIcon } from '@/components/icon';
+import { useLayoutEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { KanbanIcon } from '@/components/icon';
 import AppLayout from '@/components/layout/AppLayout';
 import Board from '@/feature/view/board';
+import { AppDispatch } from '@/store';
+import { getStudentsAndTaskThunk } from '@/store/studentModule/tasks/dashboard.thunk';
 
 const Dashboard = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  useLayoutEffect(() => {
+    dispatch(getStudentsAndTaskThunk('d2a887e1-cfce-4f49-935a-1a77f9ff1169')); //TODO пока на бэке не достаем айди передаем дефолтный
+  }, []);
+
   return (
     <AppLayout>
       <Tabs
         variant={'dashboard'}
         size={'sm'}
+        width={'full'}
+        overflow={'hidden'}
+        height={'full'}
       >
         <TabList>
           <Tab><KanbanIcon/> Kanban</Tab>
-          <Tab><TableIcon/> Table</Tab>
-          <Tab><ListIcon/> List</Tab>
+          {/* <Tab><TableIcon/> Table</Tab>
+          <Tab><ListIcon/> List</Tab> */}
         </TabList>
         <TabIndicator
           mt="-2px"
@@ -24,9 +36,11 @@ const Dashboard = () => {
         />
         <TabPanels
           width={'full'}
+          height={'full'}
         >
           <TabPanel
             width={'full'}
+            height={'full'}
             padding={0}
             paddingTop={2}
           >

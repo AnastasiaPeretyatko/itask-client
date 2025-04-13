@@ -1,6 +1,7 @@
 import { Box, Heading, ModalBody, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { PropertyType } from './AddTask';
 import CommentsBox from './components/CommentsBox';
 import Header from './components/Header';
 import TaskProperty from './components/TaskProperty';
@@ -9,15 +10,14 @@ import { BodyItemProps } from '@/components/ui/modal';
 import { RootState } from '@/store';
 import { OptionType, Property, TaskModel } from '@/types/course.type';
 
-const ReviewTask = ({ ...props }: BodyItemProps & {task: TaskModel}) => {
+const ReviewTask = ({ role = 'professor', ...props }: BodyItemProps & {task: TaskModel, role?: 'student' | 'professor'}) => {
   const { course } = useSelector((state:RootState) => state.courseStore);
 
   const task = props.task;
   const [editor, setEditor] = useState<string>(task.text);
-  const { groupId, semesterId } = task.assignment;
   const [property, setProperty] = useState<Property & {group: null | OptionType | string, semester: null | OptionType | string}>({
-    group: groupId || '',
-    semester: semesterId || '',
+    group: task?.assignment?.groupId || '',
+    semester: task?.assignment?.semesterId || '',
     score: task.score,
     priority: task.priority,
     tags: task.tags,
@@ -25,7 +25,7 @@ const ReviewTask = ({ ...props }: BodyItemProps & {task: TaskModel}) => {
     startDate: task.startDate,
   });
 
-  const onChengeProperty = (newProperty: Property & {group: null | OptionType, semester: null | OptionType}) => {
+  const onChangeProperty = (newProperty: PropertyType) => {
     setProperty(newProperty);
   };
 
@@ -49,8 +49,9 @@ const ReviewTask = ({ ...props }: BodyItemProps & {task: TaskModel}) => {
           >{task.title}</Heading>
           <TaskProperty
             property={property}
-            onChangeProperty={onChengeProperty}
+            onChangeProperty={onChangeProperty}
             readOnly
+            studentRole={role === 'student'}
           />
 
         </Box>
