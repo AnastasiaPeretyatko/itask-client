@@ -21,9 +21,12 @@ import {
   startOfWeek,
 } from 'date-fns';
 import { useEffect, useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { dayWeekArray } from '@/common/const';
+import { RootState } from '@/store';
 
 const Calendar = ({ onChoiceDate }: { onChoiceDate: (date: Date) => void }) => {
+  const { tasks } = useSelector((state: RootState) => state.dashboardTask);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [prevMonthDays, setPrevMonthDays] = useState<Date[]>([]);
   const [nextMonthDays, setNextMonthDays] = useState<Date[]>([]);
@@ -164,21 +167,20 @@ const Calendar = ({ onChoiceDate }: { onChoiceDate: (date: Date) => void }) => {
             onClick={() => changeCurrentDate(date)}
           >
             <HStack gap={'0.5'}>
-              <Container
-                as={'span'}
-                variant={'eventPoint'}
-                bg={'red'}
-              />
-              <Container
-                as={'span'}
-                variant={'eventPoint'}
-                bg={'green'}
-              />
-              <Container
-                as={'span'}
-                variant={'eventPoint'}
-                bg={'blue'}
-              />
+              {
+                tasks?.map((t) => {
+                  if(t.endDate && getMonth(t.endDate) === getMonth(date) && getDate(t.endDate) === getDate(date)) {
+                    return(
+                      <Container
+                        as={'span'}
+                        variant={'eventPoint'}
+                        bg={'red'}
+                      />
+                    );
+                  }
+                  return null;
+                })
+              }
             </HStack>
 
             {getDate(date)}

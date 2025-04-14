@@ -1,12 +1,26 @@
 import { Container, Flex, Heading, HStack, Text, VStack } from '@chakra-ui/react';
-import { getDate, getDay } from 'date-fns';
-import React, { useState } from 'react';
+import { format, getDate, getDay, getMonth } from 'date-fns';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Task from './Task';
 import Calendar from './calendar';
 import { dayWeekArray } from '@/common/const';
+import { AppDispatch, RootState } from '@/store';
+import { getStudentsAndTaskThunk } from '@/store/studentModule/tasks/dashboard.thunk';
 
 const CalendarWidget = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const { tasks } = useSelector((state: RootState) => state.dashboardTask);
+  const month = format(new Date(), 'yyyy-MM');
   const [currentDate, setCurrentDate] = useState(new Date());
+
+  const taskOnDate = useMemo(() => {
+    return tasks.filter((t) => t.endDate && getDate(currentDate) === getDate(t.endDate) && getMonth(currentDate) === getMonth(t.endDate));
+  }, [currentDate, tasks]);
+
+  useEffect(() => {
+    dispatch(getStudentsAndTaskThunk({ id: '97d494f1-493f-4605-8c85-bac1252e962d', params: { month } } ));
+  }, []);
 
   return (
     <Container variant={'calendarWidget'}>
@@ -43,12 +57,18 @@ const CalendarWidget = () => {
               color={'blackAlpha.500'}
               fontWeight={600}
             >
-              2 events and 3 tasks
+              У вас {taskOnDate.length} заданий
             </Text>
           </Flex>
         </HStack>
-        <Task />
-        <Task />
+        {
+          taskOnDate.map((t) => (
+            <Task
+              key={t.id}
+              task={t}
+            />
+          ))
+        }
       </VStack>
     </Container>
   );

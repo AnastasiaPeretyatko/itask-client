@@ -26,9 +26,10 @@ const ColumnBoard = ({ column, tasks }: ColumnProps) => {
       >
         <HStack width={'full'}>
           <Container
-            minWidth={4}
-            height={4}
-            border={'2px solid red'}
+            minWidth={3}
+            height={3}
+            border={'2px solid'}
+            borderColor={'button.neutral.border'}
             borderRadius={'full'}
           />
           <Text
