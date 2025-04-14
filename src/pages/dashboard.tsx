@@ -11,8 +11,7 @@ const Dashboard = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    console.log('kek');
-    dispatch(getStudentsAndTaskThunk('d2a887e1-cfce-4f49-935a-1a77f9ff1169')); //TODO пока на бэке не достаем айди передаем дефолтный
+    dispatch(getStudentsAndTaskThunk({ id: '97d494f1-493f-4605-8c85-bac1252e962d' })); //TODO пока на бэке не достаем айди передаем дефолтный
   }, [dispatch]);
 
   return (
@@ -21,7 +20,7 @@ const Dashboard = () => {
         variant={'dashboard'}
         size={'sm'}
         width={'full'}
-        overflow={'hidden'}
+        // overflow={'hidden'}
         height={'full'}
       >
         <TabList>

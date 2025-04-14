@@ -1,12 +1,23 @@
 import { Card, Heading, Text } from '@chakra-ui/react';
 import React from 'react';
+import { DashboardTask } from '@/types/task.type';
 
-const Task = () => {
+type Props = {
+  task: DashboardTask
+}
+
+const Task = ({ task }: Props) => {
   return (
     <Card variant={'taskSmall'}>
-      <Text fontSize={'xs'}>12:00 am - 14:00 am</Text>
-      <Heading size={'sm'}>Lunch with Adam</Heading>
-      <Text fontSize={'sm'}>The view from the top</Text>
+      <Text fontSize={'sm'}>
+        {task.startDate ? <span>{new Date(task.startDate).toLocaleDateString()}</span> : null} ⇾
+        {task.endDate ? <span>{new Date(task.endDate).toLocaleDateString()}</span> : null}
+      </Text>
+      <Heading fontSize={'sm'}>{task.title}</Heading>
+      <Text
+        fontSize={'sm'}
+        noOfLines={2}
+      >{task.text}</Text>
     </Card>
   );
 };

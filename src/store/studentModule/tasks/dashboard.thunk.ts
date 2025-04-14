@@ -5,11 +5,11 @@ import { handleThunkError } from '@/utils/handleThunkError';
 
 export const getStudentsAndTaskThunk = createAsyncThunk<
 DashboardTask[],
-string,
+{id: string, params?: { [key: string]: string }},
 { rejectValue: { statusCode: number; message: string }}>
-('all_tasks', async (id, { rejectWithValue }) => {
+('all_tasks', async ({ id, params }, { rejectWithValue }) => {
   try {
-    const { data } = await getTaskByStudent(id);
+    const { data } = await getTaskByStudent(id, params);
     return data;
   }catch (error) {
     return handleThunkError(error, rejectWithValue);
