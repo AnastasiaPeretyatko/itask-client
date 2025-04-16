@@ -1,18 +1,20 @@
 import { Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { KanbanIcon } from '@/components/icon';
 import AppLayout from '@/components/layout/AppLayout';
 import Board from '@/feature/view/board';
-import { AppDispatch } from '@/store';
+import { AppDispatch, RootState } from '@/store';
 import { getStudentsAndTaskThunk } from '@/store/studentModule/tasks/dashboard.thunk';
 
 const Dashboard = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const { user } = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
-    dispatch(getStudentsAndTaskThunk({ id: '97d494f1-493f-4605-8c85-bac1252e962d' })); //TODO пока на бэке не достаем айди передаем дефолтный
-  }, [dispatch]);
+    if(!user?.studentId) {return;}
+    dispatch(getStudentsAndTaskThunk({ id: user?.studentId }));
+  }, [user?.studentId]);
 
   return (
     <AppLayout>
@@ -20,7 +22,6 @@ const Dashboard = () => {
         variant={'dashboard'}
         size={'sm'}
         width={'full'}
-        // overflow={'hidden'}
         height={'full'}
       >
         <TabList>

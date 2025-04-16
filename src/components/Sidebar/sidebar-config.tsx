@@ -36,7 +36,7 @@ export const NAVBAR_ITEM = [
     title: 'Доска',
     icon: <DashboardIcon />,
     path: '/dashboard',
-    role: ['professor', 'student'],
+    role: ['student'],
   },
 ];
 

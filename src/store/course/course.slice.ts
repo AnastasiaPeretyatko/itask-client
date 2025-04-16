@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getAllFromSemesterGroupThunk } from './course.thunk';
-import { CourseT } from '@/types/course.type';
+import { TCourse } from '@/types/course.type';
 
 type TInitialState = {
-  data: CourseT[]
+  data: TCourse[]
   isLoading: boolean
 }
 

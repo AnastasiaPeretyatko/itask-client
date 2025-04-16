@@ -45,6 +45,7 @@ export type TaskModel = {
   updatedAt?: Date;
   assignment: TAssignment
   creatorId?: string
+  courseName?: string
 } & Property;
 
 export type Property = {
@@ -53,6 +54,9 @@ export type Property = {
   endDate: Date | null;
   tags: string[] | null;
   priority: string | null;
+  isAnswered: boolean
+  group: OptionType | null | string;
+  semester: OptionType | null | string
 }
 
 export type PropertyOptions = {

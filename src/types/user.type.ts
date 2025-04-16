@@ -6,8 +6,8 @@ export type UserT = {
   activationLink: null
   createdAt: Date
   updatedAt: Date
-  groupId: null | string
-  fullNmae: string
+  group_id: null | string
+  fullName: string
   studentId: string | null
   professorId: string | null
 }

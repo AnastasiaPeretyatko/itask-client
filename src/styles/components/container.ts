@@ -151,6 +151,21 @@ const property_title = defineStyle({
   },
 });
 
+const code_output = defineStyle({
+  width: 'full',
+  height: 'full',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  gap: 2,
+  padding: 3,
+  background: 'button.neutral.bgDarker05',
+  borderRadius: 5,
+  border: '1px solid',
+  borderColor: 'divider',
+  fontSize: 'sm',
+});
+
 export const containerTheme = defineStyleConfig({
   baseStyle,
   variants: {
@@ -165,5 +180,6 @@ export const containerTheme = defineStyleConfig({
     property_modal,
     property_card,
     property_title,
+    code_output,
   },
 });

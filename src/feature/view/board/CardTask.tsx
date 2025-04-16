@@ -1,5 +1,5 @@
 import { Avatar, AvatarGroup, Box, Card, Divider, Heading, HStack, Text, useDisclosure, VStack } from '@chakra-ui/react';
-import ReviewTask from '@/components/feature/professor/course/tasks/modal/ReviewTask';
+import ReviewTaskModal from '@/components/feature/tasks/modals/ReviewTaskModal';
 import { MessageIcon, PaperClipIcon } from '@/components/icon';
 import Modal from '@/components/ui/modal';
 import { TaskModel } from '@/types/course.type';
@@ -54,7 +54,7 @@ const CardTask = ({ task }: Props) => {
         isOpenModal={isOpen}
         onCloseModal={onClose}
         height="80%"
-        renderBody={(props) => (<ReviewTask
+        renderBody={(props) => (<ReviewTaskModal
           task={task}
           {...props}
         />)}

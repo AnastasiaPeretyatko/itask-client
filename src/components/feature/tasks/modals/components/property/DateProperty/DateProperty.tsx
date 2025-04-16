@@ -42,14 +42,7 @@ const DateProperty = ({ value, onChange, readOnly }: Props) => {
   useEffect(() => {
     // Если поповер закрылся, и он был открыт ранее
     if (wasOpen.current && !isOpen) {
-      // if(!date.from && !date.to) {
-      //   console.log('1',{ date });
-      //   onChange({ from: date.from || null, to: date.to || null });
-      // } else {
-      //   console.log('2',{ date });
       onChange({ from: date.from || null, to: date.to || null });
-      // }
-
     }
 
     // Обновляем предыдущее состояние

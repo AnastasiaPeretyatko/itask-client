@@ -15,6 +15,7 @@ import SelectUi from '@/components/ui/SelectUi';
 import { getListSemesterFromGroup } from '@/services/semester.service';
 import { AppDispatch, RootState } from '@/store';
 import { getAllFromSemesterGroupThunk } from '@/store/course/course.thunk';
+import { OptionType } from '@/types/course.type';
 
 const NotFoundImage = dynamic(
   () => import('@/components/assets/animation/not-found'),
@@ -23,27 +24,21 @@ const NotFoundImage = dynamic(
 
 const StudentCoursesPage = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const [listSemester, setListSemester] = useState<
-    { id: string; name: string }[]
-  >([]);
+  const [listSemester, setListSemester] = useState<OptionType[]>([]);
   const { user } = useSelector((state: RootState) => state.user);
   const { data: courses } = useSelector((state: RootState) => state.courses);
 
   const fetchListSemester = async () => {
-    await getListSemesterFromGroup(user.student.group_id).then((res) =>
+    if(!user || !user?.studentId) {return;}
+    await getListSemesterFromGroup(user.studentId).then((res) =>
       setListSemester(res.data),
     );
   };
 
   const fetchListCourse = async (e: React.ChangeEvent<HTMLSelectElement>) => {
     const semesterId = e.target.value;
-
-    dispatch(
-      getAllFromSemesterGroupThunk({
-        semesterId,
-        groupId: user.student.group_id,
-      }),
-    );
+    if((!user || !user.group_id) || !semesterId) {return;}
+    dispatch( getAllFromSemesterGroupThunk({ semesterId, groupId: user.group_id }) );
   };
 
   useEffect(() => {
@@ -83,9 +78,8 @@ const StudentCoursesPage = () => {
       >
         {courses.map((course) => (
           <CardCourse
-            key={course.course.id}
-            course={course.course}
-            professors={course.professors}
+            key={course.id}
+            course={course}
           />
         ))}
       </SimpleGrid>

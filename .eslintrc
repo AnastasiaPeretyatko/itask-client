@@ -26,7 +26,7 @@
   ],
   "rules": {
     "eqeqeq": 2,
-    "curly": 2,
+    "curly": ["error", "multi-line", "consistent"], // Изменено для однострочных if с return
     "no-mixed-operators": "off",
     "no-useless-escape": "off",
     "es/no-regexp-lookbehind-assertions": "error",
@@ -108,7 +108,7 @@
     "react/no-multi-comp": ["error", { "ignoreStateless": true }],
     "react/forward-ref-uses-ref": "error",
     "react/jsx-first-prop-new-line": ["error", "multiline-multiprop"],
-    "react/jsx-max-props-per-line": ["error", { "when": "always", "maximum": 1}],
+    "react/jsx-max-props-per-line": ["error", { "when": "multiline", "maximum": 5 }], // Изменено для 5 пропсов
     "react/jsx-closing-bracket-location": ["error", "line-aligned"],
     "no-mixed-spaces-and-tabs": "off",
     "indent": ["error", 2],
