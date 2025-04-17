@@ -16,7 +16,7 @@ type Props = {
   onDelete?: () => void
 }
 
-const SemesterProperty = ({ value, onChange, readOnly, onDelete, groupId }: Props) => {
+const SemesterProperty = ({ value, onChange, readOnly = false, onDelete, groupId }: Props) => {
   const { course } = useSelector((state: RootState) => state.courseStore);
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [options, setOptions] = useState<OptionType[]>([]);

@@ -35,3 +35,7 @@ export * from './EmailIcon';
 export * from './DotsVerticalIcon';
 
 export * from './StarIcon';
+
+export * from './FileEarmarkCodeIcon';
+
+export * from './FolderCheckIcon';

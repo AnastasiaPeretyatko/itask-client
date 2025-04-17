@@ -1,7 +1,7 @@
 import { http } from '.';
 
-export const getAllFromSemesterGroup = (semesterId: string, groupId: string) =>
-  http.get(`/courses/${semesterId}/${groupId}`);
+export const getAllFromSemesterGroup = (params: {[key: string]: string}) =>
+  http.get('/courses/list', { params });
 
 export const getAllByProfessor = (id: string) => http.get(`/courses/professor/${id}`);
 

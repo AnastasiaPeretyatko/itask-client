@@ -1,10 +1,11 @@
 import { DragHandleIcon } from '@chakra-ui/icons';
-import { Avatar, AvatarGroup, Box, Card, Divider, Heading, HStack, IconButton, Text, useDisclosure, VStack } from '@chakra-ui/react';
+import { Avatar, AvatarGroup, Box, Card, Divider, Heading, HStack, IconButton, Tag, Text, useDisclosure, VStack } from '@chakra-ui/react';
 import { useDraggable } from '@dnd-kit/core';
-import ReviewTask from '@/components/feature/professor/course/tasks/modal/ReviewTask';
+import ReviewTaskModal from '@/components/feature/tasks/modals/ReviewTaskModal';
 import { MessageIcon, PaperClipIcon } from '@/components/icon';
 import Modal from '@/components/ui/modal';
 import { DashboardTask } from '@/types/task.type';
+import { UserRole } from '@/types/user.type';
 
 type TaskCardProps = {
   task: DashboardTask;
@@ -33,6 +34,10 @@ const TaskCard = ({ task }: TaskCardProps) => {
         width={'full'}
         onClick={onOpen}
       >
+        <Tag
+          size={'sm'}
+          padding={1}
+        >{task.courseName}</Tag>
         <HStack
           width={'full'}
           justify={'space-between'}
@@ -80,9 +85,10 @@ const TaskCard = ({ task }: TaskCardProps) => {
         isOpenModal={isOpen}
         onCloseModal={onClose}
         height="80%"
-        renderBody={(props) => (<ReviewTask
+        renderBody={(props) => (<ReviewTaskModal
           task={task}
-          role="student"
+          role={UserRole.Student}
+          courseName={task.courseName}
           {...props}
         />)}
       />

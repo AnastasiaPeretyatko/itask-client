@@ -10,7 +10,7 @@ import { OptionType } from '@/types/course.type';
 
 type Props = {
   value: OptionType | null | string
-  semesterId?: string
+  semesterId?: string | null
   onChange: (value: OptionType) => void
   readOnly?: boolean
   onDelete?: () => void

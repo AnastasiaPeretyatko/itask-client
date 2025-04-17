@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import CourseDescription from '@/components/feature/professor/course/description/CourseDescription';
 import CourseMembers from '@/components/feature/professor/course/members/CourseMembers';
 import CourseTaskBoard from '@/components/feature/professor/course/tasks/CourseTaskBoard';
-import AddTask from '@/components/feature/professor/course/tasks/modal/AddTask';
+import AddTaskModal from '@/components/feature/tasks/modals/AddTaskModal';
 import AppLayout from '@/components/layout/AppLayout';
 import Modal from '@/components/ui/modal';
 import { AppDispatch, RootState } from '@/store';
@@ -68,7 +68,7 @@ const CoursePage = () => {
               variant={'primary'}
             >Добавить задание</Button> }
             isTask
-            renderBody={(props) => <AddTask {...props} />}
+            renderBody={(props) => <AddTaskModal {...props} />}
           />
         </Skeleton>
         <Skeleton

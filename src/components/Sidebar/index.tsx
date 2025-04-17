@@ -10,7 +10,7 @@ import { settings } from '@/store/user/user.slice';
 
 const Sidebar = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { isOpenSidebar } = useSelector((state: RootState) => state.user);
+  const { user, isOpenSidebar } = useSelector((state: RootState) => state.user);
 
   const handleClickLogOut = () => dispatch(settings.logout());
 
@@ -51,7 +51,7 @@ const Sidebar = () => {
           align={isOpenSidebar ? 'start' : 'center'}
         >
           {NAVBAR_ITEM.map((el) => {
-            // if (user && el.role.includes(user.role))
+            if (user && el.role.includes(user.role))
             {return (
               <SidebarItem
                 key={el.title}

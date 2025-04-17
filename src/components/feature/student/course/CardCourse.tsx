@@ -12,10 +12,10 @@ import {
   Text,
   Tooltip,
 } from '@chakra-ui/react';
-import { BaseCourseT, ProfessorT } from '@/types/course.type';
+import { ProfessorT, TCourse } from '@/types/course.type';
 
 type Props = {
-  course: BaseCourseT
+  course: TCourse
   professors?: ProfessorT[]
 }
 

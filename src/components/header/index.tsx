@@ -1,4 +1,4 @@
-import { Avatar, Container, Divider, HStack } from '@chakra-ui/react';
+import { Avatar, Container, Divider, HStack, Text, VStack } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 import NotificationsBlock from '../notifications';
 import { RootState } from '@/store';
@@ -21,8 +21,18 @@ const Header = () => {
           />
           <Avatar
             size={'sm'}
-            name={user?.fullNmae}
+            name={user?.fullName[0]}
           />
+          <VStack
+            alignItems={'start'}
+            gap={0}
+          >
+            <Text fontSize={'sm'}>{user?.fullName}</Text>
+            <Text
+              fontSize={12}
+              color={'text.pale'}
+            >{user?.role}</Text>
+          </VStack>
         </HStack>
       </Container>
     </>
