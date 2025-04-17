@@ -2,6 +2,7 @@ import { Button, Container, Flex, Heading, HStack, Text } from '@chakra-ui/react
 import * as monaco from 'monaco-editor';
 import React, { MutableRefObject, useState } from 'react';
 import LanguageSelector from './LanguageSelector';
+import { BodyItemProps } from '@/components/ui/modal';
 import { useNotifications } from '@/hooks/useNotifications';
 import { executeCode } from '@/services/api.service';
 
@@ -10,9 +11,9 @@ type Props = {
   language: string
   onSelectLanguage: (language: string) => void
   onSave: () => void
-}
+} & BodyItemProps
 
-const Output = ({ editorRef, language, onSelectLanguage, onSave }: Props) => {
+const Output = ({ editorRef, language, onSelectLanguage, onSave, onClose }: Props) => {
   const [output, setOutput] = useState<null | any[]>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -21,7 +22,6 @@ const Output = ({ editorRef, language, onSelectLanguage, onSave }: Props) => {
   const runCode = async() => {
     if(!editorRef.current) {return;}
     const sourceCode = editorRef.current.getValue();
-    console.log('sourceCode', sourceCode);
     if(!sourceCode) {return;}
     try {
       setIsLoading(true);
@@ -60,7 +60,13 @@ const Output = ({ editorRef, language, onSelectLanguage, onSave }: Props) => {
           output.map((line, i) => <Text key={i}>{line}</Text>)
           : <Text color={'text.pale'}>Click "Run Code" to see the output here</Text>}
       </Container>
-      <Button variant={'primary'} size={'sm'} onClick={onSave} width={'max-content'}>
+      <Button
+        variant={'primary'} size={'sm'}
+        onClick={() => {onSave();
+          onClose();
+        }}
+        width={'max-content'}
+      >
           Сохранить
       </Button>
     </Flex>

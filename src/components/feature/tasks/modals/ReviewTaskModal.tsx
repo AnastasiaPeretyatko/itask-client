@@ -36,11 +36,27 @@ const ReviewTaskModal = ({ task: oldTask, role, courseName, ...props }: Props) =
 
   return (
     <>
-      <Header review courseName={courseName || course?.name} taskName={task?.title} {...props}/>
+      <Header
+        review
+        courseName={courseName || course?.name}
+        taskName={task?.title}
+        {...props}
+      />
       <ModalBody as={'form'}>
-        <Box width={'full'} paddingX={24} paddingY={2}>
-          <Heading mt={10} mb={6}>{task?.title}</Heading>
-          <TaskProperty property={task?.property as CreateTask['property']} readOnly studentRole={role === UserRole.Student}/>
+        <Box
+          width={'full'}
+          paddingX={24}
+          paddingY={2}
+        >
+          <Heading
+            mt={10}
+            mb={6}
+          >{task?.title}</Heading>
+          <TaskProperty
+            property={task?.property as CreateTask['property']}
+            readOnly
+            studentRole={role === UserRole.Student}
+          />
         </Box>
         <Tabs variant={'task_modal'}>
           <TabList>
@@ -61,7 +77,10 @@ const ReviewTaskModal = ({ task: oldTask, role, courseName, ...props }: Props) =
             {
               role === UserRole.Student ? (
                 <TabPanel>
-                  <AnswerContainer task={task as CreateTask}/>
+                  <AnswerContainer
+                    task={task as CreateTask}
+                    onClose={props.onClose}
+                  />
                 </TabPanel>
               ) : null
             }

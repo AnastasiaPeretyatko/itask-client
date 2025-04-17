@@ -15,6 +15,6 @@ export default (professorId: string): CreateTask => {
       score: null,
       isAnswered: false,
     },
-    answer: null,
+    user_task: null,
   };
 };

@@ -1,36 +1,98 @@
-import { Box, Button, HStack } from '@chakra-ui/react';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { Box, Button, HStack, IconButton } from '@chakra-ui/react';
+import { useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import CodeEditorModal from '../CodeEditorModal';
+import { FileEarmarkCodeIcon } from '@/components/icon';
 import Editor from '@/components/ui/Editor/Editor';
 import Modal from '@/components/ui/modal';
-import { AppDispatch } from '@/store';
+import { TaskStatus } from '@/feature/view/board';
+import { useNotifications } from '@/hooks/useNotifications';
+import { AppDispatch, RootState } from '@/store';
 import { addAnswer, CreateTask } from '@/store/task/task.slice';
+import { updateUserTaskThunk } from '@/store/task/task.thunk';
 
-const AnswerContainer = ({ task }: {task: CreateTask}) => {
+const AnswerContainer = ({ task, onClose }: {task: CreateTask, onClose: () => void}) => {
   const dispatch = useDispatch<AppDispatch>();
-  const [answer, setAnswer] = useState('');
+  const { tasks } = useSelector((state:RootState) => state.dashboardTask);
+  const [text, setText] = useState('');
+  const { showSuccessMessage, showErrorMessage } = useNotifications();
+
+  const userTask = useMemo(() => {
+    return tasks.find((t) => t.id === task.id)?.user_task;
+  }, [task.id, tasks]);
 
   const onAddAnswer = (value: string) => {
-    console.log('1');
-
     if(!task) return;
-    console.log('2');
     dispatch(addAnswer(value));
   };
 
+  const save = async() => {
+    if(task && task.user_task && task.user_task.answer){
+      await dispatch(updateUserTaskThunk({ id: task.user_task.id, task: { answer: { text, code: task.user_task.answer.code }, status: TaskStatus.RESOLVED } }))
+        .unwrap()
+        .then((res) => {
+          showSuccessMessage(res.message);
+          onClose();
+        })
+        .catch(showErrorMessage);
+    }
+  };
+
+  if(task && task.user_task && userTask?.answer){
+    const { code, text } = userTask.answer;
+    return (
+      <Box
+        width={'full'}
+        height={'full'}
+      >
+        {code ? (
+          <IconButton
+            aria-label="file code"
+            variant={'unstuled'}
+            size={'sm'}
+            icon={<FileEarmarkCodeIcon boxSize={7}/>}
+            _before={{
+              content: '""',
+              width: 2,
+              height: 2,
+              background: 'red',
+              position: 'absolute',
+              right: 0,
+              top:0,
+              borderRadius:'full',
+            }}
+          />
+        ) : null}
+        <Editor
+          markdown={text}
+          onChange={setText}
+        />
+      </Box>
+    );
+  }
+
   return (
     <>
-      <Box width={'full'} height={'full'}>
-        <Editor editable markdown={answer} onChange={setAnswer}/>
+      <Box
+        width={'full'}
+        height={'full'}
+      >
+        <Editor
+          editable
+          markdown={text}
+          onChange={setText}
+        />
       </Box>
 
-      <HStack width={'full'} justify={'end'}>
+      <HStack
+        width={'full'}
+        justify={'end'}
+      >
         <Modal
           action={
             <Button
               size={'sm'}
-              _before={task.answer ? {
+              _before={task.user_task?.answer?.code ? {
                 content: '""',
                 width: 2,
                 height: 2,
@@ -43,10 +105,18 @@ const AnswerContainer = ({ task }: {task: CreateTask}) => {
             >
               Добавить код
             </Button>}
-          renderBody={(props) => <CodeEditorModal code={task?.answer} onChange={onAddAnswer} {...props}/>}
+          renderBody={(props) => (<CodeEditorModal
+            code={task?.user_task?.answer?.code}
+            onChange={onAddAnswer}
+            {...props}
+          />)}
           size="full"
         />
-        <Button size={'sm'} isDisabled={!answer.length}>Отправить</Button>
+        <Button
+          size={'sm'}
+          isDisabled={!text.length}
+          onClick={save}
+        >Отправить</Button>
       </HStack>
     </>
   );

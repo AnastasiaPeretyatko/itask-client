@@ -1,7 +1,7 @@
 import { CreateTask } from '@/store/task/task.slice';
-import { TaskModel } from '@/types/course.type';
+import { DashboardTask } from '@/types/task.type';
 
-export default (task: TaskModel): CreateTask => {
+export default (task: DashboardTask): CreateTask => {
   return {
     id: task.id,
     title: task.title,
@@ -17,6 +17,6 @@ export default (task: TaskModel): CreateTask => {
       score: task.score,
       isAnswered: task.isAnswered,
     },
-    answer: null, // TODO присылать с бэка ответ на задание
+    user_task: task.user_task,
   };
 };

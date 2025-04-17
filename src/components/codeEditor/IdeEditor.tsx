@@ -5,7 +5,7 @@ import { useRef, useState } from 'react';
 import { CodeEditorModalProps } from '../feature/tasks/modals/CodeEditorModal';
 import Output from './components/Output';
 
-const IdeEditor = ({ code, onChange }:CodeEditorModalProps) => {
+const IdeEditor = ({ code, onChange, ...props }: CodeEditorModalProps) => {
   const { colorMode } = useColorMode();
   const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
   const [value, setValue] = useState<string | undefined>( code || '');
@@ -25,7 +25,16 @@ const IdeEditor = ({ code, onChange }:CodeEditorModalProps) => {
   };
 
   return (
-    <Flex maxW={'100%'} height={'100%'} maxH={'100%'} overflow={'hidden'} flexDir={'column'} marginX={20} marginY={5} gap={10}>
+    <Flex
+      maxW={'100%'}
+      height={'100%'}
+      maxH={'100%'}
+      overflow={'hidden'}
+      flexDir={'column'}
+      marginX={20}
+      marginY={5}
+      gap={10}
+    >
       <Heading size={'md'}>Build Function</Heading>
       <HStack
         width={'full'}
@@ -39,7 +48,14 @@ const IdeEditor = ({ code, onChange }:CodeEditorModalProps) => {
         padding={1}
         overflow={'hidden'}
       >
-        <Box width={'60%'} height={'100vh'} maxH={'100%'} overflow={'hidden'} flex={1} sx={{ 'section': { flex: 1 } }}>
+        <Box
+          width={'60%'}
+          height={'100vh'}
+          maxH={'100%'}
+          overflow={'hidden'}
+          flex={1}
+          sx={{ 'section': { flex: 1 } }}
+        >
           <Editor
             language={language}
             defaultValue="// some comment"
@@ -54,6 +70,7 @@ const IdeEditor = ({ code, onChange }:CodeEditorModalProps) => {
           language={language}
           onSelectLanguage={onSelect}
           onSave={onSave}
+          {...props}
         />
       </HStack>
 

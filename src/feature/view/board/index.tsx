@@ -5,7 +5,19 @@ import ColumnBoard from './ColumnBoard';
 import { AppDispatch, RootState } from '@/store';
 import { updateTaskStatusThunk } from '@/store/studentModule/tasks/dashboard.thunk';
 
-export type TaskStatus = 'NEW' | 'REOPENED' | 'RESOLVED' | 'CLOSED';
+export enum TaskStatus {
+  NEW = 'NEW',
+  REOPENED = 'REOPENED',
+  RESOLVED = 'RESOLVED',
+  CLOSED = 'CLOSED',
+}
+
+export enum TransTaskStatus {
+  NEW = 'Новые',
+  REOPENED = 'Открытые повторно',
+  RESOLVED = 'Решенные',
+  CLOSED = 'Закрытые',
+}
 
 export type Task = {
   id: string;
@@ -20,10 +32,10 @@ export type Column = {
 };
 
 const COLUMNS: Column[] = [
-  { id: 'NEW', title: 'Новые' },
-  { id: 'REOPENED', title: 'Открытые повторно' },
-  { id: 'RESOLVED', title: 'Решенные' },
-  { id: 'CLOSED', title: 'Закрытые' },
+  { id: TaskStatus.NEW, title: 'Новые' },
+  { id: TaskStatus.REOPENED, title: 'Открытые повторно' },
+  { id: TaskStatus.RESOLVED, title: 'Решенные' },
+  { id: TaskStatus.CLOSED, title: 'Закрытые' },
 ];
 
 const Board = () => {

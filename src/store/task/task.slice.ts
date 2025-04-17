@@ -1,6 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createTaskThunk } from '../professorModule/course/course.thunk';
+import { updateUserTaskThunk } from './task.thunk';
+import { TaskStatus } from '@/feature/view/board';
 import { Property } from '@/types/course.type';
+import { UserTask } from '@/types/task.type';
 import presentNewTaskModal from '@/utils/presentNewTaskModal';
 import presentTaskModal from '@/utils/presentTaskModal';
 
@@ -10,7 +13,7 @@ export type CreateTask = {
   text: string;
   creatorId: string;
   property: Property;
-  answer?: string | null;
+  user_task: null | UserTask;
 }
 
 type TInitialState = {
@@ -32,7 +35,6 @@ export const taskSlice = createSlice({
         state.task = presentNewTaskModal(user.professorId);
       }
       if(payload){
-        console.log('create', payload);
         state.task = presentTaskModal(payload);
       }
     },
@@ -48,9 +50,8 @@ export const taskSlice = createSlice({
       state.task = null;
     },
     addAnswer: (state, { payload }) => {
-      if(state.task){
-        //TODO сделать объект хранить сам эдитор и код
-        state.task = { ...state.task, answer: payload };
+      if(state.task && state.task.user_task){
+        state.task = { ...state.task, user_task: { ...state.task.user_task, answer: { ...state.task.user_task.answer, code: payload } } };
       }
     },
   },
@@ -58,6 +59,11 @@ export const taskSlice = createSlice({
     builder
       .addCase(createTaskThunk.fulfilled, (state) => {
         state.task = null;
+      })
+      .addCase(updateUserTaskThunk.fulfilled, (state, { payload }) => {
+        if(state.task?.user_task){
+          state.task = { ...state.task, user_task: { ...state.task?.user_task, ...payload } };
+        }
       });
   },
 });

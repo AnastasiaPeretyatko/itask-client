@@ -6,7 +6,10 @@ export type UserTask = {
   grade: null | number,
   o: number,
   isActive: boolean,
-  answer: null | string,
+  answer: null | {
+    code: string,
+    text: string
+  },
   task_id: string,
   student_id: string,
   createdAt: Date,
