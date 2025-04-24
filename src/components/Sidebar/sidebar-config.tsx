@@ -1,3 +1,4 @@
+import { ChatIcon } from '@chakra-ui/icons';
 import { BookIcon, HomeIcon, LogoutIcon, SettingsIcon, GroupsIcon } from '../customIcon';
 import { DashboardIcon } from '../icon/DashboardIcon';
 
@@ -14,18 +15,6 @@ export const NAVBAR_ITEM = [
     path: '/groups',
     role: ['professor'],
   },
-  // {
-  //   title: 'Преподаватели',
-  //   icon: <UsersIcon boxSize={5} color="currentColor" zIndex={1} />,
-  //   path: '/professor',
-  //   role: ['admin', 'professor'],
-  // },
-  // {
-  //   title: 'Студенты',
-  //   icon: <UsersIcon boxSize={5} color="currentColor" zIndex={1} />,
-  //   path: '/student',
-  //   role: ['admin', 'professor'],
-  // },
   {
     title: 'Курсы',
     icon: <BookIcon />,
@@ -37,6 +26,12 @@ export const NAVBAR_ITEM = [
     icon: <DashboardIcon />,
     path: '/dashboard',
     role: ['student'],
+  },
+  {
+    title: 'Чат',
+    icon: <ChatIcon/>,
+    path: '/chat',
+    role: ['professor', 'student'],
   },
 ];
 

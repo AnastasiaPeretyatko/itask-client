@@ -1,6 +1,7 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
+import SocketListeners from '@/components/layout/SocketListeners';
 import { store } from '@/store';
 import theme from '@/styles';
 
@@ -11,6 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
         resetCSS
         theme={theme}
       >
+        <SocketListeners />
         <Component {...pageProps} />
       </ChakraProvider>
     </Provider>

@@ -22,7 +22,7 @@ export type BodyItemProps = {
 export type RenderBodyType = React.ReactElement<BodyItemProps>;
 
 
-const Modal = ({ title, renderBody, action, height, isTask, isOpenModal, onCloseModal, size = '4xl', ...rest }: Props) => {
+const Modal = ({ title, renderBody, action, height, isTask = false, isOpenModal, onCloseModal, size = '4xl', ...rest }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [ isFullSizeWindow, setIsFullSizeWindow ] = useBoolean();
 
@@ -37,9 +37,13 @@ const Modal = ({ title, renderBody, action, height, isTask, isOpenModal, onClose
         isCentered
       >
         <ModalOverlay />
-        <ModalContent height={height || 'unset'} maxH={'full'} overflow={'hidden'}>
+        <ModalContent
+          height={height || 'unset'}
+          maxH={'full'}
+          overflow={'hidden'}
+        >
           {
-            !isTask ? (
+            isTask ? (
               <Header
                 title={title || ''}
                 stateSizeWindow={isFullSizeWindow}
