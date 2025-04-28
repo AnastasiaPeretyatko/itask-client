@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import roomsReducer from './chat/chat.slice';
 import coursesReducer from './course/course.slice';
 import professorCourseReducer from './professor.course/professor.course.slice';
 import courseReducer from './professorModule/course/course.slice';
@@ -14,6 +15,7 @@ export const store = configureStore({
     courseStore: courseReducer,
     dashboardTask: dashboardTaskReducer,
     task: taskReducer,
+    rooms: roomsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -39,3 +39,7 @@ export * from './StarIcon';
 export * from './FileEarmarkCodeIcon';
 
 export * from './FolderCheckIcon';
+
+export * from './SmileIcon';
+
+export * from './SendIcon';
