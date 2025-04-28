@@ -45,7 +45,7 @@ const StudentTaskRow = ({ student }: Props) => {
         </HStack>
         <HStack>
           <CircularProgress
-            value={40}
+            value={+student.totalGrade}
             size={'30px'}
             color="green.400"
           >

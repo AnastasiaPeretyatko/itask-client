@@ -15,6 +15,24 @@ import { tagTheme } from './components/tag';
 const theme = extendTheme({
   colors,
   semanticTokens,
+  styles: {
+    global: {
+      '&::-webkit-scrollbar': {
+        width: '6px', // ширина полоски скролла
+        height: '6px',
+      },
+      '&::-webkit-scrollbar-track': {
+        background: 'transparent', // фон трека
+      },
+      '&::-webkit-scrollbar-thumb': {
+        backgroundColor: '#A0AEC0', // цвет бегунка
+        borderRadius: '4px', // скругление
+      },
+      '&::-webkit-scrollbar-thumb:hover': {
+        backgroundColor: '#718096', // цвет при наведении
+      },
+    },
+  },
   components: {
     Container: containerTheme,
     Button: buttonTheme,

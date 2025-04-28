@@ -14,7 +14,7 @@ const Dashboard = () => {
   useEffect(() => {
     if(!user?.studentId) {return;}
     dispatch(getStudentsAndTaskThunk({ id: user?.studentId }));
-  }, [user?.studentId]);
+  }, [dispatch, user?.studentId]);
 
   return (
     <AppLayout>
