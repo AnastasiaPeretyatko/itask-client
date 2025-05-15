@@ -65,9 +65,16 @@ const AddTaskModal = ({ ...props }: BodyItemProps) => {
 
   return (
     <>
-      <Header create {...props} />
+      <Header
+        create
+        {...props}
+      />
       <ModalBody as={'form'}>
-        <Box width={'full'} paddingX={24} paddingY={2} >
+        <Box
+          width={'full'}
+          paddingX={24}
+          paddingY={2}
+        >
           <Input
             variant={'title'}
             placeholder="Название задачи..."
@@ -77,10 +84,20 @@ const AddTaskModal = ({ ...props }: BodyItemProps) => {
             value={task.title || ''}
           />
 
-          <TaskProperty property={task.property} onChangeProperty={onChangeProperty} />
+          <TaskProperty
+            property={task.property}
+            onChangeProperty={onChangeProperty}
+          />
         </Box>
-        <Divider borderColor={'divider'} mb={2} />
-        <Flex flexDirection={'column'} flex={1} paddingX={24} >
+        <Divider
+          borderColor={'divider'}
+          mb={2}
+        />
+        <Flex
+          flexDirection={'column'}
+          flex={1}
+          paddingX={24}
+        >
           <Editor
             editable
             markdown={task.text || ''}
@@ -88,7 +105,10 @@ const AddTaskModal = ({ ...props }: BodyItemProps) => {
           />
         </Flex>
 
-        <HStack justify={'flex-end'} padding={4} >
+        <HStack
+          justify={'flex-end'}
+          padding={4}
+        >
           <Button
             variant={'primary'}
             size={'sm'}

@@ -13,11 +13,10 @@ import { getAllStudentsTaskByCourseThunk } from '@/store/professorModule/course/
 const CourseMembers = () => {
   const { query } = useRouter();
   const { course, students } = useSelector((state:RootState) => state.courseStore);
-  const { user } = useSelector((state:RootState) => state.user);
+  // const { user } = useSelector((state:RootState) => state.user);
   const [filter, setFilter] = useState({
     semesterId: '',
     groupId: '',
-    professorId: user?.professorId,
   });
   const [semesters, setSemesters] = useState([]);
   const [groups, setGroups] = useState([]);

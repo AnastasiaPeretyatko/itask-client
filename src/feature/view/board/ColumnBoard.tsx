@@ -1,4 +1,4 @@
-import { Container, HStack, Tag, Text, VStack } from '@chakra-ui/react';
+import { Badge, Container, HStack, Tag, Text, VStack } from '@chakra-ui/react';
 import { useDroppable } from '@dnd-kit/core';
 import TaskCard from './TaskCard';
 import { Column } from '.';
@@ -32,14 +32,15 @@ const ColumnBoard = ({ column, tasks }: ColumnProps) => {
             borderColor={'button.neutral.border'}
             borderRadius={'full'}
           />
-          <Text
+          <Badge colorScheme={column.color}>{column.title}</Badge>
+          {/* <Text
             whiteSpace={'nowrap'}
             width={'full'}
             overflow={'hidden'}
             textOverflow={'ellipsis'}
             display={'inline-flex'}
             flex={1}
-          >{column.title}</Text>
+          >{column.title}</Text> */}
           <Tag>{tasks.length}</Tag>
         </HStack>
       </HStack>

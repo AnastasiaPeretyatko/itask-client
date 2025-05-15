@@ -1,5 +1,4 @@
-import { TaskModel } from './course.type';
-import { UserTask } from './task.type';
+import { DashboardTask } from './task.type';
 
 export type StudentT = {
   id: string
@@ -12,11 +11,7 @@ export type StudentT = {
   updatedAt: Date
 }
 
-export type StudentTask = {
-    task: {
-      task: TaskModel,
-      user_task: UserTask
-    }[]
-  } & StudentT & {
-    totalGrade: string | number
-  }
+export type StudentTask = StudentT & {
+  totalScore: string | null;
+  tasks: DashboardTask[]
+}

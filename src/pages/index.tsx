@@ -1,16 +1,19 @@
 import { Flex, Heading, HStack, Text, VStack } from '@chakra-ui/react';
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
+import { useSelector } from 'react-redux';
 import CourseList from '@/components/feature/home/Widget/CourseList';
 import TaskListWidget from '@/components/feature/home/Widget/TaskListWidget';
 import AppLayout from '@/components/layout/AppLayout';
 import CalendarWidget from '@/components/widget/CalendarWidget';
+import { RootState } from '@/store';
 
-const HelloAnimation = dynamic(
-  () => import('@/components/assets/animation/HelloAnimation'),
-  { ssr: false },
-);
+// const HelloAnimation = dynamic(
+//   () => import('@/components/assets/animation/HelloAnimation'),
+//   { ssr: false },
+// );
 
 export default function Home() {
+  const { user } = useSelector((state: RootState) => state.user);
   return (
     <AppLayout>
       <HStack
@@ -43,11 +46,11 @@ export default function Home() {
               <Heading
                 size={'md'}
                 color={'primary.purple'}
-              > Добро пожаловать Анна</Heading>
+              > Добро пожаловать {user?.fullName}</Heading>
               <Text>На этой неделе вы выполнили 80% своих задач!
 Продолжайте в том же духе и улучшайте свои результаты!</Text>
             </VStack>
-            <HelloAnimation/>
+            {/* <HelloAnimation/> */}
           </HStack>
 
           <HStack

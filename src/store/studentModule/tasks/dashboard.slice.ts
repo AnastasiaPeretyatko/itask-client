@@ -22,8 +22,8 @@ export const dashboardTask = createSlice({
       })
       .addCase(updateTaskStatusThunk.fulfilled, (state, { payload }) => {
         state.tasks = state.tasks.map((task) => {
-          if (task.id === payload.data.id) {
-            return { ...task, user_task: { ...task.user_task, status: payload.data.user_task.status } };
+          if (task.user_task.id === payload.id) {
+            return { ...task, user_task: { ...task.user_task, status: payload.status } };
           }
           return task;
         });

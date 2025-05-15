@@ -15,6 +15,7 @@ type Props = {
   review?: boolean,
   courseName?: string,
   taskName?: string
+  studentName?: string
 } & BodyItemProps
 
 const Header = ({
@@ -24,6 +25,7 @@ const Header = ({
   review,
   courseName,
   taskName,
+  studentName,
 }: Props) => {
   return (
     <ModalHeader
@@ -62,6 +64,7 @@ const Header = ({
             fontWeight={600}
           >
             <BreadcrumbItem color={'text.pale'}> <BreadcrumbLink>{courseName}</BreadcrumbLink></BreadcrumbItem>
+            {studentName ? <BreadcrumbItem><BreadcrumbLink>{studentName}</BreadcrumbLink></BreadcrumbItem> : null}
             <BreadcrumbItem><BreadcrumbLink>{taskName}</BreadcrumbLink></BreadcrumbItem>
           </Breadcrumb>
         ) : null

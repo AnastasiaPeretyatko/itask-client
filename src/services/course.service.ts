@@ -10,7 +10,9 @@ export const getCoursesForProfessor = (id: string) => http.get(`/assignment/prof
 //? New request
 export const getOneCourse = (id: string) => http.get(`/courses/${id}`);
 
-export const getStudentsTaskByCourse = (id: string, params: {
+export const getStudentsTaskByCourse = (id: string, dto: {
   semesterId: string,
   groupId: string
-}) => http.get(`/courses/${id}/students`, { params });
+}) => http.post(`/courses/${id}/students`, dto);
+
+export const getCourseAndTasks = () => http.post('/courses/tasks');

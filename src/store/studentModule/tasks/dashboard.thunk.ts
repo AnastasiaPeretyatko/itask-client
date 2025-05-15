@@ -17,14 +17,14 @@ DashboardTask[],
 });
 
 export const updateTaskStatusThunk = createAsyncThunk<
-{data: DashboardTask, message: string},
+{data: DashboardTask, id: string, status: string},
 {id: string, status: string},
 { rejectValue: { statusCode: number; message: string }
 }>
 ('patch_task_status', async ({ id, status }, { rejectWithValue }) => {
   try {
     const { data } = await updateTaskStatus(id, status);
-    return data;
+    return { data, id, status };
   }catch (error) {
     return handleThunkError(error, rejectWithValue);
   }

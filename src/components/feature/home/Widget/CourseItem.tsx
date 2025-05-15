@@ -1,9 +1,9 @@
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { Card, Flex, HStack, Text, VStack } from '@chakra-ui/react';
-import React from 'react';
 import { BookIcon } from '@/components/customIcon';
+import { TCourse } from '@/types/course.type';
 
-const CourseItem = () => {
+const CourseItem = ({ course }: {course: TCourse}) => {
   return (
     <Card
       borderRadius={10}
@@ -14,6 +14,7 @@ const CourseItem = () => {
       gap={4}
       fontSize={'lg'}
       minW={'300px'}
+      maxW={'300px'}
     >
       <Flex
         padding={3}
@@ -26,7 +27,7 @@ const CourseItem = () => {
         width={'full'}
         align={'start'}
       >
-        <Text>ksjdgveir</Text>
+        <Text noOfLines={1}>{course.name}</Text>
         <HStack
           width={'full'}
           justify={'end'}

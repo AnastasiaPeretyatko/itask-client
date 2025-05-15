@@ -1,5 +1,5 @@
 import { Box, Flex, Heading, HStack, useColorMode } from '@chakra-ui/react';
-import { Editor } from '@monaco-editor/react';
+import { Editor, OnMount } from '@monaco-editor/react';
 import * as monaco from 'monaco-editor';
 import { useRef, useState } from 'react';
 import { CodeEditorModalProps } from '../feature/tasks/modals/CodeEditorModal';
@@ -11,7 +11,7 @@ const IdeEditor = ({ code, onChange, ...props }: CodeEditorModalProps) => {
   const [value, setValue] = useState<string | undefined>( code || '');
   const [language, setLanguage] = useState('javascript');
 
-  const onMount = (editor: monaco.editor.IStandaloneCodeEditor) => {
+  const onMount: OnMount = (editor) => {
     editorRef.current = editor;
     editor.focus();
   };
@@ -63,6 +63,7 @@ const IdeEditor = ({ code, onChange, ...props }: CodeEditorModalProps) => {
             value={value || ''}
             onChange={(value) => setValue(value)}
             onMount={onMount}
+            // onBeforeMount={onBeforeMount}
           />
         </Box>
         <Output

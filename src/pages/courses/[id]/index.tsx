@@ -67,7 +67,6 @@ const CoursePage = () => {
               size={'sm'}
               variant={'primary'}
             >Добавить задание</Button> }
-            isTask
             renderBody={(props) => <AddTaskModal {...props} />}
           />
         </Skeleton>

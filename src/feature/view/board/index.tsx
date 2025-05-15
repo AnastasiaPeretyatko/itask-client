@@ -29,13 +29,14 @@ export type Task = {
 export type Column = {
   id: TaskStatus;
   title: string;
+  color: string;
 };
 
 const COLUMNS: Column[] = [
-  { id: TaskStatus.NEW, title: 'Новые' },
-  { id: TaskStatus.REOPENED, title: 'Открытые повторно' },
-  { id: TaskStatus.RESOLVED, title: 'Решенные' },
-  { id: TaskStatus.CLOSED, title: 'Закрытые' },
+  { id: TaskStatus.NEW, title: 'Новые', color: 'grey' },
+  { id: TaskStatus.REOPENED, title: 'Открытые повторно', color: 'red' },
+  { id: TaskStatus.RESOLVED, title: 'Решенные', color: 'blue' },
+  { id: TaskStatus.CLOSED, title: 'Закрытые', color: 'green' },
 ];
 
 const Board = () => {
@@ -50,6 +51,8 @@ const Board = () => {
 
     const taskId = active.id as string;
     const newStatus = over.id as Task['status'];
+
+    if(newStatus === TaskStatus.CLOSED || newStatus === TaskStatus.REOPENED) return;
 
     dispatch(updateTaskStatusThunk({ id: taskId, status: newStatus }));
   }

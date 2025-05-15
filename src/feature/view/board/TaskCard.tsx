@@ -81,7 +81,6 @@ const TaskCard = ({ task }: TaskCardProps) => {
         </HStack>
       </Card>
       <Modal
-        isTask
         isOpenModal={isOpen}
         onCloseModal={onClose}
         height="80%"

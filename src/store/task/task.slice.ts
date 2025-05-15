@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createTaskThunk } from '../professorModule/course/course.thunk';
 import { updateUserTaskThunk } from './task.thunk';
-import { TaskStatus } from '@/feature/view/board';
 import { Property } from '@/types/course.type';
 import { UserTask } from '@/types/task.type';
 import presentNewTaskModal from '@/utils/presentNewTaskModal';
@@ -31,10 +30,10 @@ export const taskSlice = createSlice({
     createTask: (state, { payload }) => {
       const userJSON = localStorage.getItem('user');
       const user = userJSON ? JSON.parse(userJSON) : null;
-      if(user && user.professorId && !payload){
+      if(user && user.professorId && Object.keys(payload).length === 0){
         state.task = presentNewTaskModal(user.professorId);
       }
-      if(payload){
+      if(Object.keys(payload).length){
         state.task = presentTaskModal(payload);
       }
     },

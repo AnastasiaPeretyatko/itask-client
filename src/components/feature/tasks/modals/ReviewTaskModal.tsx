@@ -1,4 +1,4 @@
-import { Box, Heading, ModalBody, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, useBoolean } from '@chakra-ui/react';
+import { Box, Heading, ModalBody, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, Text, useBoolean } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AnswerContainer from './components/AnswerContainer';
@@ -13,12 +13,14 @@ import { TaskModel } from '@/types/course.type';
 import { UserRole } from '@/types/user.type';
 
 type Props = {
-  task: TaskModel,
+  task: TaskModel
   role?: UserRole,
   courseName?: string
+  studentName?: string
+  isShort?: boolean
 } & BodyItemProps
 
-const ReviewTaskModal = ({ task: oldTask, role, courseName, ...props }: Props) => {
+const ReviewTaskModal = ({ task: oldTask, role, isShort = false, courseName, ...props }: Props) => {
   const { course } = useSelector((state:RootState) => state.courseStore);
   const { task } = useSelector((state:RootState) => state.task);
   const dispatch = useDispatch<AppDispatch>();
@@ -28,11 +30,13 @@ const ReviewTaskModal = ({ task: oldTask, role, courseName, ...props }: Props) =
     setIsLoading.on();
     dispatch(createTask(oldTask));
     setIsLoading.off();
-  }, [oldTask.id]);
+  }, [dispatch, oldTask, oldTask.id, setIsLoading]);
 
   if(isLoading){
     return null;
   }
+
+  console.log({ task });
 
   return (
     <>
@@ -55,7 +59,7 @@ const ReviewTaskModal = ({ task: oldTask, role, courseName, ...props }: Props) =
           <TaskProperty
             property={task?.property as CreateTask['property']}
             readOnly
-            studentRole={role === UserRole.Student}
+            studentRole={role === UserRole.Student || isShort}
           />
         </Box>
         <Tabs variant={'task_modal'}>
@@ -71,9 +75,12 @@ const ReviewTaskModal = ({ task: oldTask, role, courseName, ...props }: Props) =
             borderRadius="1px"
           />
           <TabPanels>
-            <TabPanel>
-              <Editor markdown={task?.text} />
-            </TabPanel>
+            {role === UserRole.Student ? (
+              <TabPanel>
+                <Text>kek</Text>
+                <Editor markdown={task?.text} />
+              </TabPanel>
+            ) : null }
             {
               role === UserRole.Student ? (
                 <TabPanel>

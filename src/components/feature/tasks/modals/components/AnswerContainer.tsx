@@ -1,8 +1,8 @@
-import { Box, Button, HStack, IconButton } from '@chakra-ui/react';
+import { Box, Button, HStack } from '@chakra-ui/react';
 import { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CodeEditorModal from '../CodeEditorModal';
-import { FileEarmarkCodeIcon } from '@/components/icon';
+import CodeFileAttachment from './CodeBlock';
 import Editor from '@/components/ui/Editor/Editor';
 import Modal from '@/components/ui/modal';
 import { TaskStatus } from '@/feature/view/board';
@@ -45,24 +45,7 @@ const AnswerContainer = ({ task, onClose }: {task: CreateTask, onClose: () => vo
         width={'full'}
         height={'full'}
       >
-        {code ? (
-          <IconButton
-            aria-label="file code"
-            variant={'unstuled'}
-            size={'sm'}
-            icon={<FileEarmarkCodeIcon boxSize={7}/>}
-            _before={{
-              content: '""',
-              width: 2,
-              height: 2,
-              background: 'red',
-              position: 'absolute',
-              right: 0,
-              top:0,
-              borderRadius:'full',
-            }}
-          />
-        ) : null}
+        {code ? ( <CodeFileAttachment/> ) : null}
         <Editor
           markdown={text}
           onChange={setText}
@@ -92,14 +75,15 @@ const AnswerContainer = ({ task, onClose }: {task: CreateTask, onClose: () => vo
           action={
             <Button
               size={'sm'}
+              variant={'primary'}
               _before={task.user_task?.answer?.code ? {
                 content: '""',
                 width: 2,
                 height: 2,
                 background: 'red',
                 position: 'absolute',
-                right: 0,
-                top:0,
+                right: -0.5,
+                top:-0.5,
                 borderRadius:'full',
               } : {}}
             >

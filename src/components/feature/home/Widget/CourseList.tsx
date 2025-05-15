@@ -1,11 +1,29 @@
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { Heading, HStack, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import CourseItem from './CourseItem';
 import ButtonUI from '@/components/ui/ButtonUI';
+import { getAllFromSemesterGroup } from '@/services/course.service';
+import { RootState } from '@/store';
+import { TCourse } from '@/types/course.type';
+import { UserRole } from '@/types/user.type';
 
 const CourseList = () => {
+  const { user } = useSelector((state: RootState) => state.user);
   const router = useRouter();
+  const [ courseList, setCourseList ] = useState<TCourse[]>([]);
+
+  useEffect(() => {
+    if(user?.role === UserRole.Professor) return;
+    getAllFromSemesterGroup({}).then((res) => setCourseList(res.data));
+  }, [user?.role]);
+
+  if(!courseList.length) {
+    return null;
+  }
+
   return (
     <VStack
       width={'full'}
@@ -29,15 +47,15 @@ const CourseList = () => {
         overflow={'auto'}
         paddingY={2}
       >
-        <CourseItem/>
-        <CourseItem/>
-        <CourseItem/>
-        <CourseItem/>
-        <CourseItem/>
-        <CourseItem/>
-
+        {
+          courseList.map((course) => (
+            <CourseItem
+              key={course.id}
+              course={course}
+            />
+          ))
+        }
       </HStack>
-
     </VStack>
   );
 };

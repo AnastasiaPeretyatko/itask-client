@@ -11,6 +11,7 @@ type Props = {
   language: string
   onSelectLanguage: (language: string) => void
   onSave: () => void
+  handleComplete?: () => void
 } & BodyItemProps
 
 const Output = ({ editorRef, language, onSelectLanguage, onSave, onClose }: Props) => {
@@ -40,7 +41,12 @@ const Output = ({ editorRef, language, onSelectLanguage, onSave, onClose }: Prop
   };
 
   return (
-    <Flex flexDir={'column'} w={'30%'} p={1} gap={3}>
+    <Flex
+      flexDir={'column'}
+      w={'30%'}
+      p={1}
+      gap={3}
+    >
       <HStack mb={4}>
         <LanguageSelector
           language={language}
@@ -55,13 +61,17 @@ const Output = ({ editorRef, language, onSelectLanguage, onSave, onClose }: Prop
       </HStack>
 
       <Heading size={'sm'}>Output:</Heading>
-      <Container variant={'code_output'} color={isError ? 'red.500' : ''}>
+      <Container
+        variant={'code_output'}
+        color={isError ? 'red.500' : ''}
+      >
         {output ?
           output.map((line, i) => <Text key={i}>{line}</Text>)
           : <Text color={'text.pale'}>Click "Run Code" to see the output here</Text>}
       </Container>
       <Button
-        variant={'primary'} size={'sm'}
+        variant={'primary'}
+        size={'sm'}
         onClick={() => {onSave();
           onClose();
         }}

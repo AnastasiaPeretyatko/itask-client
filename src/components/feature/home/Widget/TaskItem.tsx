@@ -1,7 +1,10 @@
 import { ChevronRightIcon } from '@chakra-ui/icons';
 import { Card, CircularProgress, CircularProgressLabel, Heading, IconButton, Text, VStack } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+import { TaskListWidgetProps } from './TaskListWidget';
 
-const TaskItem = () => {
+const TaskItem = ({ task }: {task: TaskListWidgetProps}) => {
+  const router = useRouter();
   return (
     <Card
       color={'white'}
@@ -13,11 +16,12 @@ const TaskItem = () => {
 
     >
       <CircularProgress
-        value={40}
+        value={+(task.totalGrade || 0)}
+        max={100}
         color="white"
         trackColor={'#cabdff54'}
       >
-        <CircularProgressLabel>40%</CircularProgressLabel>
+        <CircularProgressLabel>{+(task.totalGrade || 0)}%</CircularProgressLabel>
       </CircularProgress>
       <VStack
         align={'start'}
@@ -27,17 +31,18 @@ const TaskItem = () => {
         <Heading
           size={'sm'}
           fontWeight={500}
-        >Информационные системы</Heading>
+          noOfLines={1}
+        >{task['course.name']}</Heading>
         <Text
           color={'white.100'}
           fontSize={'sm'}
-        >12 задач</Text>
+        >{task.taskCount} задач</Text>
       </VStack>
       <IconButton
         aria-label=""
         variant={'iconButton'}
         icon={<ChevronRightIcon/>}
-        onClick={() => null}
+        onClick={() => router.push(`/courses/${task['course.id']}`)}
       />
     </Card>
   );
