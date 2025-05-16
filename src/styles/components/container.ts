@@ -30,7 +30,6 @@ const header = defineStyle(() => {
 const sidebar = defineStyle(() => {
   return {
     backgroundColor: 'background.main',
-
     display: 'flex',
     flexDirection: 'column',
     height: '100%',

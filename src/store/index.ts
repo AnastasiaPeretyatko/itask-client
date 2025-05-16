@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import roomsReducer from './chat/chat.slice';
 import coursesReducer from './course/course.slice';
+import documentsReducer from './documents/documents.slice';
 import professorCourseReducer from './professor.course/professor.course.slice';
 import courseReducer from './professorModule/course/course.slice';
 import dashboardTaskReducer from './studentModule/tasks/dashboard.slice';
@@ -16,6 +17,7 @@ export const store = configureStore({
     dashboardTask: dashboardTaskReducer,
     task: taskReducer,
     rooms: roomsReducer,
+    documents: documentsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -4,6 +4,12 @@ import { createMultiStyleConfigHelpers } from '@chakra-ui/react';
 const { definePartsStyle, defineMultiStyleConfig } =
   createMultiStyleConfigHelpers(cardAnatomy.keys);
 
+const baseStyle = definePartsStyle({
+  container: {
+    background: '#ffffff0d',
+  },
+});
+
 const taskSmall = definePartsStyle({
   container: {
     width: '100%',
@@ -20,4 +26,4 @@ const taskSmall = definePartsStyle({
   },
 });
 
-export const cardTheme = defineMultiStyleConfig({ variants: { taskSmall } });
+export const cardTheme = defineMultiStyleConfig({ baseStyle, variants: { taskSmall } });

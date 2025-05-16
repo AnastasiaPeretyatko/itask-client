@@ -44,13 +44,9 @@ const lightRedTheme = {
 const darkRedTheme = {
   ...lightRedTheme,
   colors: {
-    // ...lightRedTheme.colors,
-    // editor: {
-    //   text: '#ffffff',
-    //   // background: '#9b0000',
-    // },
-    // sideMenu: '#ffffff',
-    // highlights: darkDefaultTheme.colors!.highlights,
+    editor: {
+      background: 'inherit',
+    },
   },
 } satisfies Theme;
 

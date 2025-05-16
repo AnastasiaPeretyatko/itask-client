@@ -1,6 +1,6 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { Container, IconButton, VStack } from '@chakra-ui/react';
-import { useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SidebarItem from './components/SidebarItem';
 import { NAVBAR_ITEM, sidebarMenuConfig } from './sidebar-config';
@@ -16,7 +16,7 @@ const Sidebar = () => {
 
   const setCollapse = () => dispatch(settings.toggleSidebar(!isOpenSidebar));
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const state = localStorage.getItem('sidebar');
 
     const isSidebarOpen = state !== null ? state === 'true' : true;
@@ -69,7 +69,7 @@ const Sidebar = () => {
             key={el.title}
             data={el}
             isCollapse={isOpenSidebar}
-            onClick={handleClickLogOut}
+            onClick={el.title === 'Выйти' ? handleClickLogOut : undefined}
           />
         ))
       }

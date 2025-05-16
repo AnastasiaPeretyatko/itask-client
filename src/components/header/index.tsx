@@ -1,7 +1,8 @@
-import { Avatar, Container, Divider, HStack, Text, VStack } from '@chakra-ui/react';
+import { Avatar, Badge, Container, Divider, HStack, Text, VStack } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 import NotificationsBlock from '../notifications';
 import { RootState } from '@/store';
+import { UserRole } from '@/types/user.type';
 
 const Header = () => {
   const { user } = useSelector((state: RootState) => state.user);
@@ -28,10 +29,10 @@ const Header = () => {
             gap={0}
           >
             <Text fontSize={'sm'}>{user?.fullName}</Text>
-            <Text
+            <Badge
               fontSize={12}
-              color={'text.pale'}
-            >{user?.role}</Text>
+              colorScheme={'green'}
+            >{UserRole.Professor === user?.role ? 'Профессор' : 'Студент'}</Badge>
           </VStack>
         </HStack>
       </Container>

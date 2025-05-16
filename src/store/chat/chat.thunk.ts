@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { createRoom, getAllRoom, getUserforRoom } from '@/services/chat.service';
+import { createRoom, getAllRoom, getUserForRoom } from '@/services/chat.service';
 import { createMessage, getMessages } from '@/services/message.service';
 import { MessageType } from '@/types/common.type';
 import { Message } from '@/types/message.type';
@@ -45,7 +45,7 @@ export const getUserForRoomsThunk = createAsyncThunk<
   }
 >('/user.getall', async (_, { rejectWithValue }) => {
   try {
-    const { data } = await getUserforRoom();
+    const { data } = await getUserForRoom();
     return data;
   } catch (error) {
     return handleThunkError(error, rejectWithValue);

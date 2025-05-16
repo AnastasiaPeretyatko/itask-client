@@ -5,6 +5,9 @@ const baseStyle = defineStyle({
   paddingInlineEnd: '0px',
   paddingTop: '0px',
   paddingBottom: '0px',
+  'span': {
+    mr: 0,
+  },
 });
 
 const auth = defineStyle({

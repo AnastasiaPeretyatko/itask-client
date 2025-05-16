@@ -5,7 +5,7 @@ import { useRef, useState } from 'react';
 import { CodeEditorModalProps } from '../feature/tasks/modals/CodeEditorModal';
 import Output from './components/Output';
 
-const IdeEditor = ({ code, onChange, ...props }: CodeEditorModalProps) => {
+const IdeEditor = ({ code, onChange, noMargin = false, doc, ...props }: CodeEditorModalProps) => {
   const { colorMode } = useColorMode();
   const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
   const [value, setValue] = useState<string | undefined>( code || '');
@@ -26,16 +26,16 @@ const IdeEditor = ({ code, onChange, ...props }: CodeEditorModalProps) => {
 
   return (
     <Flex
-      maxW={'100%'}
+      width={'100%'}
       height={'100%'}
       maxH={'100%'}
       overflow={'hidden'}
       flexDir={'column'}
-      marginX={20}
-      marginY={5}
+      marginX={noMargin ? 0 : 20}
+      marginY={noMargin ? 0 : 5}
       gap={10}
     >
-      <Heading size={'md'}>Build Function</Heading>
+      <Heading size={'md'}>{doc ? doc.title || 'Без названия' : 'Build Function'}</Heading>
       <HStack
         width={'full'}
         height={'100%'}
@@ -47,6 +47,7 @@ const IdeEditor = ({ code, onChange, ...props }: CodeEditorModalProps) => {
         borderRadius={10}
         padding={1}
         overflow={'hidden'}
+        background={'background.main'}
       >
         <Box
           width={'60%'}
@@ -63,7 +64,9 @@ const IdeEditor = ({ code, onChange, ...props }: CodeEditorModalProps) => {
             value={value || ''}
             onChange={(value) => setValue(value)}
             onMount={onMount}
-            // onBeforeMount={onBeforeMount}
+            // options={{
+            //   readOnly: true,
+            // }}
           />
         </Box>
         <Output

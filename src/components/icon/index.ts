@@ -43,3 +43,7 @@ export * from './FolderCheckIcon';
 export * from './SmileIcon';
 
 export * from './SendIcon';
+
+export * from './AiOutlineSave';
+
+export * from './BsFileEarmarkText';
