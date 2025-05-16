@@ -43,13 +43,14 @@ const property = definePartsStyle({
 
 const title = definePartsStyle({
   field: {
+    background: 'unset',
     height: 'unset',
     fontWeight: 700,
     fontSize: '40px',
     outline: 'unset',
     padding: 0,
     _placeholder: {
-      color: 'input.placholder',
+      color: 'input.placeholder',
 
     },
   },

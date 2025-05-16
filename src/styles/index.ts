@@ -1,12 +1,14 @@
 import { extendTheme } from '@chakra-ui/react';
 import { breakpoints } from './breakpoints';
 import { colors, semanticTokens } from './colors';
+import { badgeTheme } from './components/badge';
 import { buttonTheme } from './components/button';
 import { cardTheme } from './components/card';
 import { containerTheme } from './components/container';
 import { drawerTheme } from './components/drawer';
 import { inputTheme } from './components/input';
 import { listTheme } from './components/list';
+import { menuTheme } from './components/menu';
 import { modalTheme } from './components/modal';
 import { popoverTheme } from './components/popover';
 import { tabsTheme } from './components/tabs';
@@ -17,6 +19,9 @@ const theme = extendTheme({
   semanticTokens,
   styles: {
     global: {
+      body: {
+        background: 'background.main',
+      },
       '&::-webkit-scrollbar': {
         width: '6px', // ширина полоски скролла
         height: '6px',
@@ -44,6 +49,8 @@ const theme = extendTheme({
     List: listTheme,
     Tag: tagTheme,
     Drawer: drawerTheme,
+    Menu: menuTheme,
+    Badge: badgeTheme,
   },
   breakpoints,
 });

@@ -72,8 +72,9 @@ const Output = ({ editorRef, language, onSelectLanguage, onSave, onClose }: Prop
       <Button
         variant={'primary'}
         size={'sm'}
-        onClick={() => {onSave();
-          onClose();
+        onClick={() => {
+          onSave();
+          onClose?.();
         }}
         width={'max-content'}
       >

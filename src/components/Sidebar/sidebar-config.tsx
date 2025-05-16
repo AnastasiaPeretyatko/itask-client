@@ -1,4 +1,4 @@
-import { ChatIcon } from '@chakra-ui/icons';
+import { AttachmentIcon, ChatIcon } from '@chakra-ui/icons';
 import { BookIcon, HomeIcon, LogoutIcon, SettingsIcon, GroupsIcon } from '../customIcon';
 import { DashboardIcon } from '../icon/DashboardIcon';
 
@@ -32,6 +32,12 @@ export const NAVBAR_ITEM = [
     icon: <ChatIcon/>,
     path: '/chat',
     role: ['professor', 'student'],
+  },
+  {
+    title: 'Документы',
+    icon: <AttachmentIcon/>,
+    path: '/doc',
+    role: ['student'],
   },
 ];
 

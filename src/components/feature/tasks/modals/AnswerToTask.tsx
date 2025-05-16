@@ -1,5 +1,5 @@
 import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
-import { Button, FormControl, FormLabel, Heading, HStack, ModalBody, VStack } from '@chakra-ui/react';
+import { Button, FormControl, FormLabel, Heading, HStack, Input, ModalBody, VStack } from '@chakra-ui/react';
 import React from 'react';
 import Editor from '@/components/ui/Editor/Editor';
 import StepperUi from '@/components/ui/StepperUi';
@@ -59,10 +59,10 @@ const AnswerToTask = ({ task, ...props }: Props) => {
             color={'text.secondary'}
             mb={3}
           >Оставьте отзыв для студента</Heading>
-<FormControl>
-  <FormLabel>Оценка</FormLabel>
-  <Input
-</FormControl>
+          <FormControl>
+            <FormLabel>Оценка</FormLabel>
+            <Input/>
+          </FormControl>
           <Editor
             key={task.id}
             editable

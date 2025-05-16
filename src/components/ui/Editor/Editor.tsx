@@ -13,6 +13,7 @@ type EditorProps = {
   onChange?: (markdown: string) => void;
   editable?: boolean;
   isLocked?: boolean;
+  isLeftPadding?: boolean;
 };
 
 const Editor = ({
@@ -20,10 +21,12 @@ const Editor = ({
   onChange,
   editable = false,
   isLocked = false,
+  isLeftPadding = false,
 }: EditorProps) => {
   // eslint-disable-next-line import/namespace
   const locale = locales['ru'];
   const { colorMode } = useColorMode();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isReady, setIsReady] = useState(false);
   const editorRef = useRef<BlockNoteEditor | null>(null);
   const initialMarkdownRef = useRef(markdown);
@@ -101,7 +104,7 @@ const Editor = ({
   return (
     <Skeleton
       isLoaded={true}
-      marginLeft={-54}
+      marginLeft={isLeftPadding ? 0 : -54}
       width={'full'}
     >
       <BlockNoteView

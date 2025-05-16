@@ -1,4 +1,5 @@
 import { Flex, HStack, Spinner, VStack } from '@chakra-ui/react';
+import moment from 'moment';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -6,11 +7,15 @@ import Sidebar from '../Sidebar';
 import Header from '../header';
 import { AppDispatch } from '@/store';
 import { settings } from '@/store/user/user.slice';
+import 'moment/locale/ru';
 
-const AppLayout = ({ children }: { children: React.ReactNode }) => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const dispatch = useDispatch<AppDispatch>();
+const AppLayout = ({ children, loading }: { children: React.ReactNode, loading?: boolean }) => {
   const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
+
+  const [isLoading, setIsLoading] = useState<boolean>(loading || true);
+
+  moment.locale('ru');
 
   useEffect(() => {
     if (isLoading) {
@@ -24,24 +29,9 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
     }
   }, [dispatch, isLoading, router]);
 
-  if (isLoading) {
-    return (
-      <VStack
-        width="100%"
-        height="100vh"
-        align="center"
-        justify="center"
-      >
-        <Spinner
-          thickness="4px"
-          speed="0.65s"
-          emptyColor="SECONDARY_BLUE"
-          color="PRIMARY_BLUE"
-          size="xl"
-        />
-      </VStack>
-    );
-  }
+  useEffect(() => {
+    setIsLoading(loading || false);
+  }, [loading]);
 
   return (
     <VStack
@@ -71,7 +61,19 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
           paddingLeft={6}
           bg={'background.secondary'}
         >
-          {children}
+          {isLoading ? (
+            <VStack
+              width="100%"
+              height="100%"
+              align="center"
+              justify="center"
+            >
+              <Spinner
+                size={'xl'}
+                thickness="4px"
+              />
+            </VStack>
+          ) : children}
         </Flex>
       </HStack>
     </VStack>

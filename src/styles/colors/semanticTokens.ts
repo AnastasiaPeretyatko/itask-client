@@ -9,15 +9,15 @@ export const semanticTokens = {
       natural: { _dark: 'black.100', _light: '#e2e3e72e' },
 
       //? new
-      main: { _dark: 'almostBlack', _light: 'white.primary' },
+      main: { _dark: '#252525', _light: 'white.primary' },
       mainRevert: { _light: 'almostBlack', _dark: 'white.primary' },
       20: { _dark: 'almostBlack20', _light: 'white.20' },
-      secondary: { _dark: 'black.300', _light: 'warmGrey' },
+      secondary: { _dark: '#191919', _light: 'warmGrey' },
     },
     bg: { _dark: 'black', _light: 'white.300' },
     input: {
       outline: { _dark: 'whiteAlpha.200', _light: 'blackAlpha.300' },
-      placholder: { _dark: 'whiteAlpha.200', _light: '#e1e1e0' },
+      placeholder: { _dark: 'whiteAlpha.200', _light: '#e1e1e0' },
     },
     selector: {
       bg: { _dark: '#2e3337', _light: 'white.100' },
@@ -56,6 +56,7 @@ export const semanticTokens = {
         text: { _light: 'almostBlack', _dark: 'white.primary' },
         border: { _light: '#d9d9d9', _dark: 'slate.dark' },
       },
+      hover: { _light: '#37352f0f', _dark: '#ffffff0e' },
     },
     tooltip: {
       bg: { _light: 'almostBlack', _dark: 'white.primary' },

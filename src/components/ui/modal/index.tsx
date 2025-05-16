@@ -10,17 +10,16 @@ type Props = {
   isTask?: boolean
   isOpenModal?: boolean
   onCloseModal?: () => void
-  size?: string
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | 'full'
 }
 
 export type BodyItemProps = {
-  onClose: () => void
-  isFullSizeWindow: boolean
-  setIsFullSizeWindow: () => void
+  onClose?: () => void
+  isFullSizeWindow?: boolean
+  setIsFullSizeWindow?: () => void
 };
 
 export type RenderBodyType = React.ReactElement<BodyItemProps>;
-
 
 const Modal = ({ title, renderBody, action, height, isTask = false, isOpenModal, onCloseModal, size = '4xl', ...rest }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -60,7 +59,6 @@ const Modal = ({ title, renderBody, action, height, isTask = false, isOpenModal,
         </ModalContent>
       </ChakraModal>
     </>
-
   );
 };
 
