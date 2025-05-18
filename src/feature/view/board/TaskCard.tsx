@@ -28,21 +28,23 @@ const TaskCard = ({ task }: TaskCardProps) => {
     <>
       <Card
         ref={setNodeRef}
+        variant={'task_card'}
         style={style}
         padding={3}
         gap={3}
         width={'full'}
         onClick={onOpen}
       >
-        <Tag
-          size={'sm'}
-          padding={1}
-        >{task.courseName}</Tag>
         <HStack
           width={'full'}
           justify={'space-between'}
         >
-          <Heading size="sm">{task.title}</Heading>
+          <Tag
+            size={'sm'}
+            padding={1}
+            width={'fit-content'}
+            colorScheme="green"
+          >{task.courseName}</Tag>
           <IconButton
             {...listeners}
             {...attributes}
@@ -52,6 +54,10 @@ const TaskCard = ({ task }: TaskCardProps) => {
             size={'sm'}
           />
         </HStack>
+
+
+        <Heading size="sm">{task.title}</Heading>
+
         <VStack gap={0}>{/* TODO добавить вывод проперти */}</VStack>
         <Text
           noOfLines={2}

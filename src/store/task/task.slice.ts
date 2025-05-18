@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createTaskThunk } from '../professorModule/course/course.thunk';
-import { updateUserTaskThunk } from './task.thunk';
+import { addAnswerTaskThunk, updateUserTaskThunk } from './task.thunk';
+
 import { Property } from '@/types/course.type';
 import { UserTask } from '@/types/task.type';
 import presentNewTaskModal from '@/utils/presentNewTaskModal';
@@ -63,7 +64,8 @@ export const taskSlice = createSlice({
         if(state.task?.user_task){
           state.task = { ...state.task, user_task: { ...state.task?.user_task, ...payload } };
         }
-      });
+      })
+      .addCase(addAnswerTaskThunk.fulfilled, (state, { payload }) => { });
   },
 });
 

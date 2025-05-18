@@ -45,8 +45,8 @@ export const semanticTokens = {
     },
     shadow: { _light: 'rgba(0, 0, 0, 0.2)', _dark: 'rgba(0, 0, 0, 0.6)' },
     modal: {
-      backdrop: { _light: 'black.30', _dark: 'black.50' },
-      bg: { _light: 'white.primary', _dark: '#1f2128' },
+      backdrop: { _light: 'black.30', _dark: '#0f0f0fcc' },
+      bg: { _light: 'white.primary', _dark: '#202020' },
     },
     divider: { _light: 'slate.light', _dark: '#262a37' },
     button: {

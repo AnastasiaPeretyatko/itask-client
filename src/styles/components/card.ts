@@ -14,7 +14,7 @@ const taskSmall = definePartsStyle({
   container: {
     width: '100%',
     padding: 4,
-    bg: 'green.400',
+    background: 'background.main',
     color: 'white',
     borderRadius: 16,
     gap: 2,
@@ -26,4 +26,18 @@ const taskSmall = definePartsStyle({
   },
 });
 
-export const cardTheme = defineMultiStyleConfig({ baseStyle, variants: { taskSmall } });
+const task_card = definePartsStyle({
+  container: {
+    width: '100%',
+    padding: 4,
+    background: 'background.main',
+    gap: 2,
+    _hover: {
+      boxShadow: 'lg',
+    },
+    transition: 'all 0.2s ease-in-out',
+    cursor: 'pointer',
+  },
+});
+
+export const cardTheme = defineMultiStyleConfig({ baseStyle, variants: { taskSmall, task_card } });

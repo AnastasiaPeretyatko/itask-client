@@ -71,7 +71,7 @@ const ReviewTaskModal = ({ task: oldTask, role, isShort = false, courseName, ...
           <TabIndicator
             mt="-1.5px"
             height="2px"
-            bg="black"
+            bg="background.mainRevert"
             borderRadius="1px"
           />
           <TabPanels>

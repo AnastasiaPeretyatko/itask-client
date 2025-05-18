@@ -1,4 +1,4 @@
-import { Badge, Heading, HStack, Text } from '@chakra-ui/react';
+import { Badge, Heading, HStack, Image, Text } from '@chakra-ui/react';
 import moment from 'moment';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
@@ -22,9 +22,17 @@ const DocumentRow = ({ doc }: DocumentRowProps) => {
 
   const Component = () => {
     const embed = embeds.find((item) => item.type === doc.type);
-    if(!embed) return null;
-    const Component = embed.icon;
-    return <Component/>;
+    let EmbedIcon: React.FC<unknown>;
+    if(embed){
+      EmbedIcon = embed.icon;
+      return <EmbedIcon/>;
+    }
+    return (
+      <Image
+        src="/code.png"
+        width={5}
+      />
+    );
   };
 
   return (

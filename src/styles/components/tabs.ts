@@ -107,7 +107,7 @@ const task_modal = definePartsStyle({
     fontWeight: 500,
     color: 'text.pale',
     _selected: {
-      color: 'black',
+      // color: 'black',
     },
   },
   tabpanel: {

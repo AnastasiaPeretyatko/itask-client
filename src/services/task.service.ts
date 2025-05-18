@@ -7,6 +7,8 @@ export const getAllTaskRequest = (courseId: string) => http.get(`/tasks`, { para
 
 export const getStudentsAndTask = (id: string, params?: { [key: string]: string }) => http.get(`/courses/${id}`, { params });
 
+export const getTaskById = (id: string) => http.get(`/tasks/${id}`);
+
 //For Student
 export const getTaskByStudent = (id: string, params?: { [key: string]: string }) => http.get(`/tasks/student/${id}`, { params });
 

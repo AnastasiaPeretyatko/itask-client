@@ -40,6 +40,7 @@ const baseStyle = definePartsStyle({
     overflowY: 'auto',
     display: 'flex',
     flexDirection: 'column',
+
   },
 });
 

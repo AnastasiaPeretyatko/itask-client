@@ -14,6 +14,10 @@ export type UserTask = {
   student_id: string,
   createdAt: Date,
   updatedAt: Date
+  creatorBy: {
+    id: string,
+    fullName: string
+  }
 }
 
 export type DashboardTask = {
