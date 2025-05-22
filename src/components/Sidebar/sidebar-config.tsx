@@ -1,5 +1,5 @@
 import { AttachmentIcon, ChatIcon } from '@chakra-ui/icons';
-import { BookIcon, HomeIcon, LogoutIcon, SettingsIcon, GroupsIcon } from '../customIcon';
+import { BookIcon, HomeIcon, LogoutIcon, SettingsIcon } from '../customIcon';
 import { DashboardIcon } from '../icon/DashboardIcon';
 
 export const NAVBAR_ITEM = [
@@ -9,12 +9,12 @@ export const NAVBAR_ITEM = [
     path: '/',
     role: ['professor', 'student'],
   },
-  {
-    title: 'Группы',
-    icon: <GroupsIcon/>,
-    path: '/groups',
-    role: ['professor'],
-  },
+  // {
+  //   title: 'Группы',
+  //   icon: <GroupsIcon/>,
+  //   path: '/groups',
+  //   role: ['professor'],
+  // },
   {
     title: 'Курсы',
     icon: <BookIcon />,
@@ -37,7 +37,7 @@ export const NAVBAR_ITEM = [
     title: 'Документы',
     icon: <AttachmentIcon/>,
     path: '/doc',
-    role: ['student'],
+    role: ['student', 'professor'],
   },
 ];
 

@@ -19,7 +19,7 @@ const MessageInput = ({ room_id }: {room_id: string}) => {
 
   const sendMessage = () => {
     dispatch(createMessageThunk({
-      room_id,
+      id: room_id,
       content: value,
     })).then(() => setValue(''));
   };

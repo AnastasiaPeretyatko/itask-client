@@ -45,6 +45,8 @@ const HeaderDoc = ({ isEdit, setIsEdit, onChangeTitle }: HeaderDocProps) => {
     return changeDocument?.title || currentDocument?.title || 'Без названия';
   }, [changeDocument?.title, currentDocument?.title]);
 
+  console.log(user?.id, currentDocument?.creatorId);
+
   return (
     <VStack
       width={'full'}
@@ -57,7 +59,7 @@ const HeaderDoc = ({ isEdit, setIsEdit, onChangeTitle }: HeaderDocProps) => {
           size="sm"
           variant={'secondary'}
           leftIcon={<EditIcon/>}
-          display={user?.id === currentDocument?.creatorId && !isEdit ? 'none' : 'flex'}
+          display={user?.id !== currentDocument?.creatorId && !isEdit ? 'none' : 'flex'}
           onClick={() => {
             if(!isEdit) dispatch(createDocumentAction({}));
             setIsEdit();

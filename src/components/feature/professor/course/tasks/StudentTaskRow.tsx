@@ -14,7 +14,8 @@ import {
   useDisclosure,
   VStack,
 } from '@chakra-ui/react';
-import { format } from 'date-fns';
+// import { format } from 'date-fns';
+import moment from 'moment';
 import { useMemo } from 'react';
 import AnswerToTask from '@/components/feature/tasks/modals/AnswerToTask';
 import { FolderCheckIcon } from '@/components/icon';
@@ -34,6 +35,7 @@ const StudentTaskRow = ({ student }: Props) => {
     <Card
       width={'full'}
       cursor={'pointer'}
+      background={'background.main'}
     >
       <HStack
         justify={'space-between'}
@@ -106,19 +108,21 @@ const StudentTaskRow = ({ student }: Props) => {
 };
 
 //TODO для того чтобы в модалке отобразить имя студента
-const Task = ({ task, student }: {task: DashboardTask, student: StudentTask}) => {
+const Task = ({ task }: {task: DashboardTask, student: StudentTask}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { user_task } = task;
+  const { solutions } = task;
   const colorGrade = useMemo(() => {
-    if(task.score && user_task.grade){
-      if(+task.score*0.5 > +user_task.grade){
+    if(task.score && solutions.grade){
+      if(+task.score*0.5 > +solutions.grade){
         return 'red.400';
-      } else if (+task.score*0.5 < +user_task.grade){
+      } else if (+task.score*0.5 < +solutions.grade){
         return 'grean.400';
       }
     }
     return 'text.secondary';
-  }, [task, user_task]);
+  }, [task, solutions]);
+
+  console.log(solutions);
 
   return (
     <>
@@ -139,22 +143,20 @@ const Task = ({ task, student }: {task: DashboardTask, student: StudentTask}) =>
           <Flex
             align={'center'}
             color={colorGrade}
-          >{user_task.grade || 0}/{task.score}</Flex>
-          <Flex align={'center'}>{TransTaskStatus[user_task.status as keyof typeof TransTaskStatus]}</Flex>
+          >{solutions.grade || 0}/{task.score}</Flex>
+          <Flex align={'center'}>{TransTaskStatus[solutions.status as keyof typeof TransTaskStatus]}</Flex>
           <Flex align={'center'}>
-            {user_task.answer ? (
-              <IconButton
-                width={'min-content'}
-                variant={'iconButton'}
-                aria-label="answer"
-                size={'sm'}
-                icon={<FolderCheckIcon boxSize={5}/>}
-                color={'green'}
-              />
-            ) : '-'}
+            <IconButton
+              width={'min-content'}
+              variant={'iconButton'}
+              aria-label="answer"
+              size={'sm'}
+              icon={<FolderCheckIcon boxSize={5}/>}
+              color={'green'}
+            />
           </Flex>
 
-          <Flex align={'center'}>{format(new Date(user_task.updatedAt), 'dd.MM.yyyy')}</Flex>
+          <Flex align={'center'}>{moment(solutions.updatedAt).format('DD.MM.YYYY HH:mm')}</Flex>
         </Grid>
       </HStack>
       <Modal
@@ -163,7 +165,7 @@ const Task = ({ task, student }: {task: DashboardTask, student: StudentTask}) =>
         title={task.title}
         renderBody={(props) => (<AnswerToTask
           // isShort
-          task={task.user_task}
+          task={task}
           // studentName={student.fullName}
           {...props}
         />)}

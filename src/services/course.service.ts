@@ -1,11 +1,11 @@
 import { http } from '.';
 
 export const getAllFromSemesterGroup = (params: {[key: string]: string}) =>
-  http.get('/courses/list', { params });
+  http.get('/courses', { params });
 
 export const getAllByProfessor = (id: string) => http.get(`/courses/professor/${id}`);
 
-export const getCoursesForProfessor = (id: string) => http.get(`/assignment/professor/${id}`);
+export const getCoursesForProfessor = () => http.get(`/courses`);
 
 //? New request
 export const getOneCourse = (id: string) => http.get(`/courses/${id}`);

@@ -1,4 +1,4 @@
-import { Button, Flex, Heading, Text, VStack } from '@chakra-ui/react';
+import { Button, Flex, Heading, Link, Text, VStack } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import Circle from '@/components/ui/Circle';
@@ -46,8 +46,12 @@ const AuthPage = () => {
           padding={8}
           borderRadius={10}
           gap={8}
+          align={'start'}
         >
-          <VStack>
+          <VStack
+            width={'full'}
+            align={'center'}
+          >
             <Heading
               size={'lg'}
               color={'primary.purple'}
@@ -55,13 +59,12 @@ const AuthPage = () => {
             <Text
               size="sm"
               color={'text.pale'}
-            >Join the community today!</Text>
-
+            >Войдите в свой аккаунт</Text>
           </VStack>
 
           <InputForm
-            label="Email"
-            placeholder="Email..."
+            label="Эл. почта"
+            placeholder="Эл. почта..."
             type="email"
             register={register('email')}
           />
@@ -71,10 +74,12 @@ const AuthPage = () => {
             type="password"
             register={register('password')}
           />
+          <Link color={'primary.purple'}>Забыл пароль?</Link>
           <Button
             type="submit"
             width={'100%'}
             variant={'primary'}
+            size={'md'}
           >
             Войти
           </Button>

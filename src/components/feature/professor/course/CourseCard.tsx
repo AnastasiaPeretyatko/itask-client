@@ -1,7 +1,10 @@
-import { ChevronRightIcon } from '@chakra-ui/icons';
-import { Card, Heading, HStack, IconButton, Image, Tag, Text, VStack, Wrap } from '@chakra-ui/react';
+import { Avatar, AvatarGroup, Card, Heading, HStack, Tag, TagLabel, TagLeftIcon, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import ReactMarkdown from 'react-markdown';
+import { NumberIcon } from '@/components/icon';
+import ButtonUI from '@/components/ui/ButtonUI';
 import { TCourse } from '@/types/course.type';
+import { getRandomChakraColor } from '@/utils/getRandomChakraColor';
 
 type Props = {
   course: TCourse
@@ -13,22 +16,18 @@ const CourseCard = ({ course }: Props) => {
   return (
     <Card
       direction={'row'}
-      height={'200px'}
+      height={'300px'}
       padding={3}
       borderRadius={'2xl'}
       gap={3}
+      background={'background.main'}
+      overflow={'hidden'}
     >
-      <Image
-        objectFit={'cover'}
-        src="/course.webp"
-        height="100%"
-        borderRadius={'xl'}
-      />
       <VStack
         width={'full'}
         align={'start'}
         padding={2}
-        gap={1}
+        gap={4}
       >
         <Heading
           size="md"
@@ -36,45 +35,80 @@ const CourseCard = ({ course }: Props) => {
         >
           {course.name}
         </Heading>
-        <Wrap>
+        {course.tags?.length ? (
+          <HStack>
+            {
+              course.tags?.map((tag) => (
+                <Tag
+                  key={tag}
+                  colorScheme={getRandomChakraColor().split('.')[0]}
+                >
+                  <TagLeftIcon as={NumberIcon}/>
+                  <TagLabel>{tag}</TagLabel>
+                </Tag>
+              ))
+            }
+          </HStack>
+        ) : null}
+        {course.language ? (
           <Tag
-            size={'sm'}
-            colorScheme="cyan"
-          >language</Tag>
+            key={course.language}
+            colorScheme={getRandomChakraColor().split('.')[0]}
+          >
+            <TagLeftIcon as={NumberIcon}/>
+            <TagLabel>{course.language}</TagLabel>
+          </Tag>
+        ) : null}
+        {course.assessment_system ? (
           <Tag
-            size={'sm'}
-            colorScheme="cyan"
-          >language</Tag>
-        </Wrap>
+            key={course.assessment_system}
+            colorScheme={getRandomChakraColor().split('.')[0]}
+          >
+            <TagLeftIcon as={NumberIcon}/>
+            <TagLabel>{course.assessment_system}</TagLabel>
+          </Tag>
+        ) : null}
         <VStack
           flex={1}
           alignItems={'start'}
           gap={0}
+          maxH={'full'}
+          overflow={'hidden'}
         >
           <Text
-            fontSize={'sm'}
-            noOfLines={3}
-          >{course.description}</Text>
+            fontSize={'md'}
+            noOfLines={4}
+            whiteSpace={'pre-wrap'}
+          >
+            <ReactMarkdown>{course.description}</ReactMarkdown>
+          </Text>
         </VStack>
         <HStack
           width={'full'}
-          justify={'end'}
+          justify={'space-between'}
         >
-          <IconButton
+          <AvatarGroup
+            max={3}
             size={'sm'}
-            aria-label="more..."
-            icon={<ChevronRightIcon/>}
+          >
+            {
+              course.professors?.map((professor) => (
+                <Avatar
+                  key={professor.id}
+                  size={'sm'}
+                  // name={professor.fullName}
+                />
+              ))
+            }
+          </AvatarGroup>
+          <ButtonUI
+            variant={'secondary'}
             onClick={() => router.push(`/courses/${course.id}`)}
-            _hover={{
-              boxShadow:'md',
-              background: 'primary.darkBlue',
-              color: 'white',
-            }}
-            isRound
-          />
+          >
+            Подробнее...
+          </ButtonUI>
         </HStack>
       </VStack>
-
     </Card>
   );
 };

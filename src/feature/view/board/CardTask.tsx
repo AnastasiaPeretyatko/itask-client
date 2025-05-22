@@ -17,11 +17,11 @@ const CardTask = ({ task }: Props) => {
         padding={3}
         gap={3}
         onClick={onOpen}
+        background={'background.main'}
       >
         <Heading size={'sm'}>{task.title}</Heading>
         <VStack gap={0}>
           {/* TODO добавить вывод проперти */}
-
         </VStack>
         <Text
           size={'sm'}
@@ -50,7 +50,6 @@ const CardTask = ({ task }: Props) => {
 
       </Card>
       <Modal
-        isTask
         isOpenModal={isOpen}
         onCloseModal={onClose}
         height="80%"

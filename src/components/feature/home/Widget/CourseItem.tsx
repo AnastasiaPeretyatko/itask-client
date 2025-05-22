@@ -1,9 +1,12 @@
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { Card, Flex, HStack, Text, VStack } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import { BookIcon } from '@/components/customIcon';
 import { TCourse } from '@/types/course.type';
 
 const CourseItem = ({ course }: {course: TCourse}) => {
+  const router = useRouter();
+
   return (
     <Card
       borderRadius={10}
@@ -32,7 +35,10 @@ const CourseItem = ({ course }: {course: TCourse}) => {
           width={'full'}
           justify={'end'}
         >
-          <ArrowForwardIcon/>
+          <ArrowForwardIcon
+            onClick={() => router.push(`/courses/${course.id}`)}
+            cursor={'pointer'}
+          />
         </HStack>
       </VStack>
     </Card>

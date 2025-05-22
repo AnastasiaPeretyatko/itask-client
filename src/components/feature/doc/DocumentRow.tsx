@@ -1,3 +1,4 @@
+import { CheckIcon } from '@chakra-ui/icons';
 import { Badge, Heading, HStack, Image, Text } from '@chakra-ui/react';
 import moment from 'moment';
 import { useRouter } from 'next/router';
@@ -10,9 +11,11 @@ import { DocumentType } from '@/types/document.type';
 
 type DocumentRowProps = {
   doc: DocumentType
+  isChecked?: boolean
+  onClick?: (doc: DocumentType) => void
 };
 
-const DocumentRow = ({ doc }: DocumentRowProps) => {
+const DocumentRow = ({ doc, isChecked = false, onClick }: DocumentRowProps) => {
   const router = useRouter();
   const isNewDoc = doc?.createdAt && moment().diff(moment(doc.createdAt), 'hours') < 1;
 
@@ -47,7 +50,7 @@ const DocumentRow = ({ doc }: DocumentRowProps) => {
         borderBottom: '1px solid',
         borderColor: 'divider',
       }}
-
+      onClick={() => onClick && onClick(doc)}
     >
       <HStack width={'full'}>
         {doc.type !== 'document' ? <Component/> : <BsFileEarmarkText color={'text.pale'}/>}
@@ -86,6 +89,7 @@ const DocumentRow = ({ doc }: DocumentRowProps) => {
         actions={() => listActions}
         data={doc}
       />
+      {isChecked ? <CheckIcon color={'primary.purple'}/> : null}
     </HStack>
   );
 };

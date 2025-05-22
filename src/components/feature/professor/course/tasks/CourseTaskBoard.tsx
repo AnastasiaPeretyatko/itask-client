@@ -14,13 +14,14 @@ const CourseTaskBoard = () => {
   const id = query.id as string;
 
   useEffect(() => {
+    console.log({ id });
     if(id){
       dispatch(getAllTaskThunk(id));
     }
-  }, [dispatch, id]);
+  }, [dispatch, id, query.id]);
 
-  if(!course || !course.tasks){
-    return <Empty>Заданий у этого курса нет</Empty>;
+  if(course && !course.tasks?.length){
+    return <Empty>У этого курса пока нет заданий</Empty>;
   }
 
   return (
@@ -29,7 +30,7 @@ const CourseTaskBoard = () => {
       spacing={5}
     >
       {
-        course.tasks.map((task) => (
+        course?.tasks.map((task) => (
           <CardTask
             key={task.id}
             task={task}

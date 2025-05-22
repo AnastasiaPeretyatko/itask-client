@@ -8,6 +8,9 @@ const baseStyle = defineStyle({
   'span': {
     mr: 0,
   },
+  _focusVisible: {
+    boxShadow: 'none',
+  },
 });
 
 const auth = defineStyle({
@@ -145,6 +148,8 @@ const filter = defineStyle({
 const secondary = defineStyle({
   border: '1px solid',
   borderColor: 'input.outline',
+  minW: 'max-content',
+  fontWeight: 'normal',
   _hover: {
     background: 'button.neutral.bgDarker05',
   },
@@ -153,4 +158,7 @@ const secondary = defineStyle({
 export const buttonTheme = defineStyleConfig({
   baseStyle,
   variants: { auth, sidebar, primary, day, iconButton, openSidebar, new_record, filter, secondary },
+  defaultProps: {
+    size: 'sm',
+  },
 });

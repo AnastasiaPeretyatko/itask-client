@@ -23,7 +23,6 @@ export const documents = createSlice({
     createDocumentAction: (state, { payload }) => {
       if(!state.changeDocument) {
         state.changeDocument = state.currentDocument;
-        return;
       }
       state.changeDocument = { ...state.currentDocument, ...payload };
     },

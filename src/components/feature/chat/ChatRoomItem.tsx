@@ -15,9 +15,9 @@ const ChatRoomItem = ({ room }: {room: Room}) => {
       justify={'center'}
       gap={3}
       padding={2}
-      _hover={{
-        background: 'secondary.blue',
-      }}
+      background={'background.main'}
+      _hover={{ boxShadow: 'lg' }}
+      borderRadius={0}
       cursor={'pointer'}
       onClick={() =>
         router.replace(

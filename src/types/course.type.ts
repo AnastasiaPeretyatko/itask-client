@@ -34,6 +34,9 @@ export type TCourse = {
   language: string | null;
   assessment_system: string | null;
   access: string | null;
+  tags: string[] | null;
+  professors: ProfessorT[]
+  // groups: Group[] //TODO нет типа
 }
 
 

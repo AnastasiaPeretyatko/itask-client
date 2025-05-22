@@ -1,10 +1,11 @@
 import { Button, Heading, HStack, ModalBody, Text } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
+import { BodyItemProps } from '@/components/ui/modal';
 import { useNotifications } from '@/hooks/useNotifications';
 import { AppDispatch } from '@/store';
 import { createRoomThunk } from '@/store/chat/chat.thunk';
 
-const CreateRoomModal = ({ id, onClose }: {id: string, onClose: () => void}) => {
+const CreateRoomModal = ({ id, onClose }: {id: string} & BodyItemProps) => {
   const dispatch = useDispatch<AppDispatch>();
   const { showErrorMessage, showSuccessMessage } = useNotifications();
 
@@ -13,7 +14,7 @@ const CreateRoomModal = ({ id, onClose }: {id: string, onClose: () => void}) => 
       .unwrap()
       .then((res) => {
         showSuccessMessage(res);
-        onClose();
+        onClose?.();
       })
       .catch(showErrorMessage);
   };

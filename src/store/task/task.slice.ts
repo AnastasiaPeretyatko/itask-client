@@ -3,7 +3,7 @@ import { createTaskThunk } from '../professorModule/course/course.thunk';
 import { addAnswerTaskThunk, updateUserTaskThunk } from './task.thunk';
 
 import { Property } from '@/types/course.type';
-import { UserTask } from '@/types/task.type';
+import { Solutions } from '@/types/task.type';
 import presentNewTaskModal from '@/utils/presentNewTaskModal';
 import presentTaskModal from '@/utils/presentTaskModal';
 
@@ -13,7 +13,7 @@ export type CreateTask = {
   text: string;
   creatorId: string;
   property: Property;
-  user_task: null | UserTask;
+  user_task: null | Solutions;
 }
 
 type TInitialState = {

@@ -1,12 +1,12 @@
 import { BlockNoteEditor, locales } from '@blocknote/core';
 import { BlockNoteView } from '@blocknote/mantine';
 import { useCreateBlockNote } from '@blocknote/react';
-
 import { Skeleton, useColorMode } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
 import { redTheme } from './themeMode';
 import '@blocknote/core/fonts/inter.css';
 import '@blocknote/mantine/style.css';
+import Empty from '@/components/ui/Empty';
 
 type EditorProps = {
   markdown?: string;
@@ -100,6 +100,19 @@ const Editor = ({
   //     />
   //   );
   // }
+
+
+  if (!markdown && !editable) {
+    return (
+      <Skeleton
+        isLoaded={true}
+        width="full"
+        marginLeft={isLeftPadding ? 0 : -54}
+      >
+        <Empty>Данных пока нет...</Empty>
+      </Skeleton>
+    );
+  }
 
   return (
     <Skeleton

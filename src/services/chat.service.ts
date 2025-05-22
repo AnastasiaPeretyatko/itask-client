@@ -9,3 +9,5 @@ export const deleteUserFromRoom = async (data: {roomId: string, userId: string})
 export const deleteRoom = async (data: {roomId: string}) => http.post(`/room/delete`, data);
 
 export const getUserForRoom = async () => http.get(`/users`);
+
+// export

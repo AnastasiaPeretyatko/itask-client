@@ -44,7 +44,7 @@ const embeds: EmbedDescription[] = [
   {
     title: 'Google Slide',
     icon: () =>(<Image
-      src="/GoogleSlide.png"
+      src="/googleSlide.png"
       width={4}
     />),
     component: GoogleSlide,
@@ -55,7 +55,7 @@ const embeds: EmbedDescription[] = [
   {
     title: 'Google Docs',
     icon: () =>(<Image
-      src="/GoogleDocs.png"
+      src="/googleDocs.png"
       width={4}
     />),
     component: GoogleDocs,

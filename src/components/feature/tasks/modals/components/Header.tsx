@@ -2,13 +2,16 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
+  Button,
   IconButton, ModalCloseButton,
   ModalHeader, Text,
 } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import { DotsVerticalIcon, StarIcon } from '@/components/icon';
 import { ArrowsAngleContract } from '@/components/icon/ArrowsAngleContract';
 import { ArrowsAngleExpand } from '@/components/icon/ArrowsAngleExpand';
 import { BodyItemProps } from '@/components/ui/modal';
+import { TaskModel } from '@/types/course.type';
 
 type Props = {
   create?: boolean,
@@ -16,6 +19,7 @@ type Props = {
   courseName?: string,
   taskName?: string
   studentName?: string
+  task?: TaskModel
 } & BodyItemProps
 
 const Header = ({
@@ -26,7 +30,10 @@ const Header = ({
   courseName,
   taskName,
   studentName,
+  task,
 }: Props) => {
+  const router = useRouter();
+
   return (
     <ModalHeader
       display={'flex'}
@@ -69,6 +76,13 @@ const Header = ({
           </Breadcrumb>
         ) : null
       }
+      <Button
+        size={'sm'}
+        variant={'secondary'}
+        onClick={() => router.push(`/tasks/${task?.id}`)}
+      >
+        Открыть
+      </Button>
       <IconButton
         size={'sm'}
         aria-label="menu"

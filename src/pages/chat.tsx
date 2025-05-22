@@ -8,6 +8,8 @@ import AppLayout from '@/components/layout/AppLayout';
 
 const ChatPage = () => {
   const [isLargerThan1000] = useMediaQuery('(min-width: 1000px)');
+  const [isLargerThan700] = useMediaQuery('(min-width: 900px)');
+
   const [roomId, setRoomId] = useState('');
 
   const router = useRouter();
@@ -30,12 +32,12 @@ const ChatPage = () => {
         overflow={'hidden'}
         align={'start'}
         padding={4}
-        borderRadius={'md'}
-        backgroundColor={'background.main'}
+        borderRadius={10}
       >
-        <ChatRoomList/>
+        {/* TODO сделать адапти, чтобы выглядело как в макете */}
+        {isLargerThan700 ? <ChatRoomList/> : null}
         {roomId ? <ChatWindow/> : null}
-        { isLargerThan1000 ? <UserInfoPanel/> : null }
+        {router.query.roomId && isLargerThan1000 ? <UserInfoPanel/> : null }
       </HStack>
     </AppLayout>
   );

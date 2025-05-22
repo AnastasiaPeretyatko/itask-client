@@ -1,3 +1,5 @@
+import { UserT } from './user.type';
+
 export type Message = {
   id: string
   thread_id: null | string,
@@ -10,4 +12,7 @@ export type Message = {
   content: string,
   updatedAt: Date,
   createdAt: Date
+  author: UserT
+  parent: null | Message
+  children: Message[]
 }

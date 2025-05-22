@@ -1,4 +1,20 @@
-import { Button, Heading, Skeleton, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, Tag, VStack, Wrap } from '@chakra-ui/react';
+import {
+  Button,
+  Heading,
+  HStack,
+  Skeleton,
+  Tab,
+  TabIndicator,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Tag,
+  TagLabel,
+  TagLeftIcon,
+  VStack,
+  Wrap,
+} from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,10 +22,12 @@ import CourseDescription from '@/components/feature/professor/course/description
 import CourseMembers from '@/components/feature/professor/course/members/CourseMembers';
 import CourseTaskBoard from '@/components/feature/professor/course/tasks/CourseTaskBoard';
 import AddTaskModal from '@/components/feature/tasks/modals/AddTaskModal';
+import { NumberIcon } from '@/components/icon';
 import AppLayout from '@/components/layout/AppLayout';
 import Modal from '@/components/ui/modal';
 import { AppDispatch, RootState } from '@/store';
 import { fetchCourse } from '@/store/professorModule/course/course.thunk';
+import { getRandomChakraColor } from '@/utils/getRandomChakraColor';
 
 const CoursePage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -39,7 +57,7 @@ const CoursePage = () => {
     if(id){
       dispatch(fetchCourse(query.id as string));
     }
-  }, [query.id]);
+  }, [dispatch, query.id]);
 
   if(!course){
     return null;
@@ -70,15 +88,31 @@ const CoursePage = () => {
             renderBody={(props) => <AddTaskModal {...props} />}
           />
         </Skeleton>
+        <HStack
+          width={'full'}
+          gap={4}
+        >
+          {
+            course.tags?.map((tag) => (
+              <Tag
+                key={tag}
+                colorScheme={getRandomChakraColor().split('.')[0]}
+              >
+                <TagLeftIcon as={NumberIcon} />
+                <TagLabel>{tag}</TagLabel>
+              </Tag>
+            ))
+          }
+        </HStack>
         <Skeleton
           isLoaded={!isLoading}
           width={'100%'}
         >
           <Wrap>
-            {course.learning_form ? <Tag>{course.learning_form}</Tag> : null}
-            {course.language ? <Tag>{course.language}</Tag> : null}
-            {course.assessment_system ? <Tag>{course.assessment_system}</Tag> : null}
-            {course.access ? <Tag>{course.access}</Tag> : null}
+            {course.learning_form ? <Tag colorScheme={getRandomChakraColor().split('.')[0]}>{course.learning_form}</Tag> : null}
+            {course.language ? <Tag colorScheme={getRandomChakraColor().split('.')[0]}>{course.language}</Tag> : null}
+            {course.assessment_system ? <Tag colorScheme={getRandomChakraColor().split('.')[0]}>{course.assessment_system}</Tag> : null}
+            {course.access ? <Tag colorScheme={getRandomChakraColor().split('.')[0]}>{course.access}</Tag> : null}
           </Wrap>
         </Skeleton>
       </VStack>

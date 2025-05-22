@@ -8,7 +8,6 @@ import ButtonUI from '@/components/ui/ButtonUI';
 import { getAllFromSemesterGroup } from '@/services/course.service';
 import { RootState } from '@/store';
 import { TCourse } from '@/types/course.type';
-import { UserRole } from '@/types/user.type';
 
 const CourseList = () => {
   const { user } = useSelector((state: RootState) => state.user);
@@ -16,9 +15,9 @@ const CourseList = () => {
   const [ courseList, setCourseList ] = useState<TCourse[]>([]);
 
   useEffect(() => {
-    if(user?.role === UserRole.Professor) return;
-    getAllFromSemesterGroup({}).then((res) => setCourseList(res.data));
+    getAllFromSemesterGroup({}).then((res) => setCourseList(res.data.data));
   }, [user?.role]);
+
 
   if(!courseList.length) {
     return null;

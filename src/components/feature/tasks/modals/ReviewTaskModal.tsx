@@ -1,8 +1,7 @@
-import { Box, Heading, ModalBody, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, Text, useBoolean } from '@chakra-ui/react';
+import { Box, Divider, Heading, ModalBody, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, useBoolean } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AnswerContainer from './components/AnswerContainer';
-import CommentsBox from './components/CommentsBox';
 import Header from './components/Header';
 import TaskProperty from './components/TaskProperty';
 import Editor from '@/components/ui/Editor/Editor';
@@ -36,14 +35,13 @@ const ReviewTaskModal = ({ task: oldTask, role, isShort = false, courseName, ...
     return null;
   }
 
-  console.log({ task });
-
   return (
     <>
       <Header
         review
         courseName={courseName || course?.name}
         taskName={task?.title}
+        task={oldTask}
         {...props}
       />
       <ModalBody as={'form'}>
@@ -62,40 +60,13 @@ const ReviewTaskModal = ({ task: oldTask, role, isShort = false, courseName, ...
             studentRole={role === UserRole.Student || isShort}
           />
         </Box>
-        <Tabs variant={'task_modal'}>
-          <TabList>
-            <Tab>Описание</Tab>
-            {role === UserRole.Student ? <Tab>Ответ</Tab> : null}
-            <Tab>Комментарии</Tab>
-          </TabList>
-          <TabIndicator
-            mt="-1.5px"
-            height="2px"
-            bg="background.mainRevert"
-            borderRadius="1px"
-          />
-          <TabPanels>
-            {role === UserRole.Student ? (
-              <TabPanel>
-                <Text>kek</Text>
-                <Editor markdown={task?.text} />
-              </TabPanel>
-            ) : null }
-            {
-              role === UserRole.Student ? (
-                <TabPanel>
-                  <AnswerContainer
-                    task={task as CreateTask}
-                    onClose={props.onClose}
-                  />
-                </TabPanel>
-              ) : null
-            }
-            <TabPanel>
-              <CommentsBox/>
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
+        <Divider borderColor={'divider'}/>
+        <Box
+          paddingX={24}
+          paddingTop={5}
+        >
+          <Editor markdown={task?.text}/>
+        </Box>
       </ModalBody>
     </>
 

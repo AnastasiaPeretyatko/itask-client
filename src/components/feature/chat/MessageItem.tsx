@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
-import { Avatar, Card, HStack, Text, VStack } from '@chakra-ui/react';
+import { Card, HStack, Text, VStack } from '@chakra-ui/react';
 import moment from 'moment';
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { Message as MessageType } from '@/types/message.type';
@@ -16,14 +15,15 @@ const MessageItem = ({ message }: {message: MessageType}) => {
       align={'flex-end'}
       _first={{ pt: '64px' }}
     >
-      <VStack>
+      <VStack align={'end'}>
         <Card
-          maxW={'350px'}
+          maxW={'370px'}
+          minW={'300px'}
           position={'relative'}
           _before={{
             content: '""',
-            width: 4,
-            height: 4,
+            width: 5,
+            height: 5,
             position: 'absolute',
             bottom: 0,
             right: 0,
@@ -32,18 +32,20 @@ const MessageItem = ({ message }: {message: MessageType}) => {
           }}
           height={'min-content'}
           padding={3}
-          borderRadius={10}
-          backgroundColor={user?.id === message.author_id ? 'secondary.blue' : 'background.main'}
+          borderRadius={20}
+          boxShadow={'none'}
+          backgroundColor={user?.id === message.author_id ? 'blue.600' : 'background.main'}
+          color={user?.id === message.author_id ? 'white' : 'text.secondary'}
         >
           <Text fontSize={'sm'}>{message.content}</Text>
-          <Text
-            color={'text.pale'}
-            fontSize={'xs'}
-            textAlign={'right'}
-          >{moment(message.createdAt).format('HH:mm')}</Text>
         </Card>
+        <Text
+          color={'text.pale'}
+          fontSize={'xs'}
+          textAlign={'right'}
+        >{moment(message.createdAt).format('HH:mm')}</Text>
       </VStack>
-      <Avatar size={'sm'}/>
+      {/* <Avatar size={'sm'}/> */}
     </HStack>
   );
 };

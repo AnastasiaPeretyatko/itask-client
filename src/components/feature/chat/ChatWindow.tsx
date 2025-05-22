@@ -17,7 +17,7 @@ const ChatWindow = () => {
 
   useEffect(() => {
     if(router.query && router.query.roomId){
-      dispatch(getMessageThunk({ room_id: router.query.roomId as string }));
+      dispatch(getMessageThunk({ id: router.query.roomId as string }));
     }
   }, [dispatch, router.query]);
 
@@ -28,6 +28,7 @@ const ChatWindow = () => {
       overflow={'hidden'}
       position={'relative'}
       flex={1}
+      background={'background.main'}
     >
       <ChatHeader room={room}/>
       <VStack
@@ -41,7 +42,7 @@ const ChatWindow = () => {
           overflowY={'auto'}
           flex={1}
           padding={2}
-          backgroundColor={'background.secondary'}
+          // backgroundColor={'background.secondary'}
         >
           {
             messages.map((message) => (

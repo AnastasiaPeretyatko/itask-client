@@ -14,14 +14,15 @@ const ChatRoomList = () => {
   useEffect(() => {
     dispatch(getUserForRoomsThunk());
     dispatch(getAllRoomThunk());
-  }, []);
+  }, [dispatch]);
 
   return (
     <VStack
       width={'20%'}
-      minW={'300px'}
+      minW={'350px'}
       height={'full'}
       overflow={'hidden'}
+      gap={4}
     >
       <Input
         variant={'search'}

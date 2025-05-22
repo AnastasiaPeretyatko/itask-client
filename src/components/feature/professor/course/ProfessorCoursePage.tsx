@@ -27,11 +27,10 @@ const filterCourse = [
 const ProfessorCoursePage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { courses } = useSelector((state: RootState) => state.courseStore);
-  const { user } = useSelector((state: RootState) => state.user);
 
   useLayoutEffect(() => {
-    dispatch(getCoursesForProfessorThunk(user?.professorId || ''));
-  }, []);
+    dispatch(getCoursesForProfessorThunk());
+  }, [dispatch]);
 
   return (
     <VStack
@@ -64,8 +63,8 @@ const ProfessorCoursePage = () => {
 
       <SimpleGrid
         width={'full'}
-        templateColumns={{ sm: 'repeat(1, 1fr)', lg: 'repeat(2, 1fr)', '2xl': 'repeat(3, 1fr)' }}
         spacing={6}
+        templateColumns={{ sm: 'repeat(1, 1fr)', lg: 'repeat(2, 1fr)', '2xl': 'repeat(3, 1fr)' }}
       >
         {
           courses.map((item) => (

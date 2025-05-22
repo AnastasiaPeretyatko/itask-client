@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createTaskThunk, fetchCourse, getAllStudentsTaskByCourseThunk, getAllTaskThunk, getCoursesForProfessorThunk } from './course.thunk';
+import { updateUserTask } from '@/services/user-task.service';
+import { updateUserTaskThunk } from '@/store/task/task.thunk';
 import { TaskModel, TCourse } from '@/types/course.type';
 import { StudentTask } from '@/types/student.type';
 
@@ -27,7 +29,7 @@ export const courseStore = createSlice({
     builder
       .addCase(getCoursesForProfessorThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.courses = payload;
+        state.courses = payload.data;
       })
       .addCase(fetchCourse.pending, (state) => {
         state.isLoading = true;
@@ -53,6 +55,17 @@ export const courseStore = createSlice({
       .addCase(getAllStudentsTaskByCourseThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.students = payload;
+      })
+      .addCase(updateUserTaskThunk.fulfilled, (state, { payload }) => {
+        state.students = state.students.map((student) => {
+          student.tasks = student.tasks.map((task) => {
+            if(payload.data.id === task.solutions.id) {
+              return { ...task, solutions: { ...task.solutions, ...payload.data } };
+            }
+            return task;
+          });
+          return student;
+        });
       });
   },
 });

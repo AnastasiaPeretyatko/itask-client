@@ -6,10 +6,11 @@ import { EmailIcon } from '@/components/icon';
 const UserInfoPanel = () => {
   return (
     <Card
-      width={'20%'}
+      width={'25%'}
       display={'flex'}
       flexDir={'column'}
       align={'center'}
+      background={'background.main'}
       padding={5}
       gap={2}
     >

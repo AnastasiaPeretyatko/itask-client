@@ -59,7 +59,7 @@ const InputForm = ({
         />
         {passwordElement}
       </InputGroup>
-      <FormHelperText>We&apos;ll never share your email.</FormHelperText>
+      {/* <FormHelperText>We&apos;ll never share your email.</FormHelperText> */}
     </FormControl>
   );
 };

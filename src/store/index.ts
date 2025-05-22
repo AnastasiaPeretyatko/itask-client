@@ -6,6 +6,7 @@ import professorCourseReducer from './professor.course/professor.course.slice';
 import courseReducer from './professorModule/course/course.slice';
 import dashboardTaskReducer from './studentModule/tasks/dashboard.slice';
 import taskReducer from './task/task.slice';
+import newTaskReducer from './task/task.update.slice';
 import userReducer from './user/user.slice';
 
 export const store = configureStore({
@@ -15,7 +16,8 @@ export const store = configureStore({
     professorCourse: professorCourseReducer,
     courseStore: courseReducer,
     dashboardTask: dashboardTaskReducer,
-    task: taskReducer,
+    task: taskReducer, //TODO удалить когда будет возможность
+    newTask: newTaskReducer,
     rooms: roomsReducer,
     documents: documentsReducer,
   },

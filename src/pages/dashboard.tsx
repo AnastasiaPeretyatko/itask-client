@@ -1,7 +1,7 @@
 import { Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { KanbanIcon } from '@/components/icon';
+import { KanbanIcon, ListIcon, TableIcon } from '@/components/icon';
 import AppLayout from '@/components/layout/AppLayout';
 import Board from '@/feature/view/board';
 import { AppDispatch, RootState } from '@/store';
@@ -25,9 +25,9 @@ const Dashboard = () => {
         height={'full'}
       >
         <TabList>
-          <Tab><KanbanIcon/> Kanban</Tab>
-          {/* <Tab><TableIcon/> Table</Tab>
-          <Tab><ListIcon/> List</Tab> */}
+          <Tab><KanbanIcon/>Доска</Tab>
+          <Tab isDisabled><TableIcon/>Таблица</Tab>
+          <Tab isDisabled><ListIcon/>Список</Tab>
         </TabList>
         <TabIndicator
           mt="-2px"

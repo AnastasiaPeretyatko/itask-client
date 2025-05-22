@@ -26,6 +26,7 @@ export const rooms = createSlice({
         if(room.id === payload.room_id) {
           return { ...room, messages: [payload] };
         }
+        return room;
       });
     },
   },
@@ -41,12 +42,22 @@ export const rooms = createSlice({
         state.users = payload;
       })
       .addCase(createMessageThunk.fulfilled, (state, { payload }) => {
+        if(payload.parent_id){
+          state.messages = state.messages.map((message) => {
+            if(message.id === payload.parent_id) {
+              return { ...message, children: [...message.children, payload] };
+            }
+            return message;
+          });
+          return;
+        }
         state.messages.push(payload);
         if(state.rooms.length){
           state.rooms = state.rooms.map((room) => {
             if(room.id === payload.room_id) {
               return { ...room, messages: [payload] };
             }
+            return room;
           });
         }
       })

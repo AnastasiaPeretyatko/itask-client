@@ -54,7 +54,7 @@ export const getUserForRoomsThunk = createAsyncThunk<
 
 export const createMessageThunk = createAsyncThunk<
   Message,
-  { room_id: string, content: string },
+  { id?: string, content: string, task_id?: string, parent_id?: string },
   {
     rejectValue: { statusCode: number; message: MessageType }
   }
@@ -69,7 +69,7 @@ export const createMessageThunk = createAsyncThunk<
 
 export const getMessageThunk = createAsyncThunk<
   Message[],
-  { room_id: string },
+  { id?: string, task_id?: string },
   {
     rejectValue: { statusCode: number; message: MessageType }
   }

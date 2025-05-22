@@ -73,7 +73,6 @@ const Document = () => {
 
   return (
     <>
-
       <BreadcrumbDoc
         currentDocument={currentDocument}
         isNewDoc={isNewDoc}
@@ -100,6 +99,7 @@ const Document = () => {
       <Editor
         editable={isEdit}
         onChange={(markdown) => onChangeDoc({ context: markdown })}
+        markdown={currentDocument?.context || ''}
         isLeftPadding
       />
     </>

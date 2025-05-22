@@ -1,10 +1,21 @@
 import { Button, Container, HStack, IconButton, Textarea } from '@chakra-ui/react';
-import React from 'react';
+import React, { useState } from 'react';
 import { EmailIcon } from '@/components/icon';
 
-const CommentsBox = () => {
+type Props = {
+  onSendMessage: (content: string) => void
+}
+
+const CommentsBox = ({ onSendMessage }: Props) => {
+  const [ content, setContent ] = useState<string>('');
+
+  const handleSend = () => {
+    onSendMessage(content);
+    setContent('');
+  };
+
   return (
-    <Container>
+    <Container width={'full'}>
       <Container
         background={'button.neutral.bgDarker05'}
         display={'flex'}
@@ -18,6 +29,9 @@ const CommentsBox = () => {
           minHeight={'unset'}
           resize={'none'}
           padding={0}
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && handleSend()}
           placeholder="Написать комментарий..."
         />
         <HStack>
@@ -30,6 +44,7 @@ const CommentsBox = () => {
           <Button
             variant={'primary'}
             size={'sm'}
+            onClick={handleSend}
           >Отправить</Button>
         </HStack>
       </Container>

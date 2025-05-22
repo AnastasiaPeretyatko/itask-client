@@ -5,14 +5,17 @@ import { TaskModel, TAssignment, TCourse } from '@/types/course.type';
 import { StudentTask } from '@/types/student.type';
 import { handleThunkError } from '@/utils/handleThunkError';
 
-export const getCoursesForProfessorThunk = createAsyncThunk<TCourse[], string,
+export const getCoursesForProfessorThunk = createAsyncThunk<{data: TCourse[], count: number}, undefined,
   {
     rejectValue: { statusCode: number; message: string }
   }
->('/assignment/professor', async (id, { rejectWithValue }) => {
+>('/assignment/professor', async (_, { rejectWithValue }) => {
   try {
-    const { data } = await getCoursesForProfessor(id);
-    return data;
+    const { data } = await getCoursesForProfessor();
+    return {
+      data: data.data,
+      count: data.count,
+    };
   } catch (error) {
     return handleThunkError(error, rejectWithValue);
   }

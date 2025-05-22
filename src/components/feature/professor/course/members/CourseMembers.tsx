@@ -34,7 +34,7 @@ const CourseMembers = () => {
     if(course){
       await dispatch(getAllStudentsTaskByCourseThunk({ id: course?.id, params: filter })).unwrap();
     }
-  }, [course, filter]);
+  }, [course, dispatch, filter]);
 
   useEffect(() => {
     if(!id) {return;}
@@ -45,7 +45,7 @@ const CourseMembers = () => {
     if(filter.semesterId && filter.groupId){
       fetchStudentTask();
     }
-  }, [filter]);
+  }, [fetchStudentTask, filter]);
 
   return (
     <>
