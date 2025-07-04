@@ -1,25 +1,75 @@
 import { VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import ChatHeader from './ChatHeader';
 import MessageInput from './MessageInput';
 import MessageItem from './MessageItem';
-import { AppDispatch, RootState } from '@/store';
-import { getMessageThunk } from '@/store/chat/chat.thunk';
+import UploadFile from './UploadFile';
+import { useMessageStore } from './message/store.module';
+import { useRoomStore } from './store.module';
+import SocketApi from '@/socket/api';
+import { RootState } from '@/store';
 
 const ChatWindow = () => {
   const router = useRouter();
-  const dispatch = useDispatch<AppDispatch>();
-  const { messages, rooms } = useSelector((state: RootState) => state.rooms);
+  const { user } = useSelector((state: RootState) => state.user);
+
+  const rooms = useRoomStore((state) => state.rooms);
+  const roomId = useMessageStore((state) => state.roomId);
+  const messages = useMessageStore((state) => state.messages);
+  const fetchMessages = useMessageStore((state) => state.fetchMessages);
+  const setRoomId = useMessageStore((state) => state.setRoomId);
 
   const room = rooms.find((room) => room.id === router.query.roomId);
 
   useEffect(() => {
-    if(router.query && router.query.roomId){
-      dispatch(getMessageThunk({ id: router.query.roomId as string }));
+    if (room && room.id) {
+      setRoomId(room.id);
     }
-  }, [dispatch, router.query]);
+  }, [room, setRoomId]);
+
+  useEffect(() => {
+    if (user && roomId) {
+      SocketApi.connectedRoom(user?.fullName, roomId);
+      fetchMessages(roomId);
+    }
+  }, [fetchMessages, roomId, user]);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const [isDrag, setIsDrag] = React.useState(false);
+
+  const dragStarHandler = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDrag(true);
+  };
+
+  const dragLeaveHandler = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDrag(false);
+  };
+
+  const onDragHandler = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+
+    const files = [...e.dataTransfer.files];
+
+    const formData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      formData.append('files', files[i]);
+    }
+    console.log({ files });
+
+    setIsDrag(false);
+  };
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (el) {
+      el.scrollTop = el.scrollHeight;
+    }
+  }, [messages]);
 
   return (
     <VStack
@@ -27,34 +77,35 @@ const ChatWindow = () => {
       height={'full'}
       overflow={'hidden'}
       position={'relative'}
-      flex={1}
       background={'background.main'}
+      onDragEnter={dragStarHandler}
+      onDragLeave={dragLeaveHandler}
+      onDragOver={dragStarHandler}
+      onDrop={onDragHandler}
     >
-      <ChatHeader room={room}/>
+      <ChatHeader room={room} />
       <VStack
-        flex={1}
-        height={'ful'}
         width={'full'}
-        overflow={'hidden'}
+        flex={1}
+        overflowY={'auto'}
+        spacing={2}
+        paddingX={3}
+        ref={containerRef}
       >
-        <VStack
-          width={'full'}
-          overflowY={'auto'}
-          flex={1}
-          padding={2}
-          // backgroundColor={'background.secondary'}
-        >
-          {
-            messages.map((message) => (
-              <MessageItem
-                key={message.id}
-                message={message}
-              />
-            ))
-          }
-        </VStack>
-        <MessageInput room_id={router.query.roomId as string}/>
+        {messages.map((message) => (
+          <MessageItem
+            key={message.id}
+            message={message}
+          />
+        ))}
       </VStack>
+
+      <MessageInput room_id={router.query.roomId as string} />
+      <UploadFile
+        isDrag={isDrag}
+        dragStarHandler={dragStarHandler}
+        dragLeaveHandler={dragLeaveHandler}
+      />
     </VStack>
   );
 };

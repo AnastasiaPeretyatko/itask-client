@@ -60,6 +60,12 @@ export type Property = {
   isAnswered: boolean
   group: OptionType | null | string;
   semester: OptionType | null | string
+  creatorBy?: ProfessorT & {user: {
+    fullName: string
+    id: string
+    email: string
+    avatar: string
+  }}
 }
 
 export type PropertyOptions = {

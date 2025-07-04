@@ -24,7 +24,8 @@ const Document = () => {
   const embed = embeds.find((e) => e.type === currentDocument?.type);
 
   const onChangeDoc = (data: Partial<DocumentType>) => {
-    dispatch(createDocumentAction(data));
+    //! Обратить внимание, при сохранении документа в редакторе, нет сохранения в сторе
+    console.log({ data }, 'kek');
   };
 
   const handleSave = (data: Partial<DocumentType>) => {
@@ -98,7 +99,10 @@ const Document = () => {
       </HStack>
       <Editor
         editable={isEdit}
-        onChange={(markdown) => onChangeDoc({ context: markdown })}
+        onChange={(markdown) => {
+          console.log({ markdown });
+          dispatch(createDocumentAction({ context: markdown }));
+        }}
         markdown={currentDocument?.context || ''}
         isLeftPadding
       />

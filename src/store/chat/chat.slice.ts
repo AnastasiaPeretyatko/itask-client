@@ -7,12 +7,14 @@ type TInitialState = {
   rooms: Room[]
   users: {id: string, email: string}[]
   messages: Message[]
+  typingUser: string | null
 }
 
 const initialState: TInitialState = {
   rooms: [],
   users: [],
   messages: [],
+  typingUser: null,
 };
 
 export const rooms = createSlice({
@@ -28,6 +30,9 @@ export const rooms = createSlice({
         }
         return room;
       });
+    },
+    setTypingUser: (state, { payload }) => {
+      state.typingUser = payload;
     },
   },
   extraReducers: (builder) => {
@@ -67,6 +72,6 @@ export const rooms = createSlice({
   },
 });
 
-export const { addMessage } = rooms.actions;
+export const { addMessage, setTypingUser } = rooms.actions;
 
 export default rooms.reducer;

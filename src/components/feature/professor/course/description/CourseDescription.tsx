@@ -14,7 +14,7 @@ const CourseDescription = () => {
 
   return (
     <Skeleton isLoaded={!isLoading}>
-      <Editor initialContent={course.description}/>
+      <Editor markdown={course.description} />
     </Skeleton>
   );
 };

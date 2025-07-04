@@ -70,9 +70,19 @@ const Header = ({
             fontSize={'sm'}
             fontWeight={600}
           >
-            <BreadcrumbItem color={'text.pale'}> <BreadcrumbLink>{courseName}</BreadcrumbLink></BreadcrumbItem>
-            {studentName ? <BreadcrumbItem><BreadcrumbLink>{studentName}</BreadcrumbLink></BreadcrumbItem> : null}
-            <BreadcrumbItem><BreadcrumbLink>{taskName}</BreadcrumbLink></BreadcrumbItem>
+            <BreadcrumbItem color={'text.pale'} >
+              <BreadcrumbLink href={`/courses/${task?.assignment.courseId}`} >
+                {courseName}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            {studentName ? (
+              <BreadcrumbItem>
+                <BreadcrumbLink>{studentName}</BreadcrumbLink>
+              </BreadcrumbItem>
+            ) : null}
+            <BreadcrumbItem>
+              <BreadcrumbLink>{taskName}</BreadcrumbLink>
+            </BreadcrumbItem>
           </Breadcrumb>
         ) : null
       }

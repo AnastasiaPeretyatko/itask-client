@@ -1,14 +1,15 @@
 import { Avatar, Card, Heading, Text, VStack } from '@chakra-ui/react';
-import React from 'react';
+import MenuMessage from './MenuMessage';
+import { ChatBubble } from './message/ChatBubble';
+import { useRoomStore } from './store.module';
 import { Room } from '@/types/room';
 
 const ChatHeader = ({ room }: {room?: Room}) => {
+  const roomStore = useRoomStore();
+
   return (
     <Card
       width="full"
-      position="absolute"
-      top={0}
-      zIndex={9}
       backgroundColor="whiteAlpha.600"
       backdropFilter="blur(10px)"
       display="flex"
@@ -19,15 +20,23 @@ const ChatHeader = ({ room }: {room?: Room}) => {
     >
       <Avatar size={'sm'}/>
       <VStack
+        height={'full'}
         align={'start'}
+        flex={1}
         gap={0}
+        justifyContent={'space-between'}
       >
-        <Heading size={'sm'}>{room?.title || room?.users[0].fullName}</Heading>
+        <Heading
+          size={'sm'}
+          noOfLines={1}
+        >{room?.title || room?.users[0].fullName || room?.users[0].email}</Heading>
+        { roomStore.typingUsers.includes(room?.users[0].id || '') ? <ChatBubble/> : null }
         <Text
           fontSize={'sm'}
           color={'text.pale'}
-        >Online</Text>
+        >Offline</Text>
       </VStack>
+      <MenuMessage/>
     </Card>
   );
 };

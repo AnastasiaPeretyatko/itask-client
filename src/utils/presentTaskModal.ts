@@ -17,7 +17,8 @@ export default (task: DashboardTask): CreateTask => {
       tags: task.tags,
       score: task.score,
       isAnswered: task.isAnswered,
+      creatorBy: task.creatorBy,
     },
-    user_task: task.user_task,
+    user_task: task.solutions,
   };
 };

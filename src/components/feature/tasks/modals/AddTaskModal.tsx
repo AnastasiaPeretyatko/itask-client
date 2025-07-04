@@ -45,7 +45,7 @@ const AddTaskModal = ({ ...props }: BodyItemProps) => {
       .unwrap()
       .then((res) => {
         showSuccessMessage(res);
-        props.onClose();
+        props?.onClose?.();
       })
       .catch(showErrorMessage)
       .finally(() => setIsLoading(false));
@@ -83,7 +83,6 @@ const AddTaskModal = ({ ...props }: BodyItemProps) => {
             mb={6}
             value={task.title || ''}
           />
-
           <TaskProperty
             property={task.property}
             onChangeProperty={onChangeProperty}

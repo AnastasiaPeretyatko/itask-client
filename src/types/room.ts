@@ -12,7 +12,7 @@ export type Room = {
   messages: Message[]
 }
 
-type User = {
+export type User = {
   id: string
   email: string
   fullName: string

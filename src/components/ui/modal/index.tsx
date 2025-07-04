@@ -11,6 +11,7 @@ type Props = {
   isOpenModal?: boolean
   onCloseModal?: () => void
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | 'full'
+  isDisplay?: boolean
 }
 
 export type BodyItemProps = {
@@ -21,13 +22,13 @@ export type BodyItemProps = {
 
 export type RenderBodyType = React.ReactElement<BodyItemProps>;
 
-const Modal = ({ title, renderBody, action, height, isTask = false, isOpenModal, onCloseModal, size = '4xl', ...rest }: Props) => {
+const Modal = ({ title, renderBody, action, height, isTask = false, isOpenModal, onCloseModal, size = '4xl', isDisplay = true, ...rest }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [ isFullSizeWindow, setIsFullSizeWindow ] = useBoolean();
 
   return (
     <>
-      {!isOpenModal && action ? React.cloneElement(action, { onClick: onOpen, ...rest }) : null}
+      {!isOpenModal && isDisplay && action ? React.cloneElement(action, { onClick: onOpen, ...rest }) : null}
 
       <ChakraModal
         isOpen={isOpenModal || isOpen}

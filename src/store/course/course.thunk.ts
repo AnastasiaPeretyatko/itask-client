@@ -12,7 +12,7 @@ TCourse[],
 >('/course.create', async (params, { rejectWithValue }) => {
   try {
     const { data } = await getAllFromSemesterGroup(params);
-    return data;
+    return data.data;
   } catch (error) {
     const hasErrResponse = (
       error as {

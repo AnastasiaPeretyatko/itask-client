@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react';
+import { Avatar, Flex, HStack } from '@chakra-ui/react';
 import CheckboxProperty from './property/CheckboxProperty';
 import DateProperty from './property/DateProperty/DateProperty';
 import GroupProperty from './property/GroupProperty';
@@ -64,6 +64,17 @@ const TaskProperty = ({ property, onChangeProperty, readOnly, studentRole = fals
           readOnly={readOnly}
         />
       );
+    case 'CreatorBy':
+      return (
+        <HStack>
+          <Avatar
+            width={5}
+            height={5}
+            name={property.creatorBy?.user?.avatar}
+          />
+          <span>{property.creatorBy?.fullName}</span>
+        </HStack>
+      );
     }
   };
 
@@ -84,25 +95,7 @@ const TaskProperty = ({ property, onChangeProperty, readOnly, studentRole = fals
       <WrapperProperty title="Оценка">{renderProperty('Оценка')}</WrapperProperty>
       {!studentRole ? <WrapperProperty title="Ответ">{renderProperty('Ответ')}</WrapperProperty> : null}
       <WrapperProperty title="Дата">{renderProperty('Дата')}</WrapperProperty>
-
-      {/* <HStack
-        gap={2}
-        height={'34px'}
-      >
-        <Container variant={'property_title'}>
-        Приоритет
-        </Container>
-        <Container variant={'property_modal'}></Container>
-      </HStack>
-      <HStack
-        gap={2}
-        height={'34px'}
-      >
-        <Container variant={'property_title'}>
-        Теги
-        </Container>
-        <Container variant={'property_modal'}></Container>
-      </HStack> */}
+      {readOnly ? <WrapperProperty title="Создатель">{renderProperty('CreatorBy')}</WrapperProperty> : null}
     </Flex>
   );
 };

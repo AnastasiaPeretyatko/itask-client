@@ -29,14 +29,14 @@ const ChatPage = () => {
       <HStack
         width={'full'}
         height={'full'}
-        overflow={'hidden'}
+        overflowY={'hidden'}
         align={'start'}
         padding={4}
         borderRadius={10}
       >
         {/* TODO сделать адапти, чтобы выглядело как в макете */}
-        {isLargerThan700 ? <ChatRoomList/> : null}
-        {roomId ? <ChatWindow/> : null}
+        {!router.query.roomId || isLargerThan700 ? <ChatRoomList/> : null}
+        {roomId ? <ChatWindow/> : <p>Выберите кому хотите написать сообщение</p>}
         {router.query.roomId && isLargerThan1000 ? <UserInfoPanel/> : null }
       </HStack>
     </AppLayout>

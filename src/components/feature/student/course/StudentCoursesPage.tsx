@@ -9,7 +9,7 @@ import {
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import CardCourse from './CardCourse';
+import CourseCard from '../../professor/course/CourseCard';
 import SearchInput from '@/components/ui/SearchInput';
 import SelectUi from '@/components/ui/SelectUi';
 import { getListSemesterFromGroup } from '@/services/semester.service';
@@ -76,8 +76,8 @@ const StudentCoursesPage = () => {
         columns={{ sm: 1, md: 2, xl: 3 }}
         spacing={6}
       >
-        {courses.map((course) => (
-          <CardCourse
+        {courses?.map((course) => (
+          <CourseCard
             key={course.id}
             course={course}
           />

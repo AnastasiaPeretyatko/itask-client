@@ -47,3 +47,7 @@ export * from './SendIcon';
 export * from './AiOutlineSave';
 
 export * from './BsFileEarmarkText';
+
+export * from './BsCheck2';
+
+export * from './BsCheck2All';

@@ -1,4 +1,5 @@
 import { Avatar, AvatarGroup, Box, Card, Divider, Heading, HStack, Text, useDisclosure, VStack } from '@chakra-ui/react';
+import ReactMarkdown from 'react-markdown';
 import ReviewTaskModal from '@/components/feature/tasks/modals/ReviewTaskModal';
 import { MessageIcon, PaperClipIcon } from '@/components/icon';
 import Modal from '@/components/ui/modal';
@@ -24,9 +25,16 @@ const CardTask = ({ task }: Props) => {
           {/* TODO добавить вывод проперти */}
         </VStack>
         <Text
+          fontSize={'md'}
+          noOfLines={4}
+          whiteSpace={'normal'}
+        >
+          <ReactMarkdown>{task.text}</ReactMarkdown>
+        </Text>
+        {/* <Text
           size={'sm'}
           noOfLines={2}
-        >{task.text}</Text>
+        >{task.text}</Text> */}
         <Divider borderColor={'divider'}/>
         <HStack justify={'space-between'}>
           <AvatarGroup

@@ -1,5 +1,6 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { Container, IconButton, VStack } from '@chakra-ui/react';
+import { motion } from 'framer-motion';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SidebarItem from './components/SidebarItem';
@@ -27,10 +28,11 @@ const Sidebar = () => {
 
   return (
     <Container
+      as={motion.div}
       variant="sidebar"
       boxShadow={'base'}
-      maxW={isOpenSidebar ? 250 : 20}
-      transition=" max-width ease-in-out .2s"
+      animate={{ maxWidth: isOpenSidebar ? 250 : 80 }}
+      initial={isOpenSidebar ? { maxWidth: 250 } : { maxWidth: 80 }}
     >
       <IconButton
         variant="openSidebar"

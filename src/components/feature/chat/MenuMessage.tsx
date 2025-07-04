@@ -8,6 +8,7 @@ const MenuMessage = () => {
         as={IconButton}
         icon={<DotsVerticalIcon />}
         variant={'unstyled'}
+        zIndex={9}
       />
       <MenuList fontSize={'sm'}>
         <MenuItem>Удалить</MenuItem>

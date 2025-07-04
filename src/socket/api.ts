@@ -1,20 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // socket/api.ts
 import { io, Socket } from 'socket.io-client';
+import { Message } from '@/types/message.type';
+
+const baseURL = process.env.NEXT_PUBLIC_BASEURL;
 
 class SocketApi {
   static socket: null | Socket = null;
+  static currentRoomId: null | string = null;
 
   static createConnection(userId: string) {
     if (this.socket) return;
 
-    console.log({ userId });
-
-    this.socket = io('http://localhost:8000', {
+    this.socket = io(baseURL, {
       query: { userId }, // Передаем ID пользователя при подключении
     });
 
-    this.socket.on('connect', () => {
+    this.socket.on('connection_success', () => {
       console.log('Socket connected');
     });
 
@@ -31,32 +33,59 @@ class SocketApi {
     this.socket?.on('room_created', callback);
   }
 
-  static newMessage(callback: (data: {
-      id: string,
-      thread_id: string | null,
-      is_deleted: boolean,
-      is_edited: boolean,
-      is_important: boolean,
-      parent_id: string |null,
-      author_id: string,
-      room_id: string,
-      content: string,
-      updatedAt: Date,
-      createdAt: Date
-  } ) =>void) {
-    this.socket?.on('new-message', callback);
+  static createMessage(message: {
+    id: string;
+    content: string;
+  }) {
+    this.socket?.emit('chatMessage', { message });
+  }
+
+  static connectedRoom (username: string, roomId: string) {
+    this.socket?.emit('joinRoom', { username, roomId });
+  }
+
+  static newMessage(callback: (data: {message: Message} ) =>void) {
+    this.socket?.on('message', callback);
+  }
+
+  static isOnlineUser(callback: (data: string[]) => void) {
+    this.socket?.on('status', callback);
+  }
+
+  static isOfflineUser(callback: (data: string[]) => void) {
+    this.socket?.off('status', callback);
   }
 
   static unsubscribeFromNewMessage() {
-    this.socket?.off('new-message');
+    this.socket?.off('message');
   }
 
   static unsubscribeFromRoomCreated() {
     this.socket?.off('room_created');
   }
 
+  static onTyping(data: { roomId: string; typing: boolean }) {
+    this.socket?.emit('typing', data);
+  }
+
+  static typingUsers(callback: (data: { roomId: string; typing: boolean, userId: string[] }) => void) {
+    this.socket?.on('typing', callback);
+  }
+
+  static onUserTyping(callback: (data: { roomId: string; userId: string[] }) => void) {
+    this.socket?.on('userTyping', callback);
+  }
+
+  static offUserTyping(callback:(data: { roomId: string; userId: string[] }) => void) {
+    this.socket?.off('stopTyping', callback);
+  }
+
   static on(event: string, callback: (data: any) => void) {
     this.socket?.on(event, callback);
+  }
+
+  static off(event: string) {
+    this.socket?.off(event);
   }
 
   static emit(event: string, data: any) {

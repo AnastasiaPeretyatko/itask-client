@@ -27,28 +27,33 @@ import AppLayout from '@/components/layout/AppLayout';
 import Modal from '@/components/ui/modal';
 import { AppDispatch, RootState } from '@/store';
 import { fetchCourse } from '@/store/professorModule/course/course.thunk';
+import { UserRole } from '@/types/user.type';
 import { getRandomChakraColor } from '@/utils/getRandomChakraColor';
 
 const CoursePage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { query } = useRouter();
   const { course, isLoading } = useSelector((state: RootState) => state.courseStore);
+  const { user } = useSelector((state: RootState) => state.user);
 
   const tabs = [
     {
       name: 'Задания',
       tabId: 'tasks',
       content: <CourseTaskBoard />,
+      access: user?.role === UserRole.Professor || user?.role === UserRole.Student,
     },
     {
       name: 'Описание',
       tabId: 'description',
       content: <CourseDescription />,
+      access: user?.role === UserRole.Professor || user?.role === UserRole.Student,
     },
     {
       name: 'Участники',
       tabId: 'members',
       content: <CourseMembers />,
+      access: user?.role === UserRole.Professor,
     },
   ];
 
@@ -80,6 +85,7 @@ const CoursePage = () => {
         >
           <Heading>{course?.name}</Heading>
           <Modal
+            isDisplay={user?.role === UserRole.Professor}
             height="80%"
             action={ <Button
               size={'sm'}
@@ -91,6 +97,7 @@ const CoursePage = () => {
         <HStack
           width={'full'}
           gap={4}
+          display={course.tags?.length ? 'flex' : 'none'}
         >
           {
             course.tags?.map((tag) => (
@@ -107,6 +114,7 @@ const CoursePage = () => {
         <Skeleton
           isLoaded={!isLoading}
           width={'100%'}
+          mb={4}
         >
           <Wrap>
             {course.learning_form ? <Tag colorScheme={getRandomChakraColor().split('.')[0]}>{course.learning_form}</Tag> : null}
@@ -122,9 +130,13 @@ const CoursePage = () => {
         isLazy
       >
         <TabList>
-          { tabs.map((tab) => (
-            <Tab key={tab.tabId}>{tab.name}</Tab>
-          )) }
+          { tabs.map((tab) => {
+            if (!tab.access) {
+              return null;
+            }
+            return (
+              <Tab key={tab.tabId}>{tab.name}</Tab>
+            );}) }
         </TabList>
         <TabIndicator
           mt="-2px"
@@ -133,11 +145,16 @@ const CoursePage = () => {
           borderRadius="5px"
         />
         <TabPanels>
-          { tabs.map((tab) => (
-            <TabPanel key={tab.tabId}>
-              {tab.content}
-            </TabPanel>
-          )) }
+          { tabs.map((tab) => {
+            if (tab.access) {
+              return (
+                <TabPanel key={tab.tabId}>
+                  {tab.content}
+                </TabPanel>
+              );
+            }
+            return null;
+          }) }
         </TabPanels>
       </Tabs>
     </AppLayout>

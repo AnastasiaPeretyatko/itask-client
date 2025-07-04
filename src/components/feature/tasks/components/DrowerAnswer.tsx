@@ -96,7 +96,7 @@ const DrowerAnswer = ({ isDisabled = false }: Props) => {
                 width={'full'}
                 variant={'primary'}
                 leftIcon={<AddIcon/>}
-                isDisabled={userTask?.documents?.length !== 0}
+                // isDisabled={userTask?.documents?.length !== 0}
               >Добавить ответ</ButtonUI>}
               renderBody={(props) => (<AddDocToAnswerModal
                 {...props}
@@ -116,7 +116,7 @@ const DrowerAnswer = ({ isDisabled = false }: Props) => {
             <Button
               variant={'primary'}
               onClick={addDocsToAnswer}
-              isDisabled={userTask?.documents?.length !== 0}
+              // isDisabled={userTask?.documents?.length !== 0}
             >Сохранить</Button>
           </DrawerFooter>
         </DrawerContent>
