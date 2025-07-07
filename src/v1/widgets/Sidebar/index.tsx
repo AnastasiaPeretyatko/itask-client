@@ -3,17 +3,15 @@ import { Container, IconButton, VStack } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import SidebarItem from './components/SidebarItem';
-import { NAVBAR_ITEM, sidebarMenuConfig } from './sidebar-config';
+import { NAVBAR_ITEM, sidebarMenuConfig } from './config/sidebar-config';
+import SidebarItem from './ui/SidebarItem';
 import ThemeToggle from '@/components/ui/ThemeToggle';
 import { AppDispatch, RootState } from '@/store';
 import { settings } from '@/store/user/user.slice';
-import { useUserStore } from '@/v1/entites/User/module';
 
 const Sidebar = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { isOpenSidebar } = useSelector((state: RootState) => state.user);
-  const user = useUserStore((state) => state.user);
+  const { user, isOpenSidebar } = useSelector((state: RootState) => state.user);
 
   const handleClickLogOut = () => dispatch(settings.logout());
 

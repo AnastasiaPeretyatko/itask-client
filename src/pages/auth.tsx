@@ -1,12 +1,10 @@
 import { Button, Flex, Heading, Link, Text, VStack } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
 import Circle from '@/components/ui/Circle';
 import InputForm from '@/components/ui/InputForm';
 import { useNotifications } from '@/hooks/useNotifications';
-import { loginRequest } from '@/services/auth.service';
-import { AppDispatch } from '@/store';
-import { settings } from '@/store/user/user.slice';
+import { useUserStore } from '@/v1/entites/User/module';
 
 type loginType = {
   email: string
@@ -14,20 +12,15 @@ type loginType = {
 }
 
 const AuthPage = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
   const { register, handleSubmit } = useForm<loginType>();
   const { showErrorMessage } = useNotifications();
+  const setUser = useUserStore((state) => state.setUser);
 
   const onSubmit: SubmitHandler<loginType> = async (data) => {
-    await loginRequest(data.email, data.password)
-      .then( ({ data }) => {
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
-        dispatch(settings.setUser(data.user));
-
-        window.location.href = '/';
-      })
-      .catch((err) => showErrorMessage(err.response.data.message));
+    setUser(data.email, data.password)
+      .then(() => router.push('/'))
+      .catch(showErrorMessage);
   };
 
   return (
@@ -72,7 +65,7 @@ const AuthPage = () => {
             label="Пароль"
             placeholder="Пароль..."
             type="password"
-            register={register('password')}
+            register={register('password', { required: true })}
           />
           <Link color={'primary.purple'}>Забыл пароль?</Link>
           <Button

@@ -1,10 +1,11 @@
 import { Avatar, Badge, Container, Divider, HStack, Text, VStack } from '@chakra-ui/react';
-import NotificationsBlock from '../notifications';
+import { useSelector } from 'react-redux';
+import NotificationsBlock from '../Notification';
+import { RootState } from '@/store';
 import { UserRole } from '@/types/user.type';
-import { useUserStore } from '@/v1/entites/User/module';
 
 const Header = () => {
-  const user = useUserStore((state) => state.user);
+  const { user } = useSelector((state: RootState) => state.user);
 
   return (
     <>

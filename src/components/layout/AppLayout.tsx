@@ -2,16 +2,15 @@ import { Flex, HStack, Spinner, VStack } from '@chakra-ui/react';
 import moment from 'moment';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import Sidebar from '../Sidebar';
 import Header from '../header';
-import { AppDispatch } from '@/store';
-import { settings } from '@/store/user/user.slice';
 import 'moment/locale/ru';
+import { useUserStore } from '@/v1/entites/User/module';
+import { UserType } from '@/v1/entites/User/types';
 
 const AppLayout = ({ children, loading }: { children: React.ReactNode, loading?: boolean }) => {
   const router = useRouter();
-  const dispatch = useDispatch<AppDispatch>();
+  const updateUser = useUserStore((state) => state.updateUser);
 
   const [isLoading, setIsLoading] = useState<boolean>(loading || true);
 
@@ -24,10 +23,11 @@ const AppLayout = ({ children, loading }: { children: React.ReactNode, loading?:
         router.push('/auth');
         return;
       }
-      dispatch(settings.setUser(JSON.parse(user!)));
+
+      updateUser(JSON.parse(user) as UserType);
       setIsLoading(false);
     }
-  }, [dispatch, isLoading, router]);
+  }, [isLoading, router, updateUser]);
 
   useEffect(() => {
     setIsLoading(loading || false);

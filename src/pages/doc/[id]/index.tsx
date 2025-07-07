@@ -1,29 +1,29 @@
 import { useBoolean } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import Document from '@/components/feature/doc/Document';
 import AppLayout from '@/components/layout/AppLayout';
-import { AppDispatch } from '@/store';
-import { getOneDocumentThunk } from '@/store/documents/documents.thunk';
+import { useDocumentStore } from '@/v1/entites/Document/module/store';
+import DocumentHeader from '@/v1/widgets/Documents/ui/DocumentHeader';
+import DocumentView from '@/v1/widgets/Documents/ui/DocumentView';
 
 const DocPage = () => {
   const router = useRouter();
-  const dispatch = useDispatch<AppDispatch>();
+  const document = useDocumentStore();
 
   const [isLoading, setIsLoading] = useBoolean(true);
 
   useEffect(() => {
     if(router.query.id){
       setIsLoading.on();
-      dispatch(getOneDocumentThunk(router.query.id as string))
-        .finally(setIsLoading.off);
+      document.get(router.query.id as string);
     }
-  }, [dispatch, router.query.id, setIsLoading]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.query.id, setIsLoading]);
 
   return (
     <AppLayout loading={isLoading}>
-      <Document/>
+      <DocumentHeader/>
+      <DocumentView/>
     </AppLayout>
   );
 };

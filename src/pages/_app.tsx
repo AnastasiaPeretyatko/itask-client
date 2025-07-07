@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
 import SocketListeners from '@/components/layout/SocketListeners';
 import { store } from '@/store';
-import theme from '@/styles';
+import theme from '@/v1/shared/styles';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (

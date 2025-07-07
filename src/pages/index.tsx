@@ -15,6 +15,7 @@ import { UserRole } from '@/types/user.type';
 
 export default function Home() {
   const { user } = useSelector((state: RootState) => state.user);
+
   return (
     <AppLayout>
       <HStack
